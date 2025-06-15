@@ -1,4 +1,7 @@
 import './App.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import AuthenticationLayout from './Modules/Shared/Components/AuthenticationLayout/AuthenticationLayout'
 import LogIn from './Modules/Authentication/Components/LogIn/LogIn'
