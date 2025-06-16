@@ -19,6 +19,7 @@ import TasksList from './Modules/Tasks/Components/TasksList/TasksList'
 import TasksData from './Modules/Tasks/Components/TasksData/TasksData'
 import UsersList from './Modules/Users/Components/UsersList/UsersList'
 import LogOut from './Modules/Authentication/Components/LogOut/LogOut'
+import AuthContextProvider from './Context/AuthContext';
 
 function App() {
    const routes=createBrowserRouter([
@@ -27,6 +28,7 @@ function App() {
       element:<AuthenticationLayout/>,
       children:[
         {index:true,element:<LogIn/>},
+        // {path: 'login' , element:<LogIn/>},
         {path:"register",element:<Register/>},
         {path:"forget-password",element:<ForgetPassword/>},
         {path:"reset-password",element:<ResetPassword/>},
@@ -52,8 +54,10 @@ function App() {
   ])
 
   return (
-    <>
-      <RouterProvider router={routes}></RouterProvider>
+  <>
+      <AuthContextProvider>
+        <RouterProvider router={routes} />
+      </AuthContextProvider>
     </>
   )
 }
