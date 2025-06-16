@@ -41,8 +41,8 @@ const LogIn: React.FC = () => {
 
   return (
 <form onSubmit={handleSubmit(onSubmit)}>
-  {/* Email Field */}
-  <div className="mb-4">
+
+  <div className="mb-4 text-start">
     <label
       className="form-label mb-1"
       style={{ color: '#EF9B28', fontWeight: '500' }}
@@ -50,11 +50,9 @@ const LogIn: React.FC = () => {
       Email
     </label>
     <div className="d-flex flex-column">
-      <span style={{ color: '#aaa', fontSize: '0.85rem', marginBottom: '2px' }}>
-        Enter your E-mail
-      </span>
       <input
         type="email"
+        placeholder='Enter your E-mail' 
         className="form-control border-0 border-bottom rounded-0 bg-transparent text-white px-0"
         style={{
           borderColor: '#ccc',
@@ -69,8 +67,8 @@ const LogIn: React.FC = () => {
     )}
   </div>
 
-  {/* Password Field */}
-  <div className="mb-4">
+  
+  <div className="mb-4 text-start">
     <label
       className="form-label mb-1"
       style={{ color: '#EF9B28', fontWeight: '500' }}
@@ -78,11 +76,10 @@ const LogIn: React.FC = () => {
       Password
     </label>
     <div className="d-flex flex-column">
-      <span style={{ color: '#aaa', fontSize: '0.85rem', marginBottom: '2px' }}>
-        Enter your password
-      </span>
+      
       <input
         type="password"
+        placeholder='Enter your password'
         className="form-control border-0 border-bottom rounded-0 bg-transparent text-white px-0"
         style={{
           borderColor: '#ccc',
@@ -97,13 +94,30 @@ const LogIn: React.FC = () => {
     )}
   </div>
 
-  {/* Bottom Actions */}
-  <div className="d-flex justify-content-between mb-4 text-white-50" style={{ fontSize: '0.875rem' }}>
-    <span>Register Now ?</span>
-    <span>Forget Password ?</span>
-  </div>
+<div
+  className="d-flex justify-content-between mb-4"
+  style={{ fontSize: '0.875rem' }}
+>
+  <button
+    type="button"
+    className="btn btn-link p-0 text-white-50 text-decoration-none"
+    style={{ fontSize: '0.875rem' }}
+    onClick={() => navigate('/register')}
+  >
+    Register Now ?
+  </button>
 
-  {/* Submit Button */}
+  <button
+    type="button"
+    className="btn btn-link p-0 text-white-50 text-decoration-none"
+    style={{ fontSize: '0.875rem' }}
+    onClick={() => navigate('/forget-password')}
+  >
+    Forget Password ?
+  </button>
+</div>
+
+
   <button
     type="submit"
     className="btn w-100"

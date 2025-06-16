@@ -55,7 +55,7 @@ const AuthenticationLayout: React.FC = () => {
         </div> */}
 
         {/* Title */}
-        <div className="mb-4">
+        <div className="mb-4 text-start">
           <p className="text-uppercase text-white-50 mb-1" style={{ fontSize: '0.85rem' }}>
             welcome to PMS
           </p>
