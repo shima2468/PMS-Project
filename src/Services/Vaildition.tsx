@@ -1,10 +1,14 @@
 export const emailValidation = {
-  required: "Email is required",
+  required: {
+    value: true,
+    message: "Email is required",
+  },
   pattern: {
     value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
     message: "Email is invalid",
   },
 };
+
 export const passValidation = {
   required: {
     value: true,
@@ -22,4 +26,11 @@ export const ConfirmPassValidation = {
 export const otpValidation = {
   required: "OTP is required",
   invalid: "OTP is invalid",
+};
+
+export const requiredValidation = {
+  required: {
+    value: true,
+    message: "This field is required",
+  },
 };
