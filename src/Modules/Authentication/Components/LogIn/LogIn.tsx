@@ -4,8 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { axiosInstance, USERS_URLS } from '../../../../Services/url';
 import toast from 'react-hot-toast';
 import { AuthContext } from '../../../../Context/AuthContext';
+import { emailValidation } from '../../../../Services/Vaildition';
 
-interface LoginFormInputs {
+interface formInputs {
   email: string;
   password: string;
 }
@@ -14,15 +15,17 @@ const LogIn: React.FC = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
   const { saveLoginData } = useContext(AuthContext)!;
-  const [showPassword, setShowPassword] = useState(false);
+   const [Visible,setVisible] = useState<boolean>(false);
+   const handleVisible = () => {
+    setVisible(!Visible);}
 
   const {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm<LoginFormInputs>();
+  } = useForm<formInputs>();
 
-  const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
+  const onSubmit: SubmitHandler<formInputs> = async (data) => {
     try {
       setLoading(true);
       const response = await axiosInstance.post(USERS_URLS.LOGIN, data);
@@ -40,6 +43,10 @@ const LogIn: React.FC = () => {
   };
 
   return (
+    <>
+     <h2 className="text-warning fw-bold form-title" style={{ fontSize: '1.75rem' }}>
+                Login
+              </h2>
 <form onSubmit={handleSubmit(onSubmit)}>
 
   <div className="mb-4 text-start">
@@ -47,7 +54,7 @@ const LogIn: React.FC = () => {
       className="form-label mb-1"
       style={{ color: '#EF9B28', fontWeight: '500' }}
     >
-      Email
+      E-mail
     </label>
     <div className="d-flex flex-column">
       <input
@@ -59,7 +66,7 @@ const LogIn: React.FC = () => {
           color: 'white',
           boxShadow: 'none',
         }}
-        {...register('email', { required: 'Email is required' })}
+        {...register('email', emailValidation)}
       />
     </div>
     {errors.email && (
@@ -75,10 +82,10 @@ const LogIn: React.FC = () => {
     >
       Password
     </label>
-    <div className="d-flex flex-column">
+    <div className="input-group">
       
       <input
-        type="password"
+        type={Visible ? 'text' : 'password'}
         placeholder='Enter your password'
         className="form-control border-0 border-bottom rounded-0 bg-transparent text-white px-0"
         style={{
@@ -88,6 +95,9 @@ const LogIn: React.FC = () => {
         }}
         {...register('password', { required: 'Password is required' })}
       />
+        <div className="input-group-text bg-transparent border-0 text-white p-0  position-relative" onClick={handleVisible}>
+        {Visible? <i className="fa-solid fa-eye position-absolute"></i> : <i className="fa-solid fa-eye-slash position-absolute"></i>}
+        </div>
     </div>
     {errors.password && (
       <small className="text-danger">{errors.password.message}</small>
@@ -100,7 +110,7 @@ const LogIn: React.FC = () => {
 >
   <button
     type="button"
-    className="btn btn-link p-0 text-white-50 text-decoration-none"
+    className="btn btn-link p-0 text-white text-decoration-none"
     style={{ fontSize: '0.875rem' }}
     onClick={() => navigate('/register')}
   >
@@ -109,7 +119,7 @@ const LogIn: React.FC = () => {
 
   <button
     type="button"
-    className="btn btn-link p-0 text-white-50 text-decoration-none"
+    className="btn btn-link p-0 text-white text-decoration-none"
     style={{ fontSize: '0.875rem' }}
     onClick={() => navigate('/forget-password')}
   >
@@ -132,7 +142,7 @@ const LogIn: React.FC = () => {
     {loading ? 'Logging in...' : 'Login'}
   </button>
 </form>
-
+</>
 
   );
 };
