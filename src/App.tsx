@@ -28,7 +28,7 @@ function App() {
       element: <AuthenticationLayout />,
       children: [
         { index: true, element: <LogIn /> },
-        // {path: 'login' , element:<LogIn/>},
+        { path: "login", element: <LogIn /> },
         { path: "register", element: <Register /> },
         { path: "forget-password", element: <ForgetPassword /> },
         { path: "reset-password", element: <ResetPassword /> },
