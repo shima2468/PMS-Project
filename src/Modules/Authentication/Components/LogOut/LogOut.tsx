@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const LogOut = () => {
+     let navigate=useNavigate()
+    useEffect(() => {
+    localStorage.removeItem('token');
+    navigate("/Log-in")
+    toast.success("Logged out successfully!")
+  }, [])
     return (
         <div>
-            
+             
         </div>
     );
 }

@@ -42,7 +42,7 @@ const ForgetPassword = () => {
              <div className="mb-4 text-start">
              <label
       className="form-label mb-1"
-      style={{ color: '#EF9B28', fontWeight: '500' }}
+      style={{ color: 'rgba(239, 155, 40, 1)', fontWeight: '500' }}
     >
       E-mail
     </label>
@@ -50,7 +50,7 @@ const ForgetPassword = () => {
       <input
         type="email"
         placeholder='Enter your E-mail' 
-        className="form-control border-0 border-bottom rounded-0 bg-transparent text-white px-0"
+        className="form-control border-0 border-bottom rounded-0 bg-transparent  px-0"
         style={{
           borderColor: '#ccc',
           color: 'white',
@@ -67,7 +67,7 @@ const ForgetPassword = () => {
     type="submit"
     className="btn w-100"
     style={{
-      backgroundColor: '#EF9B28',
+      backgroundColor: 'rgba(239, 155, 40, 1)',
       color: 'white',
       borderRadius: '25px',
       padding: '10px',

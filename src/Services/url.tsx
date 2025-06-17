@@ -3,6 +3,7 @@ const baseURL = "https://upskilling-egypt.com:3003/api/v1";
 
 export const axiosInstance = axios.create({
  baseURL,
+
 });
 axiosInstance.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
