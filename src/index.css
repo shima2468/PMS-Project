@@ -1,0 +1,111 @@
+.auth-container {
+  background-color: #0e382f;
+  min-height: 100vh;
+}
+
+/* .auth-container-register{
+  background-color: rgba(49, 74, 89, 0.9);
+  min-height: 100vh;
+} */
+
+:root {
+  --main-color: rgba(239, 155, 40, 1);
+}
+
+.auth-container {
+  background-color: #0e382f;
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.form-title {
+  position: relative;
+  margin-bottom: 40px;
+  margin-bottom: 40px;
+}
+
+.form-title::after {
+  content: "";
+  width: 16px;
+  height: 4px;
+  background-color: #ef9b28;
+  background-color: rgba(239, 155, 40, 1);
+  position: absolute;
+  bottom: -3px;
+  left: 2px;
+}
+
+.custom-input {
+  border: none !important;
+  border-bottom: 1px solid #ccc !important;
+  border-radius: 0 !important;
+  background-color: transparent !important;
+  color: white !important;
+  box-shadow: none !important;
+  padding: 0.5rem 0 !important;
+  font-size: 1rem;
+}
+
+.custom-input::placeholder {
+  color: #ccc !important;
+  opacity: 1;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 10px;
+  top: 75%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: white;
+}
+
+.avatar-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: auto;
+  display: block;
+}
+
+input:-webkit-autofill {
+  background-color: transparent !important;
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+  -webkit-text-fill-color: white !important;
+  transition: background-color 9999s ease-in-out 0s;
+}
+.form-title {
+  font-size: 1.75rem;
+}
+
+input::placeholder {
+  color: rgb(255, 255, 255) !important;
+}
+
+.main-color {
+  color: var(--main-color);
+}
+
+.bg-main-color {
+  background-color: var(--main-color);
+}
+
+input:hover,
+input:focus,
+input:active {
+  outline: none;
+  box-shadow: none;
+  border: none;
+}
+
+.register-container {
+  padding: 20px 100px;
+}
+
+.padding-register {
+  padding-left:6rem;
+  padding-top: 2rem;
+}
