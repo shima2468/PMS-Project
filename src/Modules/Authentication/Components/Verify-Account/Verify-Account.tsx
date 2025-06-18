@@ -43,57 +43,59 @@ const VerifyAccount = () => {
   };
   return (
     <>
-      <h2 className="text-warning fw-bold form-title">Verify Account</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="mb-4 text-start">
-          <label
-            className="form-label mb-1"
-            style={{ color: "#EF9B28", fontWeight: "500" }}
-          >
-            E-mail
-          </label>
-          <div className="d-flex flex-column">
-            <input
-              disabled
-              type="email"
-              placeholder="Enter your E-mail"
-              className="form-control custom-input"
-              {...register("email", emailValidation)}
-            />
+      <div className="verify-container px-5">
+        <h2 className="text-warning fw-bold form-title mb-0">Verify Account</h2>
+        <form className="py-4" onSubmit={handleSubmit(onSubmit)}>
+          <div className="mb-4 text-start">
+            <label
+              className="form-label mb-1"
+              style={{ color: "#EF9B28", fontWeight: "500" }}
+            >
+              E-mail
+            </label>
+            <div className="d-flex flex-column">
+              <input
+                disabled
+                type="email"
+                placeholder="Enter your E-mail"
+                className="form-control custom-input"
+                {...register("email", emailValidation)}
+              />
+            </div>
+            {errors.email && (
+              <small className="text-danger">{errors.email.message}</small>
+            )}
           </div>
-          {errors.email && (
-            <small className="text-danger">{errors.email.message}</small>
-          )}
-        </div>
-        <div className="mb-4 text-start">
-          <label className="form-label mb-1">OTP Verification</label>
-          <div className="d-flex flex-column">
-            <input
-              type="text"
-              placeholder="Enter Verification"
-              className="form-control custom-input"
-              {...register("code", otpValidation)}
-            />
+          <div className="mb-4 text-start">
+            <label className="form-label mb-1">OTP Verification</label>
+            <div className="d-flex flex-column">
+              <input
+                type="text"
+                placeholder="Enter Verification"
+                className="form-control custom-input"
+                {...register("code", otpValidation)}
+              />
+            </div>
+            {errors.code && (
+              <small className="text-danger">{errors.code.message}</small>
+            )}
           </div>
-          {errors.code && (
-            <small className="text-danger">{errors.code.message}</small>
-          )}
-        </div>
 
-        <button
-          type="submit"
-          className="btn w-100"
-          style={{
-            backgroundColor: "#EF9B28",
-            color: "white",
-            borderRadius: "25px",
-            padding: "10px",
-          }}
-          disabled={loading}
-        >
-          {loading ? "Saving..." : "Save"}
-        </button>
-      </form>
+          <button
+            type="submit"
+            className="btn w-100"
+            style={{
+              backgroundColor: "#EF9B28",
+              color: "white",
+              borderRadius: "25px",
+              padding: "10px",
+            }}
+            disabled={loading}
+          >
+            {loading ? "Saving..." : "Save"}
+          </button>
+        </form>
+      </div>
     </>
   );
 };
