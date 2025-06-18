@@ -53,7 +53,7 @@ const Register = () => {
   };
   return (
     <div className="register-container text-white">
-      <h2 className="text-warning fw-bold form-title"> Register</h2>
+      <h2 className="main-color fw-bold form-title"> Register</h2>
       <img
         src="https://i.pravatar.cc/100"
         alt="avatar"
@@ -64,7 +64,7 @@ const Register = () => {
         <div className="row">
           <div className="col-md-6 d-flex flex-column gap-3">
             <div className="mb-1" style={{ minHeight: "90px" }}>
-              <label className="form-label text-warning">User Name</label>
+              <label className="form-label main-color">User Name</label>
               <input
                 type="text"
                 placeholder="Enter your name"
@@ -77,7 +77,7 @@ const Register = () => {
             </div>
 
             <div className="mb-1" style={{ minHeight: "90px" }}>
-              <label className="form-label text-warning">Country</label>
+              <label className="form-label main-color">Country</label>
               <input
                 type="text"
                 placeholder="Enter your country"
@@ -90,7 +90,7 @@ const Register = () => {
             </div>
 
             <div className="position-relative">
-              <label className="form-label text-warning">Password</label>
+              <label className="form-label main-color">Password</label>
               <input
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter your Password"
@@ -114,7 +114,7 @@ const Register = () => {
           {/* Right Column */}
           <div className="col-md-6 d-flex flex-column gap-3">
             <div className="mb-1" style={{ minHeight: "90px" }}>
-              <label className="form-label text-warning">E-mail</label>
+              <label className="form-label main-color">E-mail</label>
               <input
                 type="email"
                 placeholder="Enter your E-mail"
@@ -127,7 +127,7 @@ const Register = () => {
             </div>
 
             <div className="mb-1" style={{ minHeight: "90px" }}>
-              <label className="form-label text-warning">Phone Number</label>
+              <label className="form-label main-color">Phone Number</label>
               <input
                 type="text"
                 placeholder="Enter your phone number"
@@ -142,7 +142,7 @@ const Register = () => {
             </div>
 
             <div className="position-relative">
-              <label className="form-label text-warning">
+              <label className="form-label main-color">
                 Confirm Password
               </label>
               <input
@@ -172,7 +172,7 @@ const Register = () => {
 
         <button
           type="submit"
-          className="btn btn-warning w-100 mt-3 rounded-pill"
+          className="border-0  text-white w-100 p-3 bg-main-color rounded-5 mt-5"
           disabled={isSubmitting}
         >
           {isSubmitting ? "loading ..." : "Save"}
