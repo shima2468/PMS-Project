@@ -6,7 +6,7 @@ const LogOut = () => {
      let navigate=useNavigate()
     useEffect(() => {
     localStorage.removeItem('token');
-    navigate("/Log-in")
+    navigate("login")
     toast.success("Logged out successfully!")
   }, [])
     return (
