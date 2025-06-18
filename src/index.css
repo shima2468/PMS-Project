@@ -1,19 +1,10 @@
-.auth-container {
-  background-color: #0e382f;
-  min-height: 100vh;
-}
-
-/* .auth-container-register{
-  background-color: rgba(49, 74, 89, 0.9);
-  min-height: 100vh;
-} */
 
 :root {
   --main-color: rgba(239, 155, 40, 1);
 }
 
 .auth-container {
-  background-color: #0e382f;
+background: #315951E5;
   min-height: 100vh;
   width: 100%;
   position: relative;
