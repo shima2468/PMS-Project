@@ -3,6 +3,11 @@
   min-height: 100vh;
 }
 
+/* .auth-container-register{
+  background-color: rgba(49, 74, 89, 0.9);
+  min-height: 100vh;
+} */
+
 :root {
   --main-color: rgba(239, 155, 40, 1);
 }
@@ -94,4 +99,13 @@ input:active {
   outline: none;
   box-shadow: none;
   border: none;
+}
+
+.register-container {
+  padding: 20px 100px;
+}
+
+.padding-register {
+  padding-left:6rem;
+  padding-top: 2rem;
 }

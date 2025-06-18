@@ -50,7 +50,7 @@ const ChangePassword = () => {
   }, [watch("newPassword"), watch("confirmNewPassword")]);
 
   return (
-    <div className="change-pass-container">
+    <div className="change-pass-container px-5 pb-5">
       <div className="heading">
         <h2 className="form-title main-color">Change Password</h2>
       </div>

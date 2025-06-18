@@ -45,7 +45,8 @@ const LogIn: React.FC = () => {
 
   return (
     <>
-      <h2 className="fw-bold form-title main-color">Login</h2>
+      <div className="px-5 pb-5 card-auth-container" >
+        <h2 className="fw-bold form-title main-color">Login</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4 text-start  mb-3 border-0 border-bottom">
           <label className="form-label mb-1 main-color">E-mail</label>
@@ -113,6 +114,8 @@ const LogIn: React.FC = () => {
           {loading ? "Logging in..." : "Login"}
         </button>
       </form>
+      </div>
+      
     </>
   );
 };

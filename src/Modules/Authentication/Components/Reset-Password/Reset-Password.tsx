@@ -65,7 +65,8 @@ const ResetPassword = () => {
   };
   return (
     <>
-      <h2 className="main-color fw-bold form-title">Reset Password</h2>
+      <div className="px-5 pb-5">
+           <h2 className="main-color fw-bold form-title">Reset Password</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4 text-start">
           <label className="form-label mb-1 main-color">E-mail</label>
@@ -164,6 +165,9 @@ const ResetPassword = () => {
           {loading ? "Saving..." : "Save"}
         </button>
       </form>
+        
+      </div>
+    
     </>
   );
 };
