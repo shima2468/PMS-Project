@@ -31,3 +31,11 @@ export const USERS_URLS ={
     GET_USER_PROFILE: (id: string) => `/Users/${id}`,
 
 }
+
+
+// ****************** USERS LIST **********************
+export const USERLIST =
+{
+  GETALLUSERS : `/Users/`,
+  
+}
