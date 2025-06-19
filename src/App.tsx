@@ -20,6 +20,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./App.css";
+import DeletConiformation from "./Modules/Shared/Components/DeletConiformation/DeletConiformation";
+
 
 function App() {
   const routes = createBrowserRouter([
@@ -32,9 +34,8 @@ function App() {
         { path: "register", element: <Register /> },
         { path: "forget-password", element: <ForgetPassword /> },
         { path: "reset-password", element: <ResetPassword /> },
-        { path: "change-password", element: <ChangePassword /> },
         { path: "verify-account", element: <VerifyAccount /> },
-        { path: "logOut", element: <LogOut /> },
+        
       ],
       errorElement: <NotFound />,
     },
@@ -48,6 +49,10 @@ function App() {
         { path: "tasks", element: <TasksList /> },
         { path: "tasksData", element: <TasksData /> },
         { path: "users", element: <UsersList /> },
+        { path: "change-password", element: <ChangePassword /> },
+        { path: "logOut", element: <LogOut /> },
+        { path: "Delete", element:<DeletConiformation/> },
+
         
       ],
       errorElement: <NotFound />,
