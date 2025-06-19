@@ -58,10 +58,8 @@ const SideBar = () => {
               </MenuItem>
               <MenuItem
                 icon={<i className="fa-solid fa-unlock-keyhole"></i>}
-                component={<Link to="/dashboard/change-password" />}
-                className={
-                  isActive("/dashboard/change-password") ? activeClass : ""
-                }
+                component={<Link to="/change-password" />}
+                className={isActive("/change-password") ? activeClass : ""}
               >
                 Change Password
               </MenuItem>
