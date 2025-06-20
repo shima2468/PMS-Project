@@ -1,7 +1,16 @@
 :root {
   --main-color: rgba(239, 155, 40, 1);
+
   --second-color: #0e382f;
+
 }
+
+ body{
+  font-family: "Montserrat", sans-serif !important;
+    margin: 0;
+  padding: 0;
+}
+
 
 .auth-container {
   background: #315951e5;
@@ -20,7 +29,9 @@
   content: "";
   width: 16px;
   height: 4px;
-  background-color: rgba(239, 155, 40, 1);
+
+  background-color: var(--main-color);
+
   position: absolute;
   bottom: -3px;
   left: 2px;
@@ -41,7 +52,9 @@
   color: #ccc !important;
   opacity: 1;
 }
-
+.input:hover{
+  border: 1px solid var(--main-color) !important;
+}
 .password-toggle {
   position: absolute;
   right: 10px;
@@ -104,10 +117,15 @@ input:active {
   padding-top: 2rem;
 }
 
+
 .Navbar-shadow {
   background: rgba(255, 255, 255, 1);
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.15);
   height: 56px;
+}
+.custom-navbar{
+  box-shadow: 0px 1px 4px 0px #00000026 !important;
+
 }
 
 .sidebar-cont .ps-sidebar-container {
@@ -132,4 +150,44 @@ input:active {
   color: var(--main-color);
   background-color: transparent !important;
   font-weight: bold;
+}
+
+/* header */
+.navigate-btn{
+  font-size: 14px;
+}
+.header-title{
+  color: var(--second-color);
+  font-weight: 500;
+  font-size: 24px;
+}
+/* projects data*/
+.form-background{
+  background-color: #F5F5F5;
+  min-height: 100vh;
+}
+  
+
+.add-update-form{
+   border-radius: 16px;
+  box-shadow: 0px 2px 4px 0px #00000040;
+  -webkit-border-radius: 16px;
+  -moz-border-radius: 16px;
+  -ms-border-radius: 16px;
+  -o-border-radius: 16px;
+
+
+}
+.main-btn{
+  padding: 10px 20px;
+  border: none;
+  border-radius: 24px;
+  -webkit-border-radius: 24px;
+  -moz-border-radius: 24px;
+  -ms-border-radius: 24px;
+  -o-border-radius: 24px;
+  background-color: var(--main-color);
+  color: white;
+  font-size: 16px;
+  text-decoration: none;
 }

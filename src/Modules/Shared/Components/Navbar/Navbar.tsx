@@ -9,7 +9,7 @@ const Navbar = () => {
 
     
   return (
-    <div className="custom-navbar d-flex justify-content-between align-items-center bg-white px-4 py-2 shadow-sm">
+    <div className="custom-navbar d-flex justify-content-between align-items-center bg-white px-4 py-2 ">
       <img src={Logo} alt="Logo" className="logo-img img-fluid" />
       <div className="d-flex align-items-center gap-4">
         <img

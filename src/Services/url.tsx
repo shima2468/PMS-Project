@@ -31,3 +31,13 @@ export const USERS_URLS ={
     GET_USER_PROFILE: (id: string) => `/Users/${id}`,
 
 }
+// ****************** PROJECTS **********************
+export const PROJECTS_URLS = {
+    GET_ALL_PROJECTS_MANGER: `/Project/manger`,
+    GET_ALL_PROJECTS_EMPLOYEE: `/Project/employee`,
+    GET_PROJECT_BY_ID: (id: string) => `/Project/${id}`,
+    ADD_PROJECT: `/Project`,
+    UPDATE_PROJECT: (id: string) => `/Project/${id}`,
+    DELETE_PROJECT: (id: string) => `/Project/${id}`,
+    
+}
