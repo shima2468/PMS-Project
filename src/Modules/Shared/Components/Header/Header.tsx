@@ -5,13 +5,20 @@ interface HeaderProps {
   showAddButton?: boolean;
   title: string;
   items?: string;
-  item?:string;
+  item?: string;
   path?: string;
 }
 
-export default function Header({ showBackButton = false, showAddButton = false , title, items, item, path}: HeaderProps) {
+export default function Header({
+  showBackButton = false,
+  showAddButton = false,
+  title,
+  items,
+  item,
+  path,
+}: HeaderProps) {
   return (
-    <div className="ps-5 p-4">
+    <div className="bg-white ps-5 p-4 my-2">
       <div className="d-flex justify-content-between align-items-center">
         <div>
           <div className="d-flex align-items-center">
