@@ -1,0 +1,17 @@
+.custom-table {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.custom-table thead {
+  background-color: #315951E5 !important;
+  color: white !important;
+}
+
+.custom-table th,
+.custom-table td {
+  vertical-align: middle;
+}
