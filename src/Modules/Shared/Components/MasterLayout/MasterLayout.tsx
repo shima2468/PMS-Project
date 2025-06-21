@@ -4,7 +4,10 @@ import SideBar from "../SideBar/SideBar";
 
 const MasterLayout = () => {
   return (
-    <div className="d-flex flex-column" style={{ minHeight: "100vh" }}>
+    <div
+      className="d-flex flex-column master-layout-wrapper"
+      style={{ minHeight: "100vh" }}
+    >
       <Navbar />
       <div className="d-flex flex-grow-1">
         <SideBar />
