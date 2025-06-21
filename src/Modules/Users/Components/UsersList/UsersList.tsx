@@ -91,13 +91,15 @@ const UsersList: React.FC = () => {
       render: (row: any) => (
         <ActionsPopover 
 
- onView={() => console.log('view')}
-  onBlock={() => handleBlockUser(row.id)}
-  blockLabel={row.isActivated ? "Deactivate" : "Activate"}
-  showView={true}
-  showBlock={true}
-  showEdit={false}
-  showDelete={false}
+        onView={() => console.log('view')}
+        
+          onBlock={() => handleBlockUser(row.id)}
+          blockLabel={row.isActivated ? "Deactivate" : "Activate"}
+
+          showView={true}
+          showBlock={true}
+          showEdit={false}
+          showDelete={false}
 
         
         />

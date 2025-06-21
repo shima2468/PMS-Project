@@ -60,6 +60,11 @@ const ProjectsList = () => {
             setSelectedItem(row);
             setShowDeleteModal(true);
           }}
+
+          showView={true}
+          showEdit={true}
+          showDelete={true}
+          showBlock={false}
         />
       ),
     },
