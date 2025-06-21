@@ -1,82 +1,160 @@
-import React, { useState } from 'react';
-import '../UsersList.css';
+import React, { useEffect, useState } from 'react';
+import UsedTable from '../../../Shared/Components/UsedTable/UsedTable';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import axios from 'axios';
-import { USERLIST } from '../../../../Services/url';
+import { axiosInstance, USERLIST } from '../../../../Services/url';
+import Header from '../../../Shared/Components/Header/Header';
+import ActionsPopover from '../../../Shared/Components/ActionsPopover/ActionsPopOver';
 
-const UsersList:React.FC = ()=> {
+const UsersList: React.FC = () => {
+  const [userData, setUserData] = useState<any>({
+    data: [],
+    pageNumber: 1,
+    pageSize: 5,
+    totalNumberOfPages: 1,
+    totalNumberOfRecords: 0,
+  });
+  const [filters, setFilters] = useState({
+    pageSize: 5,
+    pageNumber: 1,
+    userName: '',
+  });
 
-interface UserData {
-  userName?: string;
-  email?: string;
-  country?: string;
-  groups?: number[];
-  pageSize: number;
-  pageNumber: number;
-}
+  const navigate = useNavigate();
 
-
-const [user , setUser] = useState([]);
-const navigate = useNavigate();
-const [loading, setLoading] = useState<boolean>(false);
-
-
-const featchUser = async (params :UserData) =>
-{
-    setLoading(true);
+  const fetchUser = async (params: any) => {
     try {
-        const response = await axios.get(USERLIST.GETALLUSERS , {params});
-        console.log(response.data);
-        setUser(response.data);
+      const response = await axiosInstance.get(USERLIST.GETALLUSERS, { params });
+      setUserData(response.data);
 
+    } catch (error: any) {
+      toast.error(error.response?.data?.message || 'Failed to fetch users.');
     }
+  };
 
-    catch(error:any)
+
+  const handleBlockUser = async (id:number)=>
+  {
+    try{
+        const response = await axiosInstance.put (USERLIST.BLOCKED_USER(id));
+         toast.success("User activation status toggled successfully");
+        fetchUser(filters); 
+    }
+    catch (error: any) {
+      toast.error(error.response?.data?.message || 'Failed to toggle user status.');
+    }
+  }
+
+  useEffect(() => {
+    fetchUser(filters);
+  }, []);
+
+  const columns = [
     {
-
-     toast.error(
-        error.response?.data?.message || "User failed. Please try again."
-     )
-    }
-    finally
+      key: 'userName',
+      label: 'UserName',
+      render: (row: any) => row.userName,
+    },
     {
-        setLoading(false);
-    }
-}
+      key: 'email',
+      label: 'Email',
+      render: (row: any) => row.email,
+    },
+    {
+      key: 'country',
+      label: 'Country',
+      render: (row: any) => row.country,
+    },
+    {
+      key: 'phoneNumber',
+      label: 'Phone Number',
+      render: (row: any) => row.phoneNumber,
+    },
+    {
+      key: 'isActivated',
+      label: 'Status',
+      render: (row: any) => (
+        <span className={`badge ${row.isActivated ? 'bg-success' : 'bg-danger'}`}>
+          {row.isActivated ? 'Active' : 'Inactive'}
+        </span>
+      ),
+    },
+    {
+      key: 'creationDate',
+      label: 'Date Created',
+      render: (row: any) =>
+        new Date(row.creationDate).toLocaleDateString('en-GB'),
+    },
+    {
+      key: 'actions',
+      label: 'Actions',
+      render: (row: any) => (
+        <ActionsPopover 
 
-    return (
+ onView={() => console.log('view')}
+  onBlock={() => handleBlockUser(row.id)}
+  blockLabel={row.isActivated ? "Deactivate" : "Activate"}
+  showView={true}
+  showBlock={true}
+  showEdit={false}
+  showDelete={false}
 
-        <>
+        
+        />
+
+        
+      ),
+    },
+  ];
+
+  const handleSearch = (value: string) => {
+    const newFilters = { ...filters, userName: value, pageNumber: 1 };
+    setFilters(newFilters);
+    fetchUser(newFilters);
+  };
+
+  const handlePageChange = (page: number) => {
+    const newFilters = { ...filters, pageNumber: page };
+    setFilters(newFilters);
+    fetchUser(newFilters);
+  };
+
+  const handlePageSizeChange = (size: number) => {
+    const newFilters = { ...filters, pageSize: size, pageNumber: 1 };
+    setFilters(newFilters);
+    fetchUser(newFilters);
+  };
+
+  return (
+
+<>
+     <Header
+          title="Users"
+          showAddButton={false}
+          item="Users"
+          path="new-Users"
+        />
 
 
-    
-<table className="table table-striped text-center custom-table">
-  <thead>
-    <tr>
-      <th>UserName</th>
-      <th>Statues</th>
-      <th>Phone Number</th>
-      <th>Email</th>
-      <th>Date Created</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Apple</td>
-      <td>Fruit</td>
-      <td>$1.20</td>
-      <td>Available</td>
-      <td>Available</td>
-      <td>Available</td>
-    </tr>
-   
-  </tbody>
-</table>
+      <UsedTable
+      columns={columns}
+      data={{
+        data: userData.data || [],
+        totalNumberOfPages: userData.totalNumberOfPages,
+        totalNumberOfRecords: userData.totalNumberOfRecords,
+        pageNumber: userData.pageNumber,
+        pageSize: userData.pageSize,
+      }}
+      onSearch={handleSearch}
+      onPageChange={handlePageChange}
+      onPageSizeChange={handlePageSizeChange}
+    />
 
-        </>
-    );
+</>
+
+
+
+  );
 };
 
 export default UsersList;
