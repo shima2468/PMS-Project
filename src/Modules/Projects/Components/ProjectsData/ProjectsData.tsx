@@ -47,6 +47,7 @@ const ProjectsData = () => {
       );
     }
   };
+<<<<<<< HEAD
   useEffect(() => {
     if (projectId) {
           setValue("title", project.title);
@@ -54,6 +55,25 @@ const ProjectsData = () => {
         }
       
   }, [projectId, setValue, project]);
+=======
+//   useEffect(() => {
+//     if (projectId) {
+//       const getProjectDetails = async () => {
+//         try {
+//           const res = await axiosInstance.get(
+//             PROJECTS_URLS.GET_PROJECT_BY_ID(projectId)
+//           );
+//           const { data } = res;
+//           setValue("title", data.title);
+//           setValue("description", data.description);
+//         } catch (error: any) {
+//           console.log(error);
+//         }
+//       };
+//       getProjectDetails();
+//     }
+//   }, [projectId, setValue]);
+>>>>>>> upstream/Main-Development
   return (
     <>
       <Header
