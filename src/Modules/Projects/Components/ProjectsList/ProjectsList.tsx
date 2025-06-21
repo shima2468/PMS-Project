@@ -6,12 +6,9 @@ import { axiosInstance, PROJECTS_URLS } from "../../../../Services/url";
 import DeleteConfirmation from "../../../Shared/Components/DeletConiformation/DeletConiformation";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-<<<<<<< HEAD
 import { Audio } from "react-loader-spinner";
-=======
->>>>>>> upstream/Main-Development
 
-const ProjectsList = () => {
+ const ProjectsList = () => {
   const columns = [
     {
       key: "title",
@@ -56,15 +53,9 @@ const ProjectsList = () => {
           onView={()=>{
             
           }}
-<<<<<<< HEAD
           onEdit={() => {  
           
             navigate(`/dashboard/projects/:${row.id}`, {state: row});
-=======
-          onEdit={(id: string) => {
-            setProjectId(id);
-            navigate(`/:${id}`);
->>>>>>> upstream/Main-Development
           }}
           onDelete={() => {
             setSelectedItem(row);
@@ -82,16 +73,9 @@ const navigate = useNavigate();
   const [pageSize, setPageSize] = useState(10);
   const [search, setSearch] = useState("");
   const [error, setError] = useState({});
-<<<<<<< HEAD
   const [isLoading, setIsLoading] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-=======
-  const [loading, setLoading] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(null);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [projectId, setProjectId] = useState("");
->>>>>>> upstream/Main-Development
 
 interface Project {
   id: string;
@@ -109,7 +93,6 @@ interface FetchProjectsResponse {
 }
 
 
-<<<<<<< HEAD
 
 
 const fetchList = async (): Promise<void> => { 
@@ -133,40 +116,6 @@ const fetchList = async (): Promise<void> => {
   }
 };
 
-=======
-const getProjectDetails = async (projectId: string): Promise<void> => {
-  try {
-    const res = await axiosInstance.get<Project>(
-      PROJECTS_URLS.GET_PROJECT_BY_ID(projectId)
-    );
-     console.log(res);
-     
-  } catch (error: any) {
-    console.log(error);
-  }
-};
-
-const fetchList = async (): Promise<void> => {
-  try {
-    setLoading(true);
-    const res = await axiosInstance.get<FetchProjectsResponse>(PROJECTS_URLS.GET_ALL_PROJECTS, {
-      params: {
-        pageNumber: page,
-        pageSize: pageSize,
-        title: search,
-      },
-    });
-    setTableData(res?.data?.data);
-    setTotalPages(res?.data?.totalNumberOfPages);
-    setTotalItems(res?.data?.totalNumberOfRecords);
-  } catch (error: any) {
-    setError(error?.data?.message || "Failed to fetch your projects");
-  } finally {
-    setLoading(false);
-  }
-};
-
->>>>>>> upstream/Main-Development
 const handleDelete = async (): Promise<void> => {
   try {
     if (!selectedItem?.id) return;
@@ -185,7 +134,6 @@ const handleDelete = async (): Promise<void> => {
 useEffect(() => {
   fetchList();
 }, [page, pageSize, search]);
-<<<<<<< HEAD
  
 
 
@@ -205,10 +153,6 @@ if (isLoading) {
   );
 }
 
-=======
-
-
->>>>>>> upstream/Main-Development
 return (
   <>
     <Header
@@ -231,13 +175,9 @@ return (
       onPageSizeChange={(newSize: number) => {
         setPageSize(newSize);
         setPage(1);
-<<<<<<< HEAD
         
       }}
 
-=======
-      }}
->>>>>>> upstream/Main-Development
     />
     <DeleteConfirmation
       show={showDeleteModal}
