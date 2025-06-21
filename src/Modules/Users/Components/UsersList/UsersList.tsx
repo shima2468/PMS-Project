@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import UsedTable from '../../../Shared/Components/UsedTable/UsedTable';
-import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { axiosInstance, USERLIST } from '../../../../Services/url';
 import Header from '../../../Shared/Components/Header/Header';
 import ActionsPopover from '../../../Shared/Components/ActionsPopover/ActionsPopOver';
+import { Modal } from 'react-bootstrap';
+import '../UsersList.css';
 
 const UsersList: React.FC = () => {
   const [userData, setUserData] = useState<any>({
@@ -20,7 +21,8 @@ const UsersList: React.FC = () => {
     userName: '',
   });
 
-  const navigate = useNavigate();
+  const [selectedUser, setSelectedUser] = useState<any>(null);
+  const [showViewModal, setShowViewModal] = useState(false);
 
   const fetchUser = async (params: any) => {
     try {
@@ -91,7 +93,10 @@ const UsersList: React.FC = () => {
       render: (row: any) => (
         <ActionsPopover 
 
-        onView={() => console.log('view')}
+        onView={() => {
+        setSelectedUser(row);
+        setShowViewModal(true);
+      }}
         
           onBlock={() => handleBlockUser(row.id)}
           blockLabel={row.isActivated ? "Deactivate" : "Activate"}
@@ -136,6 +141,67 @@ const UsersList: React.FC = () => {
           item="Users"
           path="new-Users"
         />
+
+
+
+<Modal
+  show={showViewModal}
+  onHide={() => setShowViewModal(false)}
+  centered
+>
+  <Modal.Header closeButton className="user-modal-header">
+    <Modal.Title>User Details</Modal.Title>
+  </Modal.Header>
+  <Modal.Body>
+    {selectedUser && (
+      <div className="p-3">
+        <div className="user-details-container">
+          <h5 className="user-details-title">User Information</h5>
+
+          <div className="mb-2">
+            <span className="user-detail-label">Name:</span>
+            {selectedUser.userName}
+          </div>
+          <div className="mb-2">
+            <span className="user-detail-label">Email:</span>
+            {selectedUser.email}
+          </div>
+          <div className="mb-2">
+            <span className="user-detail-label">Country:</span>
+            {selectedUser.country}
+          </div>
+          <div className="mb-2">
+            <span className="user-detail-label">Phone Number:</span>
+            {selectedUser.phoneNumber}
+          </div>
+          <div className="mb-2">
+            <span className="user-detail-label">Status:</span>
+            <span
+              className={`badge ${
+                selectedUser.isActivated ? 'bg-success' : 'bg-danger'
+              }`}
+            >
+              {selectedUser.isActivated ? 'Active' : 'Inactive'}
+            </span>
+          </div>
+          <div className="mb-2">
+            <span className="user-detail-label">Date Created:</span>
+            {new Date(selectedUser.creationDate).toLocaleDateString('en-GB')}
+          </div>
+        </div>
+      </div>
+    )}
+  </Modal.Body>
+</Modal>
+
+
+
+
+
+
+
+
+
 
 
       <UsedTable
