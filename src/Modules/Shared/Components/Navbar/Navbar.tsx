@@ -4,29 +4,55 @@ import notification from "../../../../assets/images/Notification 1.png";
 import userImg from "../../../../assets/images/UserImg.png";
 import { AuthContext } from "../../../../Context/AuthContext";
 
-const Navbar = () => {
-    const auth = useContext(AuthContext);
+interface NavbarProps {
+  showSidebar: boolean;
+  toggleSidebar: () => void;
+}
 
-    
+const Navbar = ({ showSidebar, toggleSidebar }: NavbarProps) => {
+  const auth = useContext(AuthContext);
+
+  
+
   return (
-    <div className="custom-navbar d-flex justify-content-between align-items-center bg-white px-4 py-2 ">
-      <img src={Logo} alt="Logo" className="logo-img img-fluid" />
-      <div className="d-flex align-items-center gap-4">
-        <img
-          src={notification}
-          alt="Notification"
-          className="notification-icon img-fluid"
-        />
-        <div className="d-flex align-items-center gap-2 border-start border-start-3 ps-2"> 
-          <img src={userImg} alt="User" className="user-img rounded-circle" />
-          <div className="lh-sm ">
-            <h6 className="mb-0 fw-semibold small">{auth?.loginData?.userName}</h6>
-            <p className="mb-0 text-muted small">{auth?.loginData?.userEmail}</p>
-          </div>
-          <i className="fa-solid fa-angle-down text-secondary small dropdown-icon"></i>
+    <nav className="navbar navbar-expand-md bg-white px-3 py-2 shadow-sm">
+      <div className="container-fluid d-flex align-items-center justify-content-between">
+        
+        <button className="btn bg-main-color d-md-none me-2 rounded-2" onClick={toggleSidebar}>
+          <i className={`fa-solid ${showSidebar ? "fa-angle-down" : "fa-angle-left"} text-white`}></i>
+        </button>
+
+        <img src={Logo} alt="Logo" className="logo-img" />
+
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+
+        <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
+          <ul className="navbar-nav align-items-center gap-3">
+            <li className="nav-item">
+              <img src={notification} alt="Notification" className="notification-icon w-75" />
+            </li>
+            <li className="nav-item d-flex flex-m-row align-items-center gap-2 border-start ps-3">
+              <img src={userImg} alt="User" className="rounded-circle" />
+              <div className="lh-sm">
+                <h6 className="mb-0 fw-semibold small">{auth?.loginData?.userName}</h6>
+                <p className="mb-0 text-muted small">{auth?.loginData?.userEmail}</p>
+              </div>
+              <i className="fa-solid fa-angle-down text-secondary small"></i>
+            </li>
+          </ul>
         </div>
       </div>
-    </div>
+    </nav>
   );
 };
 

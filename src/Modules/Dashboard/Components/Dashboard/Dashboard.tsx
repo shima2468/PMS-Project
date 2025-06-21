@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext } from "react"; 
 import firstCardImage from "../../../../assets/images/8396402_graph_chart_data_analytics_statistic_icon 1.png";
 import secondCardImage from "../../../../assets/images/Group 48102727.png";
 import thirdCardImage from "../../../../assets/images/Group 48102728.png";
@@ -6,6 +6,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import { AuthContext } from "../../../../Context/AuthContext";
 import { CountContext } from "../../../../Context/CountContext";
+
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const Dashboard = () => {
@@ -48,40 +49,41 @@ const Dashboard = () => {
 
   return (
     <div className="container-fluid dashboard">
-      <div className="home-bg d-flex flex-column justify-content-center">
-        <div className="bg-content text-white ms-4">
-          <h1>
+      <div className="home-bg d-flex flex-column justify-content-center px-3 py-5 text-center text-md-start">
+        <div className="bg-content text-white">
+          <h1 className="display-6 display-md-4">
             Welcome <span className="head-span">{loginData?.userName}</span>
           </h1>
-          <p>You can add project and assign tasks to your team</p>
+          <p className="fs-5">You can add project and assign tasks to your team</p>
         </div>
       </div>
+
       <div className="main-content">
-        <div className="row">
-          <div className="col-md-6">
-            <div className="bg-light p-4">
+        <div className="row g-3 px-2">
+          <div className="col-12 col-lg-6">
+            <div className="bg-light p-4 h-100">
               <div className="sub-content small-text position-relative ps-2">
                 <h6 className="sub-content-title">Tasks</h6>
-                <p>Lorem ipsum dolor sit amet,consecteture</p>
+                <p>Lorem ipsum dolor sit amet, consecteture</p>
               </div>
-              <div className="row ps-2">
-                <div className="col-md-4">
-                  <div className="main-card first-card">
-                    <img src={firstCardImage} alt="card image" />
+              <div className="row g-3">
+                <div className="col-12 col-sm-6 col-md-4">
+                  <div className="main-card first-card text-center">
+                    <img src={firstCardImage} alt="To Do" className="img-fluid rounded" />
                     <p className="small-text m-0">To Do</p>
                     <h6 className="fs-5 fw-medium">{tasksCount.toDo}</h6>
                   </div>
                 </div>
-                <div className="col-md-4">
-                  <div className="main-card second-card">
-                    <img src={secondCardImage} alt="card image" />
+                <div className="col-12 col-sm-6 col-md-4">
+                  <div className="main-card second-card text-center">
+                    <img src={secondCardImage} alt="In Progress" className="img-fluid rounded" />
                     <p className="small-text m-0">In Progress</p>
                     <h6 className="fs-5 fw-medium">{tasksCount.inProgress}</h6>
                   </div>
                 </div>
-                <div className="col-md-4">
-                  <div className="main-card third-card">
-                    <img src={thirdCardImage} alt="card image" />
+                <div className="col-12 col-sm-6 col-md-4">
+                  <div className="main-card third-card text-center">
+                    <img src={thirdCardImage} alt="Done" className="img-fluid rounded" />
                     <p className="small-text m-0">Done</p>
                     <h6 className="fs-5 fw-medium">{tasksCount.done}</h6>
                   </div>
@@ -89,30 +91,27 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
+
           {loginData?.userGroup !== "Employee" && (
-            <div className="col-md-6">
-              <div className="bg-light p-4">
+            <div className="col-12 col-lg-6">
+              <div className="bg-light p-4 h-100">
                 <div className="sub-content small-text position-relative ps-2">
                   <h6 className="sub-content-title">Users</h6>
-                  <p>Lorem ipsum dolor sit amet,consecteture</p>
+                  <p>Lorem ipsum dolor sit amet, consecteture</p>
                 </div>
-                <div className="row ps-2">
-                  <div className="col-md-4">
-                    <div className="main-card first-card">
-                      <img src={firstCardImage} alt="card image" />
+                <div className="row g-3">
+                  <div className="col-12 col-sm-6 col-md-4">
+                    <div className="main-card first-card text-center">
+                      <img src={firstCardImage} alt="Active" className="img-fluid rounded" />
                       <p className="small-text m-0">Active</p>
-                      <h6 className="fs-5 fw-medium">
-                        {usersCount.activatedEmployeeCount}
-                      </h6>
+                      <h6 className="fs-5 fw-medium">{usersCount.activatedEmployeeCount}</h6>
                     </div>
                   </div>
-                  <div className="col-md-4">
-                    <div className="main-card second-card">
-                      <img src={secondCardImage} alt="card image" />
+                  <div className="col-12 col-sm-6 col-md-4">
+                    <div className="main-card second-card text-center">
+                      <img src={secondCardImage} alt="Inactive" className="img-fluid rounded" />
                       <p className="small-text m-0">Inactive</p>
-                      <h6 className="fs-5 fw-medium">
-                        {usersCount.deactivatedEmployeeCount}
-                      </h6>
+                      <h6 className="fs-5 fw-medium">{usersCount.deactivatedEmployeeCount}</h6>
                     </div>
                   </div>
                 </div>
@@ -120,15 +119,16 @@ const Dashboard = () => {
             </div>
           )}
         </div>
-        <div className="row m-5">
-          <div className="col-md-6">
-            <div className="w-75">
+
+        <div className="row mt-5 justify-content-center">
+          <div className="col-12 col-md-6 d-flex justify-content-center mb-4">
+            <div style={{ maxWidth: "300px", width: "100%" }}>
               <Doughnut data={tasksData} />
             </div>
           </div>
           {loginData?.userGroup !== "Employee" && (
-            <div className="col-md-6">
-              <div className="w-75">
+            <div className="col-12 col-md-6 d-flex justify-content-center mb-4">
+              <div style={{ maxWidth: "300px", width: "100%" }}>
                 <Doughnut data={usersData} />
               </div>
             </div>
