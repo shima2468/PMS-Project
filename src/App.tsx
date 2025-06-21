@@ -57,7 +57,17 @@ function App() {
         { path: "tasksData", element: <TasksData /> },
         { path: "users", element: <UsersList /> },
         { path: "logOut", element: <LogOut /> },
-        { path: "Delete", element: <DeletConiformation /> },
+        {
+          path: "Delete",
+          element: (
+            <DeletConiformation
+              show={true}
+              onHide={() => {}}
+              onConfirm={() => {}}
+              itemName=""
+            />
+          ),
+        },
       ],
       errorElement: <NotFound />,
     },
@@ -65,6 +75,7 @@ function App() {
 
   return (
     <>
+    
       <AuthContextProvider>
         <RouterProvider router={routes} />
       </AuthContextProvider>

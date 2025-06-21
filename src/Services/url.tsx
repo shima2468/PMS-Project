@@ -27,6 +27,7 @@ export const USERS_URLS = {
   VERIFY: `/Users/verify`,
   CHANGE_PASSWORD: `/Users/ChangePassword`,
   GET_USER_PROFILE: (id: string) => `/Users/${id}`,
+  GET_USERS_COUNT: `Users/count`
 };
 // ****************** PROJECTS **********************
 export const PROJECTS_URLS = {
@@ -38,3 +39,8 @@ export const PROJECTS_URLS = {
   UPDATE_PROJECT: (id: string) => `/Project/${id}`,
   DELETE_PROJECT: (id: string) => `/Project/${id}`,
 };
+// *******************Tasks**************************
+export const TASKS_URLS ={
+  GET_TASKS_COUNT: `/Task/count`,
+}
+
