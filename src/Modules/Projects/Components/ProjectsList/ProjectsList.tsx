@@ -5,6 +5,7 @@ import UsedTable from "../../../Shared/Components/UsedTable/UsedTable";
 import { axiosInstance, PROJECTS_URLS } from "../../../../Services/url";
 import DeleteConfirmation from "../../../Shared/Components/DeletConiformation/DeletConiformation";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const ProjectsList = () => {
   const columns = [
@@ -48,8 +49,13 @@ const ProjectsList = () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       render: (row: any) => (
         <ActionsPopover
-          onView={() => console.log("View", row)}
-          onEdit={() => console.log("Edit", row)}
+          onView={()=>{
+            
+          }}
+          onEdit={(id: string) => {
+            setProjectId(id);
+            navigate(`/:${id}`);
+          }}
           onDelete={() => {
             setSelectedItem(row);
             setShowDeleteModal(true);
@@ -58,8 +64,8 @@ const ProjectsList = () => {
       ),
     },
   ];
-
-  const [tableData, setTableData] = useState([]);
+const navigate = useNavigate();
+  const [tableData, setTableData] = useState<Project[]>([]);
   const [totalPages, setTotalPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
   const [page, setPage] = useState(1);
@@ -67,79 +73,110 @@ const ProjectsList = () => {
   const [search, setSearch] = useState("");
   const [error, setError] = useState({});
   const [loading, setLoading] = useState(false);
-  const [selectedItem, setSelectedItem] = useState<any>(null);
+  const [selectedItem, setSelectedItem] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const fetchList = async () => {
-    try {
-      setLoading(true);
-      const res = await axiosInstance.get(PROJECTS_URLS.GET_ALL_PROJECTS, {
-        params: {
-          pageNumber: page,
-          pageSize: pageSize,
-          title: search,
-        },
-      });
-      setTableData(res?.data?.data);
-      setTotalPages(res?.data?.totalNumberOfPages);
-      setTotalItems(res?.data?.totalNumberOfRecords);
-    } catch (error) {
-      setError(error?.data?.message || "Failed to fetch your projects");
-    } finally {
-      setLoading(false);
-    }
-  };
+  const [projectId, setProjectId] = useState("");
 
-  const handleDelete = async () => {
-    try {
-      if (!selectedItem?.id) return;
+interface Project {
+  id: string;
+  title: string;
+  status?: string;
+  usersNumber?: number;
+  usersTasks?: number;
+  creationDate: string;
+}
 
-      await axiosInstance.delete(PROJECTS_URLS.DELETE_PROJECT(selectedItem.id));
-      toast.success("Project deleted successfully");
-      setShowDeleteModal(false);
-      fetchList();
-    } catch (error) {
-      console.error("Delete Error:", error);
-      setError(error?.data?.message || "Failed to delete project");
-      toast.error(error);
-    }
-  };
+interface FetchProjectsResponse {
+  data: Project[];
+  totalNumberOfPages: number;
+  totalNumberOfRecords: number;
+}
 
-  useEffect(() => {
-    fetchList();
-  }, [page, pageSize, search]);
 
-  return (
-    <>
-      <Header
-        title="Projects"
-        showAddButton={true}
-        item="Project"
-        path="new-project"
-      />
-      <UsedTable
-        columns={columns}
-        data={{
-          data: tableData,
-          totalNumberOfPages: totalPages,
-          totalNumberOfRecords: totalItems,
-          pageNumber: page,
-          pageSize: pageSize,
-        }}
-        onSearch={(value) => setSearch(value)}
-        onPageChange={(newPage) => setPage(newPage)}
-        onPageSizeChange={(newSize) => {
-          setPageSize(newSize);
-          setPage(1);
-        }}
-      />
-      <DeleteConfirmation
-        show={showDeleteModal}
-        onHide={() => setShowDeleteModal(false)}
-        onConfirm={handleDelete}
-        itemName={selectedItem?.title || "this item"}
-      />
-    </>
-  );
+const getProjectDetails = async (projectId: string): Promise<void> => {
+  try {
+    const res = await axiosInstance.get<Project>(
+      PROJECTS_URLS.GET_PROJECT_BY_ID(projectId)
+    );
+     console.log(res);
+     
+  } catch (error: any) {
+    console.log(error);
+  }
 };
 
+const fetchList = async (): Promise<void> => {
+  try {
+    setLoading(true);
+    const res = await axiosInstance.get<FetchProjectsResponse>(PROJECTS_URLS.GET_ALL_PROJECTS, {
+      params: {
+        pageNumber: page,
+        pageSize: pageSize,
+        title: search,
+      },
+    });
+    setTableData(res?.data?.data);
+    setTotalPages(res?.data?.totalNumberOfPages);
+    setTotalItems(res?.data?.totalNumberOfRecords);
+  } catch (error: any) {
+    setError(error?.data?.message || "Failed to fetch your projects");
+  } finally {
+    setLoading(false);
+  }
+};
+
+const handleDelete = async (): Promise<void> => {
+  try {
+    if (!selectedItem?.id) return;
+
+    await axiosInstance.delete(PROJECTS_URLS.DELETE_PROJECT(selectedItem.id));
+    toast.success("Project deleted successfully");
+    setShowDeleteModal(false);
+    fetchList();
+  } catch (error: any) {
+    console.error("Delete Error:", error);
+    setError(error?.data?.message || "Failed to delete project");
+    toast.error(error);
+  }
+};
+
+useEffect(() => {
+  fetchList();
+}, [page, pageSize, search]);
+
+
+return (
+  <>
+    <Header
+      title="Projects"
+      showAddButton={true}
+      item="Project"
+      path="new-project"
+    />
+    <UsedTable
+      columns={columns}
+      data={{
+        data: tableData,
+        totalNumberOfPages: totalPages,
+        totalNumberOfRecords: totalItems,
+        pageNumber: page,
+        pageSize: pageSize,
+      }}
+      onSearch={(value: string) => setSearch(value)}
+      onPageChange={(newPage: number) => setPage(newPage)}
+      onPageSizeChange={(newSize: number) => {
+        setPageSize(newSize);
+        setPage(1);
+      }}
+    />
+    <DeleteConfirmation
+      show={showDeleteModal}
+      onHide={() => setShowDeleteModal(false)}
+      onConfirm={handleDelete}
+      itemName={selectedItem?.title || "this item"}
+    />
+  </>
+);
+
+}
 export default ProjectsList;
