@@ -19,6 +19,7 @@ const UsersList: React.FC = () => {
     pageSize: 5,
     pageNumber: 1,
     userName: '',
+    group: '',
   });
 
   const [selectedUser, setSelectedUser] = useState<any>(null);
@@ -26,7 +27,14 @@ const UsersList: React.FC = () => {
 
   const fetchUser = async (params: any) => {
     try {
-      const response = await axiosInstance.get(USERLIST.GETALLUSERS, { params });
+
+      const queryParams = {
+      ...params,
+      groups: params.group ? [parseInt(params.group)] : undefined,
+    };
+    console.log("Query Params sent to API:", queryParams);
+
+      const response = await axiosInstance.get(USERLIST.GETALLUSERS, { params:queryParams });
       setUserData(response.data);
 
     } catch (error: any) {
@@ -143,65 +151,83 @@ const UsersList: React.FC = () => {
         />
 
 
-
-<Modal
-  show={showViewModal}
-  onHide={() => setShowViewModal(false)}
-  centered
->
-  <Modal.Header closeButton className="user-modal-header">
-    <Modal.Title>User Details</Modal.Title>
-  </Modal.Header>
-  <Modal.Body>
-    {selectedUser && (
-      <div className="p-3">
-        <div className="user-details-container">
-          <h5 className="user-details-title">User Information</h5>
-
-          <div className="mb-2">
-            <span className="user-detail-label">Name:</span>
-            {selectedUser.userName}
-          </div>
-          <div className="mb-2">
-            <span className="user-detail-label">Email:</span>
-            {selectedUser.email}
-          </div>
-          <div className="mb-2">
-            <span className="user-detail-label">Country:</span>
-            {selectedUser.country}
-          </div>
-          <div className="mb-2">
-            <span className="user-detail-label">Phone Number:</span>
-            {selectedUser.phoneNumber}
-          </div>
-          <div className="mb-2">
-            <span className="user-detail-label">Status:</span>
-            <span
-              className={`badge ${
-                selectedUser.isActivated ? 'bg-success' : 'bg-danger'
-              }`}
-            >
-              {selectedUser.isActivated ? 'Active' : 'Inactive'}
-            </span>
-          </div>
-          <div className="mb-2">
-            <span className="user-detail-label">Date Created:</span>
-            {new Date(selectedUser.creationDate).toLocaleDateString('en-GB')}
-          </div>
-        </div>
-      </div>
-    )}
-  </Modal.Body>
-</Modal>
+<div className="mb-3 d-flex align-items-center gap-2 ms-5">
+  <label htmlFor="userGroup" className="form-label mb-0">
+    Filter by Group:
+  </label>
+  <select
+    id="userGroup"
+    className="form-select w-auto"
+    value={filters.group}
+    onChange={(e) => {
+      const value = e.target.value;
+      const newFilters = {
+        ...filters,
+        group: value,
+        pageNumber: 1,
+      };
+      setFilters(newFilters);
+      fetchUser(newFilters); 
+    }}
+  >
+    <option value="">All</option>
+    <option value="1">Manager</option>
+    <option value="2">Employee</option>
+  </select>
+</div>
 
 
 
 
+      <Modal
+        show={showViewModal}
+        onHide={() => setShowViewModal(false)}
+        centered
+      >
+        <Modal.Header closeButton className="user-modal-header">
+          <Modal.Title>User Details</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {selectedUser && (
+            <div className="p-3">
+              <div className="user-details-container">
+                <h5 className="user-details-title">User Information</h5>
 
-
-
-
-
+                <div className="mb-2">
+                  <span className="user-detail-label">Name:</span>
+                  {selectedUser.userName}
+                </div>
+                <div className="mb-2">
+                  <span className="user-detail-label">Email:</span>
+                  {selectedUser.email}
+                </div>
+                <div className="mb-2">
+                  <span className="user-detail-label">Country:</span>
+                  {selectedUser.country}
+                </div>
+                <div className="mb-2">
+                  <span className="user-detail-label">Phone Number:</span>
+                  {selectedUser.phoneNumber}
+                </div>
+                <div className="mb-2">
+                  <span className="user-detail-label">Status:</span>
+                  <span
+                    className={`badge ${
+                      selectedUser.isActivated ? 'bg-success' : 'bg-danger'
+                    }`}
+                  >
+                    {selectedUser.isActivated ? 'Active' : 'Inactive'}
+                  </span>
+                </div>
+                <div className="mb-2">
+                  <span className="user-detail-label">Date Created:</span>
+                  {new Date(selectedUser.creationDate).toLocaleDateString('en-GB')}
+                </div>
+              </div>
+            </div>
+          )}
+        </Modal.Body>
+      </Modal>
 
 
       <UsedTable
