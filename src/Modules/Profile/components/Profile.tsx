@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import type {UserProfile } from '../../../../src/interfaces/data'
 import toast from "react-hot-toast";
 import { axiosInstance, USERLIST } from "../../../Services/url";
+import './Profile.css'
 
 const Profile: React.FC = ()=>
 {
@@ -27,10 +28,11 @@ const Profile: React.FC = ()=>
     },[])
 
 return (
-  <div className="container my-5">
-    <div className="card shadow-sm p-4">
-      {user ? (
-        <div className="d-flex align-items-center gap-4">
+<div className="profile-page py-5">
+  <div className="profile-container bg-white shadow rounded-4 p-4 mx-auto">
+    {user ? (
+      <>
+        <div className="text-center">
           <img
             src={
               user.imagePath
@@ -38,33 +40,48 @@ return (
                 : 'https://via.placeholder.com/150'
             }
             alt="Profile"
-            className="rounded-circle"
-            width={120}
-            height={120}
+            className="profile-img mb-3"
           />
-          <div>
-            <h4>{user.userName}</h4>
-            <p className="mb-1"><strong>Email:</strong> {user.email}</p>
-            <p className="mb-1"><strong>Phone:</strong> {user.phoneNumber}</p>
-            <p className="mb-1"><strong>Country:</strong> {user.country}</p>
-            <p className="mb-1"><strong>Group:</strong> {user.group.name}</p>
-            <p className="mb-1">
-              <strong>Status:</strong>{' '}
-              <span className={`badge ${user.isActivated ? 'bg-success' : 'bg-danger'}`}>
+          <h2 className="fw-bold">{user.userName}</h2>
+          <p className="text-muted">{user.group.name}</p>
+        </div>
+
+        <hr />
+
+        <div className="row mt-4">
+          <div className="col-md-6 mb-3">
+            <label className="text-muted">Email</label>
+            <p className="fw-semibold">{user.email}</p>
+          </div>
+          <div className="col-md-6 mb-3">
+            <label className="text-muted">Phone</label>
+            <p className="fw-semibold">{user.phoneNumber}</p>
+          </div>
+          <div className="col-md-6 mb-3">
+            <label className="text-muted">Country</label>
+            <p className="fw-semibold">{user.country}</p>
+          </div>
+          <div className="col-md-6 mb-3">
+            <label className="text-muted">Status</label>
+            <p>
+              <span className={`badge px-3 py-1 ${user.isActivated ? 'bg-success' : 'bg-danger'}`}>
                 {user.isActivated ? 'Active' : 'Inactive'}
               </span>
             </p>
-            <p className="mb-0">
-              <strong>Created At:</strong>{' '}
-              {new Date(user.creationDate).toLocaleDateString('en-GB')}
-            </p>
+          </div>
+          <div className="col-12 mb-2">
+            <label className="text-muted">Created At</label>
+            <p className="fw-semibold">{new Date(user.creationDate).toLocaleDateString('en-GB')}</p>
           </div>
         </div>
-      ) : (
-        <p className="text-center m-0">No user data found.</p> // أو ممكن تخليها spinner أو تسيبها فاضية
-      )}
-    </div>
+      </>
+    ) : (
+      <p className="text-center m-0">No user data found.</p>
+    )}
   </div>
+</div>
+
+
 );
 
 
