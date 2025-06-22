@@ -374,3 +374,6 @@ input:active {
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1030;
 }
+.title-view {
+  color: var(--main-color);
+}

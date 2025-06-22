@@ -51,25 +51,26 @@ const UsedTable = ({
         value={searchValue}
         handleSearch={handleSearch}
       />
-
-      <Table className="table-custom" striped>
-        <thead>
-          <tr>
-            {columns.map((col) => (
-              <th key={col.key}>{col.label}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {data?.data?.map((row, i) => (
-            <tr key={i}>
+      <div className="table-responsive">
+        <Table className="table-custom" striped>
+          <thead>
+            <tr>
               {columns.map((col) => (
-                <td key={col.key}>{col.render(row)}</td>
+                <th key={col.key}>{col.label}</th>
               ))}
             </tr>
-          ))}
-        </tbody>
-      </Table>
+          </thead>
+          <tbody>
+            {data?.data?.map((row, i) => (
+              <tr key={i}>
+                {columns.map((col) => (
+                  <td key={col.key}>{col.render(row)}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </div>
 
       <div className="d-flex justify-content-end mt-3">
         <TablePagination
