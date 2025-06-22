@@ -46,7 +46,7 @@ export const USERLIST =
 {
   GETALLUSERS : `/Users/`,
   BLOCKED_USER: (id: number) => `/Users/${id}` ,
-  Current_USER : `/User/currentUser` , 
+  Current_USER : `/Users/currentUser` , 
 }
 // *******************Tasks**************************
 export const TASKS_URLS ={
