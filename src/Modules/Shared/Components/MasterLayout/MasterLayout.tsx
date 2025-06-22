@@ -33,7 +33,6 @@ const MasterLayout = () => {
             </div>
           )}
         </div>
-
         {/* Sidebar overlay for small screens */}
         {showSidebar && window.innerWidth < 768 && (
           <>
