@@ -19,6 +19,7 @@ axiosInstance.interceptors.request.use(
 
 // ****************** USERS Auth **********************
 
+
 export const USERS_URLS = {
   LOGIN: `/Users/Login`,
   FORGET_PASSWORD: `/Users/Reset/Request`,
@@ -39,6 +40,14 @@ export const PROJECTS_URLS = {
   UPDATE_PROJECT: (id: string) => `/Project/${id}`,
   DELETE_PROJECT: (id: string) => `/Project/${id}`,
 };
+
+// ****************** USERS LIST **********************
+export const USERLIST =
+{
+  GETALLUSERS : `/Users/`,
+  BLOCKED_USER: (id: number) => `/Users/${id}`
+  
+}
 // *******************Tasks**************************
 export const TASKS_URLS ={
   GET_TASKS_COUNT: `/Task/count`,

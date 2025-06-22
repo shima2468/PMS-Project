@@ -21,23 +21,27 @@ const MasterLayout = () => {
 
   return (
     <div className="d-flex flex-column min-vh-100">
-      {/* Navbar */}
       <Navbar showSidebar={showSidebar} toggleSidebar={toggleSidebar} />
 
-      <div className="d-flex flex-grow-1 position-relative">
+      <div className="d-flex flex-grow-1 w-100" style={{ flex: 1 }}>
         {/* Sidebar for md and up */}
-        <div className="d-none d-md-block">
-          {showSidebar && (
-            <div className="sidebar-container">
-              <SideBar showSidebar={showSidebar} toggleSidebar={toggleSidebar} />
-            </div>
-          )}
-        </div>
-        {/* Sidebar overlay for small screens */}
+        {showSidebar && window.innerWidth >= 768 && (
+          <div className="sidebar-wrapper">
+            <SideBar
+              showSidebar={showSidebar}
+              toggleSidebar={toggleSidebar}
+            />
+          </div>
+        )}
+
+        {/* Overlay sidebar for small screens */}
         {showSidebar && window.innerWidth < 768 && (
           <>
             <div className="sidebar-overlay-popup">
-              <SideBar showSidebar={showSidebar} toggleSidebar={toggleSidebar} />
+              <SideBar
+                showSidebar={showSidebar}
+                toggleSidebar={toggleSidebar}
+              />
             </div>
             <div
               className="sidebar-overlay-backdrop"
@@ -46,8 +50,8 @@ const MasterLayout = () => {
           </>
         )}
 
-        {/* Page Content */}
-        <div className="flex-grow-1">
+        {/* Main Page Content */}
+        <div className="flex-grow-1 overflow-auto">
           <Outlet />
         </div>
       </div>
