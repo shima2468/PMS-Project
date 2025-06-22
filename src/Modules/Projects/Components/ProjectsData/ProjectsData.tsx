@@ -60,6 +60,7 @@ const ProjectsData = () => {
         showBackButton={true}
         title={`${projectId? "Update" : "Add A New"} Project`}
         items="Projects"
+        backPath="/dashboard/projects"
       />
       <div className="container-fluid form-background">
         <div className="row justify-content-center">
