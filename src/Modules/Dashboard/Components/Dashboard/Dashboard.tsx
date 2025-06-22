@@ -1,4 +1,4 @@
-import { useContext } from "react"; 
+import { useContext } from "react";
 import firstCardImage from "../../../../assets/images/8396402_graph_chart_data_analytics_statistic_icon 1.png";
 import secondCardImage from "../../../../assets/images/Group 48102727.png";
 import thirdCardImage from "../../../../assets/images/Group 48102728.png";
@@ -54,7 +54,9 @@ const Dashboard = () => {
           <h1 className="display-6 display-md-4">
             Welcome <span className="head-span">{loginData?.userName}</span>
           </h1>
-          <p className="fs-5">You can add project and assign tasks to your team</p>
+          <p className="fs-5">
+            You can add project and assign tasks to your team
+          </p>
         </div>
       </div>
 
@@ -69,21 +71,33 @@ const Dashboard = () => {
               <div className="row g-3">
                 <div className="col-12 col-sm-6 col-md-4">
                   <div className="main-card first-card text-center">
-                    <img src={firstCardImage} alt="To Do" className="img-fluid rounded" />
+                    <img
+                      src={firstCardImage}
+                      alt="To Do"
+                      className="img-fluid rounded"
+                    />
                     <p className="small-text m-0">To Do</p>
                     <h6 className="fs-5 fw-medium">{tasksCount.toDo}</h6>
                   </div>
                 </div>
                 <div className="col-12 col-sm-6 col-md-4">
                   <div className="main-card second-card text-center">
-                    <img src={secondCardImage} alt="In Progress" className="img-fluid rounded" />
+                    <img
+                      src={secondCardImage}
+                      alt="In Progress"
+                      className="img-fluid rounded"
+                    />
                     <p className="small-text m-0">In Progress</p>
                     <h6 className="fs-5 fw-medium">{tasksCount.inProgress}</h6>
                   </div>
                 </div>
                 <div className="col-12 col-sm-6 col-md-4">
                   <div className="main-card third-card text-center">
-                    <img src={thirdCardImage} alt="Done" className="img-fluid rounded" />
+                    <img
+                      src={thirdCardImage}
+                      alt="Done"
+                      className="img-fluid rounded"
+                    />
                     <p className="small-text m-0">Done</p>
                     <h6 className="fs-5 fw-medium">{tasksCount.done}</h6>
                   </div>
@@ -102,16 +116,28 @@ const Dashboard = () => {
                 <div className="row g-3">
                   <div className="col-12 col-sm-6 col-md-4">
                     <div className="main-card first-card text-center">
-                      <img src={firstCardImage} alt="Active" className="img-fluid rounded" />
+                      <img
+                        src={firstCardImage}
+                        alt="Active"
+                        className="img-fluid rounded"
+                      />
                       <p className="small-text m-0">Active</p>
-                      <h6 className="fs-5 fw-medium">{usersCount.activatedEmployeeCount}</h6>
+                      <h6 className="fs-5 fw-medium">
+                        {usersCount.activatedEmployeeCount}
+                      </h6>
                     </div>
                   </div>
                   <div className="col-12 col-sm-6 col-md-4">
                     <div className="main-card second-card text-center">
-                      <img src={secondCardImage} alt="Inactive" className="img-fluid rounded" />
+                      <img
+                        src={secondCardImage}
+                        alt="Inactive"
+                        className="img-fluid rounded"
+                      />
                       <p className="small-text m-0">Inactive</p>
-                      <h6 className="fs-5 fw-medium">{usersCount.deactivatedEmployeeCount}</h6>
+                      <h6 className="fs-5 fw-medium">
+                        {usersCount.deactivatedEmployeeCount}
+                      </h6>
                     </div>
                   </div>
                 </div>

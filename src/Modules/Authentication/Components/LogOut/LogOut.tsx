@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import  { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 const LogOut = () => {
-     let navigate=useNavigate()
+     const navigate=useNavigate();
     useEffect(() => {
     localStorage.removeItem('token');
     navigate("login")
