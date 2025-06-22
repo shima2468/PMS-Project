@@ -73,7 +73,6 @@ const ProjectsList = () => {
             setSelectedItem(row);
             setShowDeleteModal(true);
           }}
-
           showView={true}
           showEdit={true}
           showDelete={true}
@@ -200,7 +199,7 @@ const ProjectsList = () => {
         </Modal.Header>
         <Modal.Body>
           <div className="d-flex">
-            <p className="title-view fw-bold">Title : </p>
+            <p className="title-view fw-bold">Project Name : </p>
             <span className="mx-2">{selectedItem?.title}</span>
           </div>
 
