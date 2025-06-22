@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import UsedTable from '../../../Shared/Components/UsedTable/UsedTable';
-import toast from 'react-hot-toast';
-import { axiosInstance, USERLIST } from '../../../../Services/url';
-import Header from '../../../Shared/Components/Header/Header';
-import ActionsPopover from '../../../Shared/Components/ActionsPopover/ActionsPopOver';
-import { Modal } from 'react-bootstrap';
-import '../UsersList.css';
+import React, { useEffect, useState } from "react";
+import UsedTable from "../../../Shared/Components/UsedTable/UsedTable";
+import toast from "react-hot-toast";
+import { axiosInstance, USERLIST } from "../../../../Services/url";
+import Header from "../../../Shared/Components/Header/Header";
+import ActionsPopover from "../../../Shared/Components/ActionsPopover/ActionsPopOver";
+import { Modal } from "react-bootstrap";
+import "../UsersList.css";
 
 const UsersList: React.FC = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [userData, setUserData] = useState<any>({
     data: [],
     pageNumber: 1,
@@ -18,42 +19,42 @@ const UsersList: React.FC = () => {
   const [filters, setFilters] = useState({
     pageSize: 5,
     pageNumber: 1,
-    userName: '',
-    group: '',
+    userName: "",
+    group: "",
   });
 
   const [selectedUser, setSelectedUser] = useState<any>(null);
   const [showViewModal, setShowViewModal] = useState(false);
 
   const fetchUser = async (params: any) => {
+    setIsLoading(true);
     try {
-
       const queryParams = {
-      ...params,
-      groups: params.group ? [parseInt(params.group)] : undefined,
-    };
-    console.log("Query Params sent to API:", queryParams);
-
-      const response = await axiosInstance.get(USERLIST.GETALLUSERS, { params:queryParams });
+        ...params,
+        groups: params.group ? [parseInt(params.group)] : undefined,
+      };
+      const response = await axiosInstance.get(USERLIST.GETALLUSERS, {
+        params: queryParams,
+      });
       setUserData(response.data);
-
     } catch (error: any) {
-      toast.error(error.response?.data?.message || 'Failed to fetch users.');
+      toast.error(error.response?.data?.message || "Failed to fetch users.");
+    } finally {
+      setIsLoading(false); // ✅ هيك بيشتغل صح
     }
   };
 
-
-  const handleBlockUser = async (id:number)=>
-  {
-    try{
-        const response = await axiosInstance.put (USERLIST.BLOCKED_USER(id));
-         toast.success("User activation status toggled successfully");
-        fetchUser(filters); 
+  const handleBlockUser = async (id: number) => {
+    try {
+      const response = await axiosInstance.put(USERLIST.BLOCKED_USER(id));
+      toast.success("User activation status toggled successfully");
+      fetchUser(filters);
+    } catch (error: any) {
+      toast.error(
+        error.response?.data?.message || "Failed to toggle user status."
+      );
     }
-    catch (error: any) {
-      toast.error(error.response?.data?.message || 'Failed to toggle user status.');
-    }
-  }
+  };
 
   useEffect(() => {
     fetchUser(filters);
@@ -61,63 +62,58 @@ const UsersList: React.FC = () => {
 
   const columns = [
     {
-      key: 'userName',
-      label: 'UserName',
+      key: "userName",
+      label: "UserName",
       render: (row: any) => row.userName,
     },
     {
-      key: 'email',
-      label: 'Email',
+      key: "email",
+      label: "Email",
       render: (row: any) => row.email,
     },
     {
-      key: 'country',
-      label: 'Country',
+      key: "country",
+      label: "Country",
       render: (row: any) => row.country,
     },
     {
-      key: 'phoneNumber',
-      label: 'Phone Number',
+      key: "phoneNumber",
+      label: "Phone Number",
       render: (row: any) => row.phoneNumber,
     },
     {
-      key: 'isActivated',
-      label: 'Status',
+      key: "isActivated",
+      label: "Status",
       render: (row: any) => (
-        <span className={`badge ${row.isActivated ? 'bg-success' : 'bg-danger'}`}>
-          {row.isActivated ? 'Active' : 'Inactive'}
+        <span
+          className={`badge ${row.isActivated ? "bg-success" : "bg-danger"}`}
+        >
+          {row.isActivated ? "Active" : "Inactive"}
         </span>
       ),
     },
     {
-      key: 'creationDate',
-      label: 'Date Created',
+      key: "creationDate",
+      label: "Date Created",
       render: (row: any) =>
-        new Date(row.creationDate).toLocaleDateString('en-GB'),
+        new Date(row.creationDate).toLocaleDateString("en-GB"),
     },
     {
-      key: 'actions',
-      label: 'Actions',
+      key: "actions",
+      label: "Actions",
       render: (row: any) => (
-        <ActionsPopover 
-
-        onView={() => {
-        setSelectedUser(row);
-        setShowViewModal(true);
-      }}
-        
+        <ActionsPopover
+          onView={() => {
+            setSelectedUser(row);
+            setShowViewModal(true);
+          }}
           onBlock={() => handleBlockUser(row.id)}
           blockLabel={row.isActivated ? "Deactivate" : "Activate"}
-
           showView={true}
           showBlock={true}
           showEdit={false}
           showDelete={false}
-
-        
         />
-
-        
       ),
     },
   ];
@@ -141,43 +137,38 @@ const UsersList: React.FC = () => {
   };
 
   return (
+    <>
+      <Header
+        title="Users"
+        showAddButton={false}
+        item="Users"
+        path="new-Users"
+      />
 
-<>
-     <Header
-          title="Users"
-          showAddButton={false}
-          item="Users"
-          path="new-Users"
-        />
-
-
-<div className="mb-3 d-flex align-items-center gap-2 ms-5">
-  <label htmlFor="userGroup" className="form-label mb-0">
-    Filter by Group:
-  </label>
-  <select
-    id="userGroup"
-    className="form-select w-auto"
-    value={filters.group}
-    onChange={(e) => {
-      const value = e.target.value;
-      const newFilters = {
-        ...filters,
-        group: value,
-        pageNumber: 1,
-      };
-      setFilters(newFilters);
-      fetchUser(newFilters); 
-    }}
-  >
-    <option value="">All</option>
-    <option value="1">Manager</option>
-    <option value="2">Employee</option>
-  </select>
-</div>
-
-
-
+      <div className="mb-3 d-flex align-items-center gap-2 ms-5">
+        <label htmlFor="userGroup" className="form-label mb-0">
+          Filter by Group:
+        </label>
+        <select
+          id="userGroup"
+          className="form-select w-auto"
+          value={filters.group}
+          onChange={(e) => {
+            const value = e.target.value;
+            const newFilters = {
+              ...filters,
+              group: value,
+              pageNumber: 1,
+            };
+            setFilters(newFilters);
+            fetchUser(newFilters);
+          }}
+        >
+          <option value="">All</option>
+          <option value="1">Manager</option>
+          <option value="2">Employee</option>
+        </select>
+      </div>
 
       <Modal
         show={showViewModal}
@@ -213,15 +204,17 @@ const UsersList: React.FC = () => {
                   <span className="user-detail-label">Status:</span>
                   <span
                     className={`badge ${
-                      selectedUser.isActivated ? 'bg-success' : 'bg-danger'
+                      selectedUser.isActivated ? "bg-success" : "bg-danger"
                     }`}
                   >
-                    {selectedUser.isActivated ? 'Active' : 'Inactive'}
+                    {selectedUser.isActivated ? "Active" : "Inactive"}
                   </span>
                 </div>
                 <div className="mb-2">
                   <span className="user-detail-label">Date Created:</span>
-                  {new Date(selectedUser.creationDate).toLocaleDateString('en-GB')}
+                  {new Date(selectedUser.creationDate).toLocaleDateString(
+                    "en-GB"
+                  )}
                 </div>
               </div>
             </div>
@@ -229,25 +222,21 @@ const UsersList: React.FC = () => {
         </Modal.Body>
       </Modal>
 
-
       <UsedTable
-      columns={columns}
-      data={{
-        data: userData.data || [],
-        totalNumberOfPages: userData.totalNumberOfPages,
-        totalNumberOfRecords: userData.totalNumberOfRecords,
-        pageNumber: userData.pageNumber,
-        pageSize: userData.pageSize,
-      }}
-      onSearch={handleSearch}
-      onPageChange={handlePageChange}
-      onPageSizeChange={handlePageSizeChange}
-    />
-
-</>
-
-
-
+        columns={columns}
+        data={{
+          data: userData.data || [],
+          totalNumberOfPages: userData.totalNumberOfPages,
+          totalNumberOfRecords: userData.totalNumberOfRecords,
+          pageNumber: userData.pageNumber,
+          pageSize: userData.pageSize,
+        }}
+        isLoading={isLoading}
+        onSearch={handleSearch}
+        onPageChange={handlePageChange}
+        onPageSizeChange={handlePageSizeChange}
+      />
+    </>
   );
 };
 

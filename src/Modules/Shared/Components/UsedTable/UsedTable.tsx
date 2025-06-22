@@ -2,6 +2,8 @@ import { Table } from "react-bootstrap";
 import TablePagination from "../TablePagination/TablePagination";
 import { useState } from "react";
 import SearchInput from "../SearchInput/SearchInput";
+import Loder from "../Loder/Loder";
+import NoData from "../NoData/NoData";
 
 interface Column {
   key: string;
@@ -12,7 +14,6 @@ interface Column {
 
 interface UsedTableProps {
   columns: Column[];
-
   data: {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     data: any[];
@@ -21,6 +22,7 @@ interface UsedTableProps {
     pageNumber: number;
     pageSize: number;
   };
+  isLoading?: boolean;
   searchPlaceholder?: string;
   pageSizeOptions?: number[];
   onSearch?: (value: string) => void;
@@ -31,7 +33,7 @@ interface UsedTableProps {
 const UsedTable = ({
   columns,
   data,
-
+  isLoading = false,
   onSearch,
   onPageChange,
   onPageSizeChange,
@@ -51,26 +53,40 @@ const UsedTable = ({
         value={searchValue}
         handleSearch={handleSearch}
       />
-      <div className="table-responsive">
-        <Table className="table-custom" striped>
-          <thead>
+
+      <Table className="table-custom" striped>
+        <thead>
+          <tr>
+            {columns.map((col) => (
+              <th key={col.key}>{col.label}</th>
+            ))}
+          </tr>
+        </thead>
+
+        <tbody>
+          {isLoading ? (
             <tr>
-              {columns.map((col) => (
-                <th key={col.key}>{col.label}</th>
-              ))}
+              <td colSpan={columns.length} className="text-center py-2">
+                <Loder />
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            {data?.data?.map((row, i) => (
+          ) : data?.data?.length > 0 ? (
+            data?.data?.map((row, i) => (
               <tr key={i}>
                 {columns.map((col) => (
                   <td key={col.key}>{col.render(row)}</td>
                 ))}
               </tr>
-            ))}
-          </tbody>
-        </Table>
-      </div>
+            ))
+          ) : (
+            <tr>
+              <td colSpan={columns.length}>
+                <NoData />
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </Table>
 
       <div className="d-flex justify-content-end mt-3">
         <TablePagination

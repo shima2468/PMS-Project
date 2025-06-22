@@ -7,7 +7,7 @@ interface HeaderProps {
   items?: string;
   item?: string;
   path?: string;
-    backPath?: string;
+  backPath?: string;
 }
 
 export default function Header({
@@ -17,7 +17,7 @@ export default function Header({
   items,
   item,
   path,
-  backPath
+  backPath,
 }: HeaderProps) {
   return (
     <div className="bg-white ps-5 p-4 my-2">
@@ -27,7 +27,9 @@ export default function Header({
             {showBackButton && (
               <>
                 <i className="fa-solid fa-angle-left"></i>
-                <Link to={backPath ?? "#"} className="btn navigate-btn">View All {items}</Link>
+                <Link to={backPath ?? "#"} className="btn navigate-btn">
+                  View All {items}
+                </Link>
               </>
             )}
           </div>

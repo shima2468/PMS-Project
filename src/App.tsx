@@ -75,7 +75,6 @@ function App() {
 
   return (
     <>
-    
       <AuthContextProvider>
         <RouterProvider router={routes} />
       </AuthContextProvider>

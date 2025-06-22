@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import Navbar from "../Navbar/Navbar";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import SideBar from "../SideBar/SideBar";
 
 const MasterLayout = () => {
   const [showSidebar, setShowSidebar] = useState(window.innerWidth >= 768);
   const toggleSidebar = () => setShowSidebar((prev) => !prev);
+ 
 
   useEffect(() => {
     const handleResize = () => {

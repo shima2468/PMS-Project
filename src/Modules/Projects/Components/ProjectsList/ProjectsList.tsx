@@ -82,7 +82,6 @@ const ProjectsList = () => {
     },
   ];
   const navigate = useNavigate();
-
   const [tableData, setTableData] = useState<Project[]>([]);
   const [totalPages, setTotalPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
@@ -96,6 +95,15 @@ const ProjectsList = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [viewModal, setViewModal] = useState(false);
 
+  interface Project {
+    id: string;
+    title: string;
+    status?: string;
+    usersNumber?: number;
+    usersTasks?: number;
+    creationDate: string;
+  }
+
   interface FetchProjectsResponse {
     data: Project[];
     totalNumberOfPages: number;
@@ -103,8 +111,8 @@ const ProjectsList = () => {
   }
 
   const fetchList = async (): Promise<void> => {
-    setIsLoading(true);
     try {
+      setIsLoading(true);
       const res = await axiosInstance.get<FetchProjectsResponse>(
         PROJECTS_URLS.GET_ALL_PROJECTS,
         {
@@ -116,9 +124,9 @@ const ProjectsList = () => {
         }
       );
       setTableData(res?.data?.data);
+      setIsLoading(false);
       setTotalPages(res?.data?.totalNumberOfPages);
       setTotalItems(res?.data?.totalNumberOfRecords);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       setError(error?.data?.message || "Failed to fetch your projects");
     } finally {
@@ -146,22 +154,6 @@ const ProjectsList = () => {
     fetchList();
   }, [page, pageSize, search]);
 
-  if (isLoading) {
-    return (
-      <div className="d-flex justify-content-center align-items-center vh-100">
-        <Audio
-          height="100"
-          width="100"
-          color="rgba(239, 155, 40, 1)"
-          ariaLabel="audio-loading"
-          wrapperStyle={{}}
-          wrapperClass="wrapper-class"
-          visible={true}
-        />
-      </div>
-    );
-  }
-
   return (
     <>
       <Header
@@ -179,6 +171,7 @@ const ProjectsList = () => {
           pageNumber: page,
           pageSize: pageSize,
         }}
+        isLoading={isLoading}
         onSearch={(value: string) => setSearch(value)}
         onPageChange={(newPage: number) => setPage(newPage)}
         onPageSizeChange={(newSize: number) => {
