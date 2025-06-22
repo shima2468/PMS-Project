@@ -6,8 +6,9 @@ import { axiosInstance, PROJECTS_URLS } from "../../../../Services/url";
 import DeleteConfirmation from "../../../Shared/Components/DeletConiformation/DeletConiformation";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { Audio } from "react-loader-spinner";
 
-const ProjectsList = () => {
+ const ProjectsList = () => {
   const columns = [
     {
       key: "title",
@@ -52,9 +53,9 @@ const ProjectsList = () => {
           onView={()=>{
             
           }}
-          onEdit={(id: string) => {
-            setProjectId(id);
-            navigate(`/:${id}`);
+          onEdit={() => {  
+          
+            navigate(`/dashboard/projects/:${row.id}`, {state: row});
           }}
           onDelete={() => {
             setSelectedItem(row);
@@ -77,10 +78,9 @@ const navigate = useNavigate();
   const [pageSize, setPageSize] = useState(10);
   const [search, setSearch] = useState("");
   const [error, setError] = useState({});
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [projectId, setProjectId] = useState("");
 
 interface Project {
   id: string;
@@ -98,21 +98,12 @@ interface FetchProjectsResponse {
 }
 
 
-const getProjectDetails = async (projectId: string): Promise<void> => {
-  try {
-    const res = await axiosInstance.get<Project>(
-      PROJECTS_URLS.GET_PROJECT_BY_ID(projectId)
-    );
-     console.log(res);
-     
-  } catch (error: any) {
-    console.log(error);
-  }
-};
 
-const fetchList = async (): Promise<void> => {
+
+const fetchList = async (): Promise<void> => { 
+     setIsLoading(true);
   try {
-    setLoading(true);
+
     const res = await axiosInstance.get<FetchProjectsResponse>(PROJECTS_URLS.GET_ALL_PROJECTS, {
       params: {
         pageNumber: page,
@@ -126,7 +117,7 @@ const fetchList = async (): Promise<void> => {
   } catch (error: any) {
     setError(error?.data?.message || "Failed to fetch your projects");
   } finally {
-    setLoading(false);
+    setIsLoading(false);
   }
 };
 
@@ -148,7 +139,24 @@ const handleDelete = async (): Promise<void> => {
 useEffect(() => {
   fetchList();
 }, [page, pageSize, search]);
+ 
 
+
+if (isLoading) {
+  return (
+    <div className="d-flex justify-content-center align-items-center vh-100">
+      <Audio
+        height="100"
+        width="100"
+        color="rgba(239, 155, 40, 1)"
+        ariaLabel="audio-loading"
+        wrapperStyle={{}}
+        wrapperClass="wrapper-class"
+        visible={true}
+      />
+    </div>
+  );
+}
 
 return (
   <>
@@ -172,7 +180,9 @@ return (
       onPageSizeChange={(newSize: number) => {
         setPageSize(newSize);
         setPage(1);
+        
       }}
+
     />
     <DeleteConfirmation
       show={showDeleteModal}

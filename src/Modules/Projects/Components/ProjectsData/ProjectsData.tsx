@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Header from "../../../Shared/Components/Header/Header";
 import { useForm } from "react-hook-form";
 import { requiredValidation } from "../../../../Services/Vaildition";
@@ -12,6 +12,13 @@ interface FormData {
 const ProjectsData = () => {
     const navigate = useNavigate();
   const { projectId } = useParams();
+  const location = useLocation();
+ const project = location.state;
+
+ 
+
+ 
+  
   const {
     handleSubmit,
     formState: { errors, isSubmitting },
@@ -40,28 +47,18 @@ const ProjectsData = () => {
       );
     }
   };
-//   useEffect(() => {
-//     if (projectId) {
-//       const getProjectDetails = async () => {
-//         try {
-//           const res = await axiosInstance.get(
-//             PROJECTS_URLS.GET_PROJECT_BY_ID(projectId)
-//           );
-//           const { data } = res;
-//           setValue("title", data.title);
-//           setValue("description", data.description);
-//         } catch (error: any) {
-//           console.log(error);
-//         }
-//       };
-//       getProjectDetails();
-//     }
-//   }, [projectId, setValue]);
+  useEffect(() => {
+    if (projectId) {
+          setValue("title", project.title);
+          setValue("description", project.description);
+        }
+      
+  }, [projectId, setValue, project]);
   return (
     <>
       <Header
         showBackButton={true}
-        title="Add a New Project"
+        title={`${projectId? "Update" : "Add A New"} Project`}
         items="Projects"
       />
       <div className="container-fluid form-background">

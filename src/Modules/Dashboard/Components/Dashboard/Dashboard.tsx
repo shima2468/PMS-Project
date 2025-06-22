@@ -59,7 +59,7 @@ const Dashboard = () => {
     },
   ],
 };
- 
+  
   
     return (
         <div className="container-fluid dashboard">
@@ -152,6 +152,6 @@ const Dashboard = () => {
               
         </div>
     );
-}
+};
 
 export default Dashboard;
