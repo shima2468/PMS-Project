@@ -61,6 +61,11 @@ import { Audio } from "react-loader-spinner";
             setSelectedItem(row);
             setShowDeleteModal(true);
           }}
+
+          showView={true}
+          showEdit={true}
+          showDelete={true}
+          showBlock={false}
         />
       ),
     },

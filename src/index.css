@@ -374,3 +374,9 @@ input:active {
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1030;
 }
+
+.sidebar-wrapper {
+  height: auto;
+  min-height: calc(100vh - 56px); 
+  background-color: #0e3a30;
+}

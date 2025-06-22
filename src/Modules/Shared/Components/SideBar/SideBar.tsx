@@ -17,7 +17,7 @@ const SideBar = ({ showSidebar, toggleSidebar }: SideBarProps) => {
   const activeClass = "active-sidebar-item";
 
   return (
-    <div className="position-sticky top-0 sidebar-cont text-white vh-100">
+    <div className="position-sticky top-0 vh-100 sidebar-cont text-white ">
       <div className="position-relative">
         <Sidebar collapsed={isCollapsable}>
           <Menu>

@@ -27,7 +27,7 @@ const LogIn: React.FC = () => {
   } = useForm<formInputs>();
 
   const onSubmit: SubmitHandler<formInputs> = async (data) => {
-    try {
+    try { 
       setLoading(true);
       const response = await axiosInstance.post(USERS_URLS.LOGIN, data);
       localStorage.setItem("token", response.data.token);
