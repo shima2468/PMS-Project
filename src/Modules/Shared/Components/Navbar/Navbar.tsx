@@ -5,7 +5,7 @@ import { AuthContext } from "../../../../Context/AuthContext";
 import type {UserProfile} from '../../../../interfaces/data';
 import toast from "react-hot-toast";
 import { axiosInstance, imgURL, USERLIST } from "../../../../Services/url";
-import { Link, Links } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 interface NavbarProps {
   showSidebar: boolean;

@@ -64,9 +64,10 @@ const UsersList: React.FC = () => {
   const handleBlockUser = async (id: number) => {
     try {
       const response = await axiosInstance.put(USERLIST.BLOCKED_USER(id));
+
      
       
-      toast.success("User activation status toggled successfully");
+      toast.success(response?.data?.message||"User activation status toggled successfully");
       fetchUser(filters);
     } catch (error: any) {
       toast.error(
@@ -161,30 +162,7 @@ const UsersList: React.FC = () => {
         title="Users"
       />
 
-      {/* <div className="mb-3 d-flex align-items-center gap-2 ms-5">
-        <label htmlFor="userGroup" className="form-label mb-0">
-          Filter by Group:
-        </label>
-        <select
-          id="userGroup"
-          className="form-select w-auto"
-          value={filters.group}
-          onChange={(e) => {
-            const value = e.target.value;
-            const newFilters = {
-              ...filters,
-              group: value,
-              pageNumber: 1,
-            };
-            setFilters(newFilters);
-            fetchUser(newFilters);
-          }}
-        >
-          <option value="">All</option>
-          <option value="1">Manager</option>
-          <option value="2">Employee</option>
-        </select>
-      </div> */}
+   
 
       <Modal
         show={showViewModal}

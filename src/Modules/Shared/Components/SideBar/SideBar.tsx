@@ -1,13 +1,11 @@
 import { useState } from "react";
 import { Menu, MenuItem, Sidebar } from "react-pro-sidebar";
 import { Link, useLocation } from "react-router-dom";
-
-interface SideBarProps {
+ interface SideBarProps {
   showSidebar: boolean;
   toggleSidebar: () => void;
 }
-
-const SideBar = ({ showSidebar, toggleSidebar }: SideBarProps) => {
+const SideBar: React.FC<SideBarProps> = ({ showSidebar, toggleSidebar }) => {
   const [isCollapsable, setIsCollapsable] = useState(false);
   const location = useLocation();
 

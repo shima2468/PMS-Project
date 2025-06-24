@@ -94,7 +94,7 @@ const TasksList = () => {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [search, setSearch] = useState("");
-  const [error, setError] = useState({});
+  const [error, setError] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedItem, setSelectedItem] = useState<Task | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -139,7 +139,9 @@ const TasksList = () => {
       setTotalItems(response?.data?.totalNumberOfRecords);
         
        } catch (error) {
-         setError(error?.data?.message || "Failed to get your Tasks");
+         setError(
+           (error as any)?.response?.data?.message || (error as any)?.message || "Failed to get your Tasks"
+         );
         
        }finally{
         setIsLoading(false)

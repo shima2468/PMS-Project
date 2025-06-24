@@ -93,7 +93,7 @@ const ProjectsList = () => {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [search, setSearch] = useState("");
-  const [error, setError] = useState({});
+  const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedItem, setSelectedItem] = useState<Project | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -131,7 +131,7 @@ const ProjectsList = () => {
       setTotalPages(res?.data?.totalNumberOfPages);
       setTotalItems(res?.data?.totalNumberOfRecords);
     } catch (error: any) {
-      setError(error?.data?.message || "Failed to fetch your projects");
+      setError(error?.data?.message || "Failed to fetch projects");
     } finally {
       setIsLoading(false);
     }
