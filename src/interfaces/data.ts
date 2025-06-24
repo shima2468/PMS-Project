@@ -13,3 +13,11 @@ export interface UserProfile {
   };
   creationDate: string;
 }
+
+
+export interface TaskData {
+  title : string,
+  description : string , 
+  employeeId : number , 
+  projectId :number 
+}
