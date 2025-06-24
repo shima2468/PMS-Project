@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import Logo from "../../../../assets/images/Logo.png";
 import notification from "../../../../assets/images/Notification 1.png";
-// import userImg from "../../../../assets/images/UserImg.png";
 import { AuthContext } from "../../../../Context/AuthContext";
 import type {UserProfile} from '../../../../interfaces/data';
 import toast from "react-hot-toast";
 import { axiosInstance, imgURL, USERLIST } from "../../../../Services/url";
+import { Link, Links } from "react-router-dom";
 
 interface NavbarProps {
   showSidebar: boolean;
@@ -72,7 +72,33 @@ useEffect(()=>{
                 <h6 className="mb-0 fw-semibold small">{auth?.loginData?.userName}</h6>
                 <p className="mb-0 text-muted small">{auth?.loginData?.userEmail}</p>
               </div>
-              <i className="fa-solid fa-angle-down text-secondary small"></i>
+              
+              <div className="dropdown">
+                <i className="fa-solid fa-angle-down text-secondary small"
+                 role="button"
+                id="userDropdown"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"> 
+                </i>
+
+<ul className="dropdown-menu dropdown-menu-end mt-2 shadow-sm" aria-labelledby="userDropdown">
+  <li>
+    <Link className="dropdown-item d-flex align-items-center gap-2" to="/dashboard/profile">
+      <i className="fa-regular fa-user"></i>
+      Profile
+    </Link>
+  </li>
+  <li>
+    <Link className="dropdown-item d-flex align-items-center gap-2 text-danger" to="/dashboard/logOut">
+      <i className="fa-solid fa-right-from-bracket"></i>
+      Log Out
+    </Link>
+  </li>
+</ul>
+
+
+              </div>
+
             </li>
           </ul>
         </div>
