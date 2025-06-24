@@ -1,5 +1,6 @@
 import axios from "axios";
 const baseURL = "https://upskilling-egypt.com:3003/api/v1";
+export const imgURL = "https://upskilling-egypt.com:3003";
 
 export const axiosInstance = axios.create({
   baseURL,
@@ -46,7 +47,8 @@ export const USERLIST =
 {
   GETALLUSERS : `/Users/`,
   BLOCKED_USER: (id: number) => `/Users/${id}` ,
-  Current_USER : `/Users/currentUser` , 
+  Current_USER : `/Users/currentUser` ,
+  GET_USER : (id : number) => `/Users/${id}`,
 }
 // *******************Tasks**************************
 export const TASKS_URLS ={
