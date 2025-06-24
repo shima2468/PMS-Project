@@ -6,61 +6,66 @@ import { axiosInstance, PROJECTS_URLS } from "../../../../Services/url";
 import DeleteConfirmation from "../../../Shared/Components/DeletConiformation/DeletConiformation";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { Audio } from "react-loader-spinner";
+
 import { Modal } from "react-bootstrap";
 
-interface Project {
+
+const ProjectsList = () => {
+  interface Project {
   id: string;
   title: string;
   status?: string;
   usersNumber?: number;
   usersTasks?: number;
-  creationDate: number;
+  creationDate: string;
   manager?: {
     userName: string;
   };
 }
-const ProjectsList = () => {
-  const columns = [
+      interface Column<T> {
+        key: string;
+        label: string;
+        render: (row: T) => React.ReactNode;
+    }
+  const columns: Column<Project>[] = [
     {
       key: "title",
       label: "Title",
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      render: (row: any) => row.title,
+      render: (row: Project) => row.title,
     },
     {
       key: "status",
       label: "Status",
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      render: (row: any) =>
+      
+      render: (row: Project) =>
         row?.status || <span className="text-muted">N/A</span>,
     },
     {
       key: "usersNumber",
       label: "Num Users",
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      render: (row: any) =>
+      
+      render: (row: Project) =>
         row?.usersNumber || <span className="text-muted">N/A</span>,
     },
     {
       key: "usersTasks",
       label: "Num Tasks",
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      render: (row: any) =>
+      
+      render: (row: Project) =>
         row?.usersTasks || <span className="text-muted">N/A</span>,
     },
     {
       key: "creationDate",
       label: "Date Created",
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      render: (row: any) =>
+      
+      render: (row: Project) =>
         new Date(row.creationDate).toLocaleDateString("en-GB"),
     },
     {
       key: "actions",
       label: "Actions",
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      render: (row: any) => (
+      
+      render: (row: Project) => (
         <ActionsPopover
           onView={() => {
             setSelectedItem(row);
@@ -89,7 +94,6 @@ const ProjectsList = () => {
   const [pageSize, setPageSize] = useState(10);
   const [search, setSearch] = useState("");
   const [error, setError] = useState({});
-  console.log(error);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedItem, setSelectedItem] = useState<Project | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -124,7 +128,6 @@ const ProjectsList = () => {
         }
       );
       setTableData(res?.data?.data);
-      setIsLoading(false);
       setTotalPages(res?.data?.totalNumberOfPages);
       setTotalItems(res?.data?.totalNumberOfRecords);
     } catch (error: any) {
@@ -135,9 +138,11 @@ const ProjectsList = () => {
   };
 
   const handleDelete = async (): Promise<void> => {
+    console.log(selectedItem);
+    
     try {
       if (!selectedItem?.id) return;
-
+        
       await axiosInstance.delete(PROJECTS_URLS.DELETE_PROJECT(selectedItem.id));
       toast.success("Project deleted successfully");
       setShowDeleteModal(false);
@@ -187,10 +192,12 @@ const ProjectsList = () => {
       />
       {console.log("first", selectedItem)}
       <Modal show={viewModal} onHide={() => setViewModal(false)} centered>
-        <Modal.Header className="text-secondary" closeButton>
+        <Modal.Header className=" modal-header" closeButton>
           <Modal.Title>Project Details</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          <div className="p-3">
+              <div className="details-container">
           <div className="d-flex">
             <p className="title-view fw-bold">Project Name : </p>
             <span className="mx-2">{selectedItem?.title}</span>
@@ -209,6 +216,8 @@ const ProjectsList = () => {
                   )
                 : "N/A"}
             </span>
+            </div>
+            </div>
           </div>
         </Modal.Body>
       </Modal>

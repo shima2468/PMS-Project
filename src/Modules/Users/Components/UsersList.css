@@ -1,11 +1,11 @@
 /* UserViewModal.css */
 
-.user-modal-header {
+.modal-header {
   background-color: #315951E5;
   color: #fff;
 }
 
-.user-details-container {
+.details-container {
   background-color: #f9f9f9;
   border: 1px solid #ddd;
   border-radius: 10px;

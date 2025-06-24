@@ -23,10 +23,27 @@ const UsersList: React.FC = () => {
     group: "",
   });
 
-  const [selectedUser, setSelectedUser] = useState<any>(null);
+  interface User {
+    id: number;
+    userName: string;
+    email: string;
+    country: string;
+    phoneNumber: string;
+    isActivated: boolean;
+    creationDate: string;
+  }
+
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [showViewModal, setShowViewModal] = useState(false);
 
-  const fetchUser = async (params: any) => {
+  type UserFilters = {
+    pageSize: number;
+    pageNumber: number;
+    userName: string;
+    group: string;
+  };
+
+  const fetchUser = async (params: UserFilters) => {
     setIsLoading(true);
     try {
       const queryParams = {
@@ -40,13 +57,15 @@ const UsersList: React.FC = () => {
     } catch (error: any) {
       toast.error(error.response?.data?.message || "Failed to fetch users.");
     } finally {
-      setIsLoading(false); // ✅ هيك بيشتغل صح
+      setIsLoading(false); 
     }
   };
 
   const handleBlockUser = async (id: number) => {
     try {
       const response = await axiosInstance.put(USERLIST.BLOCKED_USER(id));
+     
+      
       toast.success("User activation status toggled successfully");
       fetchUser(filters);
     } catch (error: any) {
@@ -64,27 +83,27 @@ const UsersList: React.FC = () => {
     {
       key: "userName",
       label: "UserName",
-      render: (row: any) => row.userName,
+      render: (row: User) => row.userName,
     },
     {
       key: "email",
       label: "Email",
-      render: (row: any) => row.email,
+      render: (row: User) => row.email,
     },
     {
       key: "country",
       label: "Country",
-      render: (row: any) => row.country,
+      render: (row: User) => row.country,
     },
     {
       key: "phoneNumber",
       label: "Phone Number",
-      render: (row: any) => row.phoneNumber,
+      render: (row: User) => row.phoneNumber,
     },
     {
       key: "isActivated",
       label: "Status",
-      render: (row: any) => (
+      render: (row: User) => (
         <span
           className={`badge ${row.isActivated ? "bg-success" : "bg-danger"}`}
         >
@@ -95,13 +114,13 @@ const UsersList: React.FC = () => {
     {
       key: "creationDate",
       label: "Date Created",
-      render: (row: any) =>
+      render: (row: User) =>
         new Date(row.creationDate).toLocaleDateString("en-GB"),
     },
     {
       key: "actions",
       label: "Actions",
-      render: (row: any) => (
+      render: (row: User) => (
         <ActionsPopover
           onView={() => {
             setSelectedUser(row);
@@ -140,12 +159,9 @@ const UsersList: React.FC = () => {
     <>
       <Header
         title="Users"
-        showAddButton={false}
-        item="Users"
-        path="new-Users"
       />
 
-      <div className="mb-3 d-flex align-items-center gap-2 ms-5">
+      {/* <div className="mb-3 d-flex align-items-center gap-2 ms-5">
         <label htmlFor="userGroup" className="form-label mb-0">
           Filter by Group:
         </label>
@@ -168,20 +184,20 @@ const UsersList: React.FC = () => {
           <option value="1">Manager</option>
           <option value="2">Employee</option>
         </select>
-      </div>
+      </div> */}
 
       <Modal
         show={showViewModal}
         onHide={() => setShowViewModal(false)}
         centered
       >
-        <Modal.Header closeButton className="user-modal-header">
+        <Modal.Header closeButton className="modal-header">
           <Modal.Title>User Details</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {selectedUser && (
             <div className="p-3">
-              <div className="user-details-container">
+              <div className="details-container">
                 <h5 className="user-details-title">User Information</h5>
 
                 <div className="mb-2">
@@ -235,6 +251,18 @@ const UsersList: React.FC = () => {
         onSearch={handleSearch}
         onPageChange={handlePageChange}
         onPageSizeChange={handlePageSizeChange}
+         showFilterSelect={true}
+  filterLabel="Filter by Group"
+  filterValue={filters.group}
+  filterOptions={[
+    { value: "", label: "All" },
+    { value: "1", label: "Manager" },
+    { value: "2", label: "Employee" },
+  ]}
+  onFilterChange={value => {
+    setFilters({ ...filters, group: value });
+    fetchUser({ ...filters, group: value });
+  }}
       />
     </>
   );
