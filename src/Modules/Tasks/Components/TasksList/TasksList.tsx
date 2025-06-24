@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import { axiosInstance, TASKS_URLS } from "../../../../Services/url";
 import Header from "../../../Shared/Components/Header/Header";
@@ -18,6 +19,7 @@ const TasksList = () => {
         id: string;
         title: string;
         status?: string;
+        description?: string;
         employee?: {
             userName: string;
         };
@@ -86,7 +88,7 @@ const TasksList = () => {
         },
     ];
 
-  const [tableData, setTableData] = useState<Project[]>([]);
+  const [tableData, setTableData] = useState<Task[]>([]);
   const [totalPages, setTotalPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
   const [page, setPage] = useState(1);
@@ -94,7 +96,7 @@ const TasksList = () => {
   const [search, setSearch] = useState("");
   const [error, setError] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedItem, setSelectedItem] = useState<Project | null>(null);
+  const [selectedItem, setSelectedItem] = useState<Task | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [viewModal, setViewModal] = useState(false);
   const [status, setStatus] = useState("");
