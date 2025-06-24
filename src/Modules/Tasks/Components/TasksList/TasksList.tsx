@@ -41,7 +41,16 @@ const TasksList = () => {
             key: "status",
             label: "Status",
             render: (row: Task) =>
-                row?.status,
+               (
+  <span className={
+  row.status === "ToDo" ? "status status-todo"
+  : row.status === "InProgress" ? "status status-inProgress"
+  : row.status === "Done" ? "status status-done"
+  : ""
+}>
+  {row.status}
+</span>
+  ),
         },
         {
             key: "userName",

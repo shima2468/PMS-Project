@@ -85,7 +85,7 @@ const UsedTable = ({
         )}
       </div>
 
-      <Table className="table-custom" striped>
+      <Table className="table-custom text-center" striped>
         <thead>
           <tr>
             {columns.map((col) => (
