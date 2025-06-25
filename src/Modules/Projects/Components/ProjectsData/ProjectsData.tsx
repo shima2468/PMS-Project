@@ -10,15 +10,11 @@ interface FormData {
   description: string;
 }
 const ProjectsData = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const { projectId } = useParams();
   const location = useLocation();
- const project = location.state;
+  const project = location.state;
 
- 
-
- 
-  
   const {
     handleSubmit,
     formState: { errors, isSubmitting },
@@ -49,16 +45,15 @@ const ProjectsData = () => {
   };
   useEffect(() => {
     if (projectId) {
-          setValue("title", project.title);
-          setValue("description", project.description);
-        }
-      
+      setValue("title", project.title);
+      setValue("description", project.description);
+    }
   }, [projectId, setValue, project]);
   return (
     <>
       <Header
         showBackButton={true}
-        title={`${projectId? "Update" : "Add A New"} Project`}
+        title={`${projectId ? "Update" : "Add A New"} Project`}
         items="Projects"
         backPath="/dashboard/projects"
       />
@@ -66,7 +61,7 @@ const ProjectsData = () => {
         <div className="row justify-content-center">
           <div className="col-md-9">
             <form
-              className="add-update-form bg-white p-5 rounded-4 mt-5"
+              className="add-update-form card-container p-5 rounded-4 mt-5"
               onSubmit={handleSubmit(onSubmit)}
             >
               <div
@@ -107,7 +102,9 @@ const ProjectsData = () => {
                 <button
                   type="button"
                   className="btn bg-transparent border-black rounded-5 px-3 py-2"
-                  onClick={()=>{navigate("/dashboard/projects")}}
+                  onClick={() => {
+                    navigate("/dashboard/projects");
+                  }}
                   disabled={isSubmitting}
                 >
                   Cancel

@@ -20,7 +20,7 @@ export default function Header({
   backPath,
 }: HeaderProps) {
   return (
-    <div className="bg-white ps-5 p-4 my-2">
+    <div className="card-container ps-5 p-4 my-2">
       <div className="d-flex justify-content-between align-items-center">
         <div>
           <div className="d-flex align-items-center">

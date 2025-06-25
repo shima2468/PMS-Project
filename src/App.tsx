@@ -23,6 +23,7 @@ import "./App.css";
 import DeletConiformation from "./Modules/Shared/Components/DeletConiformation/DeletConiformation";
 import ProtectedRoute from "./Modules/Shared/Components/ProtectedRoute/ProtectedRoute";
 import Profile from "./Modules/Profile/components/Profile";
+import { ThemeProvider } from "./Context/ThemeContext";
 
 function App() {
   const routes = createBrowserRouter([
@@ -52,7 +53,7 @@ function App() {
       children: [
         { index: true, element: <Dashboard /> },
         { path: "projects", element: <ProjectsList /> },
-        {path:"profile" , element:<Profile/>},
+        { path: "profile", element: <Profile /> },
         { path: "projects/new-project", element: <ProjectsData /> },
         { path: "projects/:projectId", element: <ProjectsData /> },
         { path: "tasks", element: <TasksList /> },
@@ -77,9 +78,11 @@ function App() {
 
   return (
     <>
-      <AuthContextProvider>
-        <RouterProvider router={routes} />
-      </AuthContextProvider>
+      <ThemeProvider>
+        <AuthContextProvider>
+          <RouterProvider router={routes} />
+        </AuthContextProvider>
+      </ThemeProvider>
     </>
   );
 }

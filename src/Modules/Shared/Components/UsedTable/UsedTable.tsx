@@ -62,7 +62,7 @@ const UsedTable = ({
   };
 
   return (
-    <div className="mx-4 my-3 bg-white table-container">
+    <div className="mx-4 my-3 table-container">
       <div className="d-flex justify-content-start align-items-center">
         <SearchInput
           placeholder="Search by title"
@@ -73,7 +73,7 @@ const UsedTable = ({
           <select
             className="form-select w-25 rounded-4 ms-3"
             value={filterValue}
-            onChange={e => onFilterChange(e.target.value)}
+            onChange={(e) => onFilterChange(e.target.value)}
           >
             <option value="">{filterLabel}</option>
             {filterOptions.map((option) => (
