@@ -53,6 +53,7 @@ export const USERLIST =
 // *******************Tasks**************************
 export const TASKS_URLS ={
   GET_TASKS_COUNT: `/Task/count`,
-  ADD_TASK : `/Task/`
+  ADD_TASK : `/Task/`,
+  UPDATE_TASK : (id:string) => `/Task/${id}`,
 }
 
