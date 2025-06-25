@@ -55,6 +55,7 @@ const UsedTable = ({
       />
 
       <Table className="table-custom" striped>
+        {/* { key: "name", label: "الاسم", render: ... } (col) */}
         <thead>
           <tr>
             {columns.map((col) => (

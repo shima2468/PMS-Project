@@ -50,7 +50,7 @@ function App() {
       ),
       children: [
         { index: true, element: <Dashboard /> },
-        { path: "projects", element: <ProjectsList /> },
+        { path: "projects/", element: <ProjectsList /> },
         { path: "projects/new-project", element: <ProjectsData /> },
         { path: "projects/:projectId", element: <ProjectsData /> },
         { path: "tasks", element: <TasksList /> },

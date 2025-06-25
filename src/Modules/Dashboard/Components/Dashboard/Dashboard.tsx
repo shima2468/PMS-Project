@@ -106,7 +106,7 @@ const Dashboard = () => {
             </div>
           </div>
 
-          {loginData?.userGroup !== "Employee" && (
+          {loginData?.userGroup !== "Employee" ? (
             <div className="col-12 col-lg-6">
               <div className="bg-light p-4 h-100">
                 <div className="sub-content small-text position-relative ps-2">
@@ -143,23 +143,29 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
+          ) : (
+            <div className="col-12 col-md-6 d-flex justify-content-center mb-4">
+              <div style={{ maxWidth: "300px", width: "100%" }}>
+                <Doughnut data={tasksData} />
+              </div>
+            </div>
           )}
         </div>
-
-        <div className="row mt-5 justify-content-center">
-          <div className="col-12 col-md-6 d-flex justify-content-center mb-4">
-            <div style={{ maxWidth: "300px", width: "100%" }}>
-              <Doughnut data={tasksData} />
+        {loginData?.userGroup !== "Employee" && (
+          <div className="row mt-5 justify-content-center">
+            <div className="col-12 col-md-6 d-flex justify-content-center mb-4">
+              <div style={{ maxWidth: "300px", width: "100%" }}>
+                <Doughnut data={tasksData} />
+              </div>
             </div>
-          </div>
-          {loginData?.userGroup !== "Employee" && (
+
             <div className="col-12 col-md-6 d-flex justify-content-center mb-4">
               <div style={{ maxWidth: "300px", width: "100%" }}>
                 <Doughnut data={usersData} />
               </div>
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );

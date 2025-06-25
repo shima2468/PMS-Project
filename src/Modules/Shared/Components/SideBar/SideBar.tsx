@@ -1,20 +1,18 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Menu, MenuItem, Sidebar } from "react-pro-sidebar";
 import { Link, useLocation } from "react-router-dom";
+import { AuthContext } from "../../../../Context/AuthContext";
 
-interface SideBarProps {
-  showSidebar: boolean;
-  toggleSidebar: () => void;
-}
-
-const SideBar = ({ showSidebar, toggleSidebar }: SideBarProps) => {
+const SideBar = () => {
   const [isCollapsable, setIsCollapsable] = useState(false);
   const location = useLocation();
-
+  const { loginData } = useContext(AuthContext)!;
+  console.log(loginData);
   const toggleCollapse = () => setIsCollapsable(!isCollapsable);
 
   const isActive = (path: string) => location.pathname === path;
   const activeClass = "active-sidebar-item";
+
 
   return (
     <div className="position-sticky top-0 vh-100 sidebar-cont text-white ">
@@ -41,14 +39,17 @@ const SideBar = ({ showSidebar, toggleSidebar }: SideBarProps) => {
             >
               Home
             </MenuItem>
-
-            <MenuItem
-              icon={<i className="fa-solid fa-user-group"></i>}
-              component={<Link to="/dashboard/users" />}
-              className={isActive("/dashboard/users") ? activeClass : ""}
-            >
-              Users
-            </MenuItem>
+            {loginData?.userGroup == "Manager" ? (
+              <MenuItem
+                icon={<i className="fa-solid fa-user-group"></i>}
+                component={<Link to="/dashboard/users" />}
+                className={isActive("/dashboard/users") ? activeClass : ""}
+              >
+                Users
+              </MenuItem>
+            ) : (
+              ""
+            )}
 
             <MenuItem
               icon={<i className="fa-solid fa-network-wired fa-sm"></i>}

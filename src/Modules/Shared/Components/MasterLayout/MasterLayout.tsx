@@ -28,10 +28,7 @@ const MasterLayout = () => {
         {/* Sidebar for md and up */}
         {showSidebar && window.innerWidth >= 768 && (
           <div className="sidebar-wrapper">
-            <SideBar
-              showSidebar={showSidebar}
-              toggleSidebar={toggleSidebar}
-            />
+            <SideBar />
           </div>
         )}
 
@@ -40,8 +37,6 @@ const MasterLayout = () => {
           <>
             <div className="sidebar-overlay-popup">
               <SideBar
-                showSidebar={showSidebar}
-                toggleSidebar={toggleSidebar}
               />
             </div>
             <div
