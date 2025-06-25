@@ -57,6 +57,7 @@ function App() {
         { path: "projects/:projectId", element: <ProjectsData /> },
         { path: "tasks", element: <TasksList /> },
         { path: "tasksData", element: <TasksData /> },
+        { path: "tasksData/:taskId", element: <TasksData /> },
         { path: "users", element: <UsersList /> },
         { path: "logOut", element: <LogOut /> },
         {

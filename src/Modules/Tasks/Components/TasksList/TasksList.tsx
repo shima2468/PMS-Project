@@ -7,8 +7,14 @@ import ActionsPopover from "../../../Shared/Components/ActionsPopover/ActionsPop
 import DeleteConfirmation from "../../../Shared/Components/DeletConiformation/DeletConiformation";
 import { Modal } from "react-bootstrap";
 import toast from "react-hot-toast";
+import { useLocation, useNavigate } from "react-router-dom";
+
+
 
 const TasksList = () => {
+
+   const navigate = useNavigate()
+
     interface Column<T> {
         key: string;
         label: string;
@@ -80,7 +86,7 @@ const TasksList = () => {
                         setViewModal(!viewModal);
                     }}
                     onEdit={() => {
-                       
+                       navigate(`/dashboard/tasksData/${row.id}`, { state: row });
                     }}
                     onDelete={() => {
                         setSelectedItem(row);
@@ -97,6 +103,7 @@ const TasksList = () => {
         },
     ];
 
+    const location = useLocation();
   const [tableData, setTableData] = useState<Task[]>([]);
   const [totalPages, setTotalPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
@@ -170,6 +177,9 @@ const TasksList = () => {
       toast.error(error);
     }
   };
+
+
+
     useEffect(() => {
         
     getTasks();
@@ -179,7 +189,9 @@ const TasksList = () => {
         <Header
          title="Tasks" 
          showAddButton={true}
-          item="Task"/>
+          item="Task"
+          path="/dashboard/tasksData"/>
+
             <UsedTable
              columns={columns} 
              data={{
