@@ -9,14 +9,13 @@ import { useNavigate } from "react-router-dom";
 import { Modal } from "react-bootstrap";
 import { AuthContext } from "../../../../Context/AuthContext";
 
-const ProjectsList = () => {
-  interface Project {
+interface Project {
   id: string;
   title: string;
   status?: string;
   usersNumber?: number;
   usersTasks?: number;
-  creationDate: string;
+  creationDate: number;
   manager?: {
     userName: string;
   };
@@ -50,28 +49,25 @@ const ProjectsList = () => {
     {
       key: "usersNumber",
       label: "Num Users",
-      
-      render: (row: Project) =>
+      render: (row: any) =>
         row?.usersNumber || <span className="text-muted">N/A</span>,
     },
     {
       key: "usersTasks",
       label: "Num Tasks",
-      render: (row: Project) =>
+      render: (row: any) =>
         row?.usersTasks || <span className="text-muted">N/A</span>,
     },
     {
       key: "creationDate",
       label: "Date Created",
-      
-      render: (row: Project) =>
+      render: (row: any) =>
         new Date(row.creationDate).toLocaleDateString("en-GB"),
     },
     {
       key: "actions",
       label: "Actions",
-      
-      render: (row: Project) => (
+      render: (row: any) => (
         <ActionsPopover
           onView={() => {
             setSelectedItem(row);
@@ -92,7 +88,7 @@ const ProjectsList = () => {
       ),
     },
   ];
-  
+
   const columnsEmployee = [
     { key: "title", label: "Title", render: (row: any) => row.title },
     {
@@ -147,11 +143,11 @@ const ProjectsList = () => {
           },
         }
       );
-      setTableData(res?.data?.data);
-      setTotalPages(res?.data?.totalNumberOfPages);
-      setTotalItems(res?.data?.totalNumberOfRecords);
+      setTableData(res.data.data);
+      setTotalPages(res.data.totalNumberOfPages);
+      setTotalItems(res.data.totalNumberOfRecords);
     } catch (error: any) {
-      setError(error?.data?.message || "Failed to fetch projects");
+      setError(error?.data?.message || "Failed to fetch your projects");
     } finally {
       setIsLoading(false);
     }
@@ -181,11 +177,9 @@ const ProjectsList = () => {
   };
 
   const handleDelete = async (): Promise<void> => {
-    console.log(selectedItem);
-    
     try {
       if (!selectedItem?.id) return;
-        
+
       await axiosInstance.delete(PROJECTS_URLS.DELETE_PROJECT(selectedItem.id));
       toast.success("Project deleted successfully");
       setShowDeleteModal(false);
@@ -239,12 +233,10 @@ const ProjectsList = () => {
         itemName={selectedItem?.title || "this item"}
       />
       <Modal show={viewModal} onHide={() => setViewModal(false)} centered>
-        <Modal.Header className=" modal-header" closeButton>
+        <Modal.Header className="text-secondary" closeButton>
           <Modal.Title>Project Details</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div className="p-3">
-              <div className="details-container">
           <div className="d-flex">
             <p className="title-view fw-bold">Project Name: </p>
             <span className="mx-2">{selectedItem?.title}</span>
@@ -253,23 +245,10 @@ const ProjectsList = () => {
             <p className="title-view fw-bold">Manager: </p>
             <span className="mx-2">{selectedItem?.manager?.userName}</span>
           </div>
-          <div className="d-flex">
-            <p className="title-view fw-bold">Creation Date : </p>
-            <span className="mx-2">
-              {selectedItem?.creationDate
-                ? new Date(selectedItem.creationDate).toLocaleDateString(
-                    "en-GB"
-                  )
-                : "N/A"}
-            </span>
-            </div>
-            </div>
-          </div>
         </Modal.Body>
       </Modal>
     </>
   );
 };
-}
 
 export default ProjectsList;
