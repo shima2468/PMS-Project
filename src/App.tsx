@@ -22,6 +22,9 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./App.css";
 import DeletConiformation from "./Modules/Shared/Components/DeletConiformation/DeletConiformation";
 import ProtectedRoute from "./Modules/Shared/Components/ProtectedRoute/ProtectedRoute";
+import TasksCard from "./Modules/Tasks/Components/TasksCard/TasksCard";
+import TasksEmloyee from "./Modules/Tasks/TasksEmployee/TasksEmployee";
+import TasksEmployee from "./Modules/Tasks/TasksEmployee/TasksEmployee";
 
 function App() {
   const routes = createBrowserRouter([
@@ -54,6 +57,7 @@ function App() {
         { path: "projects/new-project", element: <ProjectsData /> },
         { path: "projects/:projectId", element: <ProjectsData /> },
         { path: "tasks", element: <TasksList /> },
+        { path: "tasksEmployee", element: <TasksEmployee /> },
         { path: "tasksData", element: <TasksData /> },
         { path: "users", element: <UsersList /> },
         { path: "logOut", element: <LogOut /> },
