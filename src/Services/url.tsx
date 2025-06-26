@@ -33,7 +33,7 @@ export const USERS_URLS = {
 };
 // ****************** PROJECTS **********************
 export const PROJECTS_URLS = {
-  GET_ALL_PROJECTS_MANGER: `/Project/manger`,
+  GET_ALL_PROJECTS_MANGER: `/Project/manager`,
   GET_ALL_PROJECTS_EMPLOYEE: `/Project/employee`,
   GET_ALL_PROJECTS: `/Project`,
   GET_PROJECT_BY_ID: (id: string) => `/Project/${id}`,
@@ -54,5 +54,11 @@ export const USERLIST =
 // ******************* Tasks **************************
 export const TASKS_URLS ={
   GET_TASKS_COUNT: `/Task/count`,
+  GET_ALL_TASKS_EMPLOYEE: `/Task`,
+  GET_ALL_TASKS_MANGER: `/Task/manager`,
+  GET_TASK_BY_ID:(id: string)=> `/Task/${id}`,
+  DELETE_TASK:(id: string)=>`/Task/${id}`,
+  ADD_TASK:`/Task`,
+  UPDATE_TASK:(id: string)=>`/Task/${id}`
 }
 

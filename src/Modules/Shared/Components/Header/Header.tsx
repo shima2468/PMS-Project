@@ -38,8 +38,8 @@ export default function Header({
           </div>
           <h1 className="header-title">{title}</h1>
         </div>
-        {showAddButton && path && loginData?.userGroup == "Manager" && (
-          <Link to={path} className="main-btn">
+        {showAddButton && (
+          <Link to={path ?? "#"} className="main-btn">
             <i className="fa-solid fa-plus me-2"></i>
             <span>Add New {item}</span>
           </Link>

@@ -5,6 +5,11 @@ import SearchInput from "../SearchInput/SearchInput";
 import Loder from "../Loder/Loder";
 import NoData from "../NoData/NoData";
 
+interface FilterOption {
+  value: string;
+  label: string;
+}
+
 interface Column {
   key: string;
   label: string;
@@ -28,6 +33,11 @@ interface UsedTableProps {
   onSearch?: (value: string) => void;
   onPageChange?: (page: number) => void;
   onPageSizeChange?: (size: number) => void;
+  showFilterSelect?: boolean;
+  filterLabel?: string;
+  filterValue?: string;
+  filterOptions?: FilterOption[];
+  onFilterChange?: (value: string) => void;
 }
 
 const UsedTable = ({
@@ -37,6 +47,11 @@ const UsedTable = ({
   onSearch,
   onPageChange,
   onPageSizeChange,
+  showFilterSelect = false,
+  filterLabel = "Filter",
+  filterValue = "",
+  filterOptions = [],
+  onFilterChange,
 }: UsedTableProps) => {
   const [searchValue, setSearchValue] = useState("");
 
@@ -48,14 +63,29 @@ const UsedTable = ({
 
   return (
     <div className="mx-4 my-3 bg-white table-container">
-      <SearchInput
-        placeholder="Search by title"
-        value={searchValue}
-        handleSearch={handleSearch}
-      />
+      <div className="d-flex justify-content-start align-items-center">
+        <SearchInput
+          placeholder="Search by title"
+          value={searchValue}
+          handleSearch={handleSearch}
+        />
+        {showFilterSelect && filterOptions.length > 0 && onFilterChange && (
+          <select
+            className="form-select w-25 rounded-4 ms-3"
+            value={filterValue}
+            onChange={e => onFilterChange(e.target.value)}
+          >
+            <option value="">{filterLabel}</option>
+            {filterOptions.map((option) => (
+              <option value={option.value} key={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        )}
+      </div>
 
-      <Table className="table-custom" striped>
-        {/* { key: "name", label: "الاسم", render: ... } (col) */}
+      <Table className="table-custom text-center" striped>
         <thead>
           <tr>
             {columns.map((col) => (
