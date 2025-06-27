@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 import { axiosInstance, PROJECTS_URLS, TASKS_URLS, USERLIST } from '../../../../Services/url';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import {Controller } from 'react-hook-form';
-import VirtualizedSelect from '../../../../Shared/Components/VirtualizedSelect';
+import VirtualizedSelect from '../../../Shared/Components/VirtualizedSelect/VirtualizedSelect';
 
 
 interface TaskData {
@@ -33,7 +33,7 @@ const TasksData: React.FC = () => {
   const task = location.state;
   const navigate = useNavigate();
 
-  const { register, setValue, handleSubmit, formState: { errors, isSubmitting } } = useForm<TaskData>({ mode: 'onChange' });
+  const { register,control, setValue, handleSubmit, formState: { errors, isSubmitting } } = useForm<TaskData>({ mode: 'onChange' });
 
   const fetchEmployees = async () => {
     try {
@@ -51,7 +51,12 @@ const TasksData: React.FC = () => {
 
   const fetchProjects = async () => {
     try {
-      const res = await axiosInstance.get(PROJECTS_URLS.GET_ALL_PROJECTS);
+      const res = await axiosInstance.get(PROJECTS_URLS.GET_ALL_PROJECTS ,{
+        params: {
+        pageSize: 1000,
+        pageNumber: 1
+      }
+      });
       setProjects(res.data.data);
     } catch (err) {
       toast.error('Failed to fetch projects');

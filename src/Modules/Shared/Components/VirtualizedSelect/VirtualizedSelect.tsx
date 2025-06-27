@@ -1,7 +1,7 @@
-// src/Shared/Components/VirtualizedSelect.tsx
 import React from 'react';
 import Select, { components } from 'react-select';
 import { FixedSizeList as List } from 'react-window';
+import type { ListChildComponentProps } from 'react-window';
 
 const height = 35;
 
@@ -19,7 +19,9 @@ const MenuList = (props: any) => {
         initialScrollOffset={initialOffset}
         width="100%"
       >
-        {({ index, style }) => <div style={style}>{children[index]}</div>}
+        {({ index, style }: ListChildComponentProps) => (
+          <div style={style}>{children[index]}</div>
+        )}
       </List>
     </components.MenuList>
   );
