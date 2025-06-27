@@ -1,7 +1,7 @@
-import React from 'react';
-import Select, { components } from 'react-select';
-import { FixedSizeList as List } from 'react-window';
-import type { ListChildComponentProps } from 'react-window';
+import React from "react";
+import Select, { components } from "react-select";
+import { FixedSizeList as List } from "react-window";
+import type { ListChildComponentProps } from "react-window";
 
 const height = 35;
 

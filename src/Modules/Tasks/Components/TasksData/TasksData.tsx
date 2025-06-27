@@ -14,8 +14,9 @@ import type {
   IProject,
   ITaskData,
 } from "../../../../interfaces/TasksInterface";
-import {Controller } from 'react-hook-form';
-import VirtualizedSelect from '../../../Shared/Components/VirtualizedSelect/VirtualizedSelect';
+
+import { Controller } from "react-hook-form";
+import VirtualizedSelect from "../../../Shared/Components/VirtualizedSelect/VirtualizedSelect";
 
 const TasksData: React.FC = () => {
   const [employees, setEmployees] = useState<IEmployee[]>([]);
@@ -26,16 +27,22 @@ const TasksData: React.FC = () => {
   const task = location.state;
   const navigate = useNavigate();
 
-  const { register,control, setValue, handleSubmit, formState: { errors, isSubmitting } } = useForm<TaskData>({ mode: 'onChange' });
+  const {
+    register,
+    control,
+    setValue,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<ITaskData>({ mode: "onChange" });
 
   const fetchEmployees = async () => {
     try {
       const res = await axiosInstance.get(USERLIST.GETALLUSERS, {
-      params: {
-        pageSize: 1000,
-        pageNumber: 1
-      }
-    });
+        params: {
+          pageSize: 1000,
+          pageNumber: 1,
+        },
+      });
       setEmployees(res.data.data);
     } catch (err) {
       toast.error("Failed to fetch employees");
@@ -44,11 +51,11 @@ const TasksData: React.FC = () => {
 
   const fetchProjects = async () => {
     try {
-      const res = await axiosInstance.get(PROJECTS_URLS.GET_ALL_PROJECTS ,{
+      const res = await axiosInstance.get(PROJECTS_URLS.GET_ALL_PROJECTS, {
         params: {
-        pageSize: 1000,
-        pageNumber: 1
-      }
+          pageSize: 1000,
+          pageNumber: 1,
+        },
       });
       setProjects(res.data.data);
     } catch (err) {
@@ -140,59 +147,76 @@ const TasksData: React.FC = () => {
 
               <div className="row">
                 <div className="col-md-6 mb-3">
-  <label>User</label>
-<Controller
-  name="employeeId"
-  control={control}
-  rules={{ required: 'Please select an employee' }}
-  render={({ field }) => (
-    <VirtualizedSelect
-      {...field}
-      options={employees.map(emp => ({
-        value: emp.id,
-        label: emp.userName
-      }))}
-      value={employees
-        .map(emp => ({ value: emp.id, label: emp.userName }))
-        .find(option => option.value === field.value)} 
-      onChange={(selected: any) => field.onChange(selected?.value)} 
-      placeholder="-- Select User --"
-      isSearchable
-    />
-  )}
-/>
+                  <label>User</label>
+                  <Controller
+                    name="employeeId"
+                    control={control}
+                    rules={{ required: "Please select an employee" }}
+                    render={({ field }) => (
+                      <VirtualizedSelect
+                        {...field}
+                        options={employees.map((emp) => ({
+                          value: emp.id,
+                          label: emp.userName,
+                        }))}
+                        value={employees
+                          .map((emp) => ({
+                            value: emp.id,
+                            label: emp.userName,
+                          }))
+                          .find((option) => option.value === field.value)}
+                        onChange={(selected: any) =>
+                          field.onChange(selected?.value)
+                        }
+                        placeholder="-- Select User --"
+                        isSearchable
+                      />
+                    )}
+                  />
 
-  {errors.employeeId && <small className="text-danger">{errors.employeeId.message}</small>}
-</div>
+                  {errors.employeeId && (
+                    <small className="text-danger">
+                      {errors.employeeId.message}
+                    </small>
+                  )}
+                </div>
 
-{!taskId && (
-  <div className="col-md-6 mb-3">
-    <label>Project</label>
-<Controller
-  name="projectId"
-  control={control}
-  rules={{ required: 'Please select a project' }}
-  render={({ field }) => (
-    <VirtualizedSelect
-      {...field}
-      options={projects.map(proj => ({
-        value: proj.id,
-        label: proj.title
-      }))}
-      value={projects
-        .map(proj => ({ value: proj.id, label: proj.title }))
-        .find(option => option.value === field.value)}
-      onChange={(selected: any) => field.onChange(selected?.value)}
-      placeholder="-- Select Project --"
-      isSearchable
-    />
-  )}
-/>
+                {!taskId && (
+                  <div className="col-md-6 mb-3">
+                    <label>Project</label>
+                    <Controller
+                      name="projectId"
+                      control={control}
+                      rules={{ required: "Please select a project" }}
+                      render={({ field }) => (
+                        <VirtualizedSelect
+                          {...field}
+                          options={projects.map((proj) => ({
+                            value: proj.id,
+                            label: proj.title,
+                          }))}
+                          value={projects
+                            .map((proj) => ({
+                              value: proj.id,
+                              label: proj.title,
+                            }))
+                            .find((option) => option.value === field.value)}
+                          onChange={(selected: any) =>
+                            field.onChange(selected?.value)
+                          }
+                          placeholder="-- Select Project --"
+                          isSearchable
+                        />
+                      )}
+                    />
 
-    {errors.projectId && <small className="text-danger">{errors.projectId.message}</small>}
-  </div>
-)}
-
+                    {errors.projectId && (
+                      <small className="text-danger">
+                        {errors.projectId.message}
+                      </small>
+                    )}
+                  </div>
+                )}
               </div>
 
               <div className="d-flex justify-content-between align-items-center">
