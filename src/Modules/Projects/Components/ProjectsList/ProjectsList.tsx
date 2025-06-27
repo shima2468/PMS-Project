@@ -232,6 +232,10 @@ const ProjectsList = () => {
         onConfirm={handleDelete}
         itemName={selectedItem?.title || "this item"}
       />
+<<<<<<< HEAD
+      
+=======
+>>>>>>> 6c4c97cd09340306a4df2cddf18fe41c37d3ab17
       <Modal show={viewModal} onHide={() => setViewModal(false)} centered>
         <Modal.Header className="text-secondary" closeButton>
           <Modal.Title>Project Details</Modal.Title>

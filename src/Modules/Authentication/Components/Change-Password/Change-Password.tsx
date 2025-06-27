@@ -29,12 +29,12 @@ const ChangePassword = () => {
   const onSubmit: SubmitHandler<formInputs> = async (data) => {
     try {
       const response = await axiosInstance.put(USERS_URLS.CHANGE_PASSWORD, {
-        oldPassword: data.oldPassword,
-        newPassword: data.newPassword,
-        confirmNewPassword: data.confirmNewPassword,
+        oldPassword: data?.oldPassword,
+        newPassword: data?.newPassword,
+        confirmNewPassword: data?.confirmNewPassword,
       });
 
-      toast.success(response.data.message || "Password changed successfully!");
+      toast.success(response?.data?.message || "Password changed successfully!");
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       toast.error(
@@ -44,16 +44,19 @@ const ChangePassword = () => {
     }
   };
 
+  const newPasswordValue = watch("newPassword");
+  const confirmNewPasswordValue = watch("confirmNewPassword");
+
   useEffect(() => {
-    if (watch("confirmNewPassword")) {
+    if (confirmNewPasswordValue) {
       trigger("newPassword");
     }
-  }, [watch("newPassword"), watch("confirmNewPassword")]);
+  }, [newPasswordValue, confirmNewPasswordValue, trigger, watch]);
 
   return (
     <div className="change-pass-container px-5 pb-5">
       <div className="heading">
-        <h2 className="form-title main-color">Change Password</h2>
+        <h1 className="form-title main-color">Change Password</h1>
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className="mt-5">
         <div className="mb-3 border-0 border-bottom old-password">
@@ -85,11 +88,11 @@ const ChangePassword = () => {
             </button>
           </div>
           {errors.oldPassword && (
-            <small className="text-danger">{errors.oldPassword.message}</small>
+            <small className="text-danger">{errors?.oldPassword?.message}</small>
           )}
         </div>
         <div className="mb-3 border-0 border-bottom new-password">
-          <label htmlFor="old-Password" className="d-block main-color">
+          <label htmlFor="New-Password" className="d-block main-color">
             New Password
           </label>
           <div className="d-flex justify-content-between align-items-center pb-3">
@@ -116,7 +119,7 @@ const ChangePassword = () => {
             </button>
           </div>
           {errors.newPassword && (
-            <small className="text-danger">{errors.newPassword.message}</small>
+            <small className="text-danger">{errors?.newPassword?.message}</small>
           )}
         </div>
         <div className="mb-3 border-0 border-bottom conformationNew-password">
@@ -157,7 +160,7 @@ const ChangePassword = () => {
           </div>
           {errors.confirmNewPassword && (
             <small className="text-danger">
-              {errors.confirmNewPassword.message}
+              {errors?.confirmNewPassword?.message}
             </small>
           )}
         </div>

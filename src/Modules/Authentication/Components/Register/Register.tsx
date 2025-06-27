@@ -9,15 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { axiosInstance, USERS_URLS } from "../../../../Services/url";
 import toast from "react-hot-toast";
 
-interface registerFormInputs {
-  userName: string;
-  email: string;
-  country: string;
-  phoneNumber: string;
-  password: string;
-  confirmPassword: string;
-  profileImage: FileList;
-}
+
 
 const Register = () => {
   const navigate = useNavigate();
@@ -77,7 +69,7 @@ const Register = () => {
   };
   return (
     <div className="register-container text-white mb-5">
-      <h2 className="main-color fw-bold form-title">Create New Account</h2>
+      <h1 className="main-color fw-bold form-title">Create New Account</h1>
       <div className="d-flex flex-column align-items-center justify-content-center ">
         <label htmlFor="avatar-upload">
           <img
@@ -105,8 +97,9 @@ const Register = () => {
           {/* Left Column */}
           <div className="col-md-6 px-5 d-flex flex-column gap-3">
             <div className="mb-1" style={{ minHeight: "90px" }}>
-              <label className="form-label main-color">User Name</label>
+              <label htmlFor="userName" className="form-label main-color">User Name</label>
               <input
+              id="userName"
                 type="text"
                 placeholder="Enter your name"
                 className="form-control custom-input"
@@ -118,8 +111,9 @@ const Register = () => {
             </div>
 
             <div className="mb-1" style={{ minHeight: "90px" }}>
-              <label className="form-label main-color">Country</label>
+              <label htmlFor="country" className="form-label main-color">Country</label>
               <input
+              id="country"
                 type="text"
                 placeholder="Enter your country"
                 className="form-control custom-input"
@@ -131,8 +125,9 @@ const Register = () => {
             </div>
 
             <div className="position-relative">
-              <label className="form-label main-color">Password</label>
+              <label htmlFor="Password" className="form-label main-color">Password</label>
               <input
+              id="Password"
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter your Password"
                 className="form-control custom-input"
@@ -153,8 +148,9 @@ const Register = () => {
           {/* Right Column */}
           <div className="col-md-6 px-5 d-flex flex-column gap-3">
             <div className="mb-1" style={{ minHeight: "90px" }}>
-              <label className="form-label main-color">E-mail</label>
+              <label htmlFor="email" className="form-label main-color">E-mail</label>
               <input
+              id="email"
                 type="email"
                 placeholder="Enter your E-mail"
                 className="form-control custom-input"
@@ -166,8 +162,9 @@ const Register = () => {
             </div>
 
             <div className="mb-1" style={{ minHeight: "90px" }}>
-              <label className="form-label main-color">Phone Number</label>
+              <label htmlFor="phoneNumber" className="form-label main-color">Phone Number</label>
               <input
+              id="phoneNumber"
                 type="text"
                 placeholder="Enter your phone number"
                 className="form-control custom-input"
@@ -181,8 +178,9 @@ const Register = () => {
             </div>
 
             <div className="position-relative">
-              <label className="form-label main-color">Confirm Password</label>
+              <label htmlFor="confirmPassword" className="form-label main-color">Confirm Password</label>
               <input
+              id="confirmPassword"
                 type={showConfirm ? "text" : "password"}
                 placeholder="Confirm New Password"
                 className="form-control custom-input"
