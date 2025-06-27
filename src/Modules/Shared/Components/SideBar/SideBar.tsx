@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { Menu, MenuItem, Sidebar } from "react-pro-sidebar";
-<<<<<<< HEAD
 import { Link, useLocation, useNavigate} from "react-router-dom";
+import { AuthContext } from "../../../../Context/AuthContext";
 import toast from 'react-hot-toast';
  interface SideBarProps {
   showSidebar: boolean;
@@ -9,16 +9,11 @@ import toast from 'react-hot-toast';
 }
 const SideBar: React.FC<SideBarProps> = ({ showSidebar, toggleSidebar }) => {
   const navigate=useNavigate();
-=======
-import { Link, useLocation } from "react-router-dom";
-import { AuthContext } from "../../../../Context/AuthContext";
-
-const SideBar = () => {
->>>>>>> 6c4c97cd09340306a4df2cddf18fe41c37d3ab17
+     
   const [isCollapsable, setIsCollapsable] = useState(false);
   const location = useLocation();
   const { loginData } = useContext(AuthContext)!;
-  console.log(loginData);
+
   const toggleCollapse = () => setIsCollapsable(!isCollapsable);
 
   const isActive = (path: string) => location.pathname === path;

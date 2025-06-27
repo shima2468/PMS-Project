@@ -138,9 +138,9 @@ const TasksList = () => {
         const response = await axiosInstance.get<FetchTasksResponse>(TASKS_URLS.GET_ALL_TASKS_MANGER,  {
           params: {
             pageNumber: page,
-            pageSize: pageSize,
+            pageSize,
             title: search,
-            status: status,
+            status,
           },
         })
         setTableData(response?.data?.data);
@@ -165,7 +165,7 @@ const TasksList = () => {
          })
      
       } catch (error:any) {
-        toast.error(error || "Failed to fetch tasks");
+        toast.error(error?.response?.data?.message || "Failed to fetch tasks");
         
       }
        
