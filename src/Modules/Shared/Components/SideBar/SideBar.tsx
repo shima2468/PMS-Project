@@ -57,14 +57,25 @@ const SideBar = () => {
             >
               Projects
             </MenuItem>
-
-            <MenuItem
-              icon={<i className="fa-solid fa-list fa-lg"></i>}
-              component={<Link to="/dashboard/tasks" />}
-              className={isActive("/dashboard/tasks") ? activeClass : ""}
-            >
-              Tasks
-            </MenuItem>
+            {loginData?.userGroup == "Manager" ? (
+              <MenuItem
+                icon={<i className="fa-solid fa-list fa-lg"></i>}
+                component={<Link to="/dashboard/tasks" />}
+                className={isActive("/dashboard/tasks") ? activeClass : ""}
+              >
+                Tasks
+              </MenuItem>
+            ) : (
+              <MenuItem
+                icon={<i className="fa-solid fa-list fa-lg"></i>}
+                component={<Link to="/dashboard/tasksEmployee" />}
+                className={
+                  isActive("/dashboard/tasksEmployee") ? activeClass : ""
+                }
+              >
+                Tasks
+              </MenuItem>
+            )}
 
             <MenuItem
               icon={<i className="fa-solid fa-unlock-keyhole"></i>}
