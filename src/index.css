@@ -24,6 +24,10 @@ body {
   padding: 0;
 }
 
+.main-Stroke {
+  border: 2px solid #315951e5;
+}
+
 .auth-container {
   background: #315951e5;
   min-height: 100vh;

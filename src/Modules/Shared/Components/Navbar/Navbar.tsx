@@ -16,9 +16,8 @@ interface NavbarProps {
 const Navbar = ({ showSidebar, toggleSidebar }: NavbarProps) => {
   const navigate = useNavigate();
   const auth = useContext(AuthContext);
-
-  const [currentUser, setCurrentUser] = useState<UserProfile | null>(null);
   const { theme, toggleTheme } = useTheme();
+  const [currentUser, setCurrentUser] = useState<UserProfile | null>(null);
 
   const get_current_user = async () => {
     try {
@@ -28,6 +27,7 @@ const Navbar = ({ showSidebar, toggleSidebar }: NavbarProps) => {
       toast.error(error.response?.data?.message || "Failed to fetch users.");
     }
   };
+
   const logout = () => {
     localStorage.clear();
     navigate("/login");
@@ -39,7 +39,7 @@ const Navbar = ({ showSidebar, toggleSidebar }: NavbarProps) => {
   }, []);
 
   return (
-    <nav className="navbar navbar-expand-md card-container px-3 py-2 shadow-sm">
+    <nav className="navbar navbar-expand-md bg-body shadow-sm px-3 py-2">
       <div className="container-fluid d-flex align-items-center justify-content-between">
         <button
           className="btn bg-main-color d-md-none me-2 rounded-2"
@@ -71,13 +71,21 @@ const Navbar = ({ showSidebar, toggleSidebar }: NavbarProps) => {
           id="navbarNav"
         >
           <ul className="navbar-nav align-items-center gap-3">
-            <button className="btn btn-sm" onClick={toggleTheme}>
-              {theme === "light" ? (
-                <i className="fas fa-moon text-dark"></i>
-              ) : (
-                <i className="fas fa-sun text-warning"></i>
-              )}
-            </button>
+            {/* زر تغيير الثيم */}
+            <li className="nav-item">
+              <button
+                className="btn btn-sm p-2 rounded-circle"
+                onClick={toggleTheme}
+              >
+                {theme === "light" ? (
+                  <i className="fas fa-moon text-dark"></i>
+                ) : (
+                  <i className="fas fa-sun text-warning"></i>
+                )}
+              </button>
+            </li>
+
+            {/* إشعارات */}
             <li className="nav-item">
               <img
                 src={notification}
@@ -86,7 +94,8 @@ const Navbar = ({ showSidebar, toggleSidebar }: NavbarProps) => {
               />
             </li>
 
-            <li className="nav-item d-flex flex-m-row align-items-center gap-2 border-start ps-3">
+            {/* البروفايل + سهم + قائمة منسدلة مميزة */}
+            <li className="nav-item d-flex align-items-center gap-2 border-start ps-3 position-relative">
               <img
                 src={
                   currentUser?.imagePath
@@ -94,21 +103,23 @@ const Navbar = ({ showSidebar, toggleSidebar }: NavbarProps) => {
                     : "https://via.placeholder.com/150"
                 }
                 alt="User"
-                className="rounded-circle"
-                style={{ width: "40px", height: "40px", objectFit: "cover" }}
+                className="rounded-circle border"
+                width={40}
+                height={40}
               />
-              <div className="lh-sm">
-                <h6 className="mb-0 fw-semibold small">
+              <div className="lh-sm d-none d-lg-block">
+                <h6 className="mb-0 fw-semibold small text-truncate">
                   {auth?.loginData?.userName}
                 </h6>
-                <p className="mb-0 text-muted small">
+                <p className="mb-0 text-muted small text-truncate">
                   {auth?.loginData?.userEmail}
                 </p>
               </div>
 
+              {/* السهم يفتح دروب داون مصمم */}
               <div className="dropdown">
                 <i
-                  className="fa-solid fa-angle-down text-secondary small"
+                  className="fa-solid fa-angle-down text-secondary small ms-1"
                   role="button"
                   id="userDropdown"
                   data-bs-toggle="dropdown"
@@ -116,25 +127,25 @@ const Navbar = ({ showSidebar, toggleSidebar }: NavbarProps) => {
                 ></i>
 
                 <ul
-                  className="dropdown-menu dropdown-menu-end mt-2 shadow-sm"
+                  className="dropdown-menu dropdown-menu-end shadow-lg mt-2 rounded-4 border-0"
                   aria-labelledby="userDropdown"
                 >
                   <li>
                     <Link
-                      className="dropdown-item d-flex align-items-center gap-2"
+                      className="dropdown-item d-flex align-items-center gap-2 fw-semibold text-secondary py-2 px-3 rounded-2 hover:bg-main-color-soft"
                       to="/dashboard/profile"
                     >
-                      <i className="fa-regular fa-user"></i>
-                      Profile
+                      <i className="fa-regular fa-user text-main-color"></i>
+                      <span>Profile</span>
                     </Link>
                   </li>
                   <li>
                     <button
-                      className="dropdown-item d-flex align-items-center gap-2 text-danger"
+                      className="dropdown-item d-flex align-items-center gap-2 text-danger fw-semibold py-2 px-3 rounded-2"
                       onClick={logout}
                     >
                       <i className="fa-solid fa-right-from-bracket"></i>
-                      Log Out
+                      <span>Log Out</span>
                     </button>
                   </li>
                 </ul>
