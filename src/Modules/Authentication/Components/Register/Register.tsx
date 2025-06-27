@@ -8,9 +8,8 @@ import {
 import { useNavigate } from "react-router-dom";
 import { axiosInstance, USERS_URLS } from "../../../../Services/url";
 import toast from "react-hot-toast";
-
-
-
+import type { registerFormInputs } from "../../../../interfaces/AuthInterface";
+import RegisterCss from "./Register.module.css";
 const Register = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
@@ -94,12 +93,13 @@ const Register = () => {
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="row g-4">
-          {/* Left Column */}
           <div className="col-md-6 px-5 d-flex flex-column gap-3">
-            <div className="mb-1" style={{ minHeight: "90px" }}>
-              <label htmlFor="userName" className="form-label main-color">User Name</label>
+            <div className={`${RegisterCss["RegisterCol"]}mb-1`}>
+              <label htmlFor="userName" className="form-label main-color">
+                User Name
+              </label>
               <input
-              id="userName"
+                id="userName"
                 type="text"
                 placeholder="Enter your name"
                 className="form-control custom-input"
@@ -110,10 +110,12 @@ const Register = () => {
               )}
             </div>
 
-            <div className="mb-1" style={{ minHeight: "90px" }}>
-              <label htmlFor="country" className="form-label main-color">Country</label>
+            <div className={`${RegisterCss["RegisterCol"]}mb-1`}>
+              <label htmlFor="country" className="form-label main-color">
+                Country
+              </label>
               <input
-              id="country"
+                id="country"
                 type="text"
                 placeholder="Enter your country"
                 className="form-control custom-input"
@@ -125,9 +127,11 @@ const Register = () => {
             </div>
 
             <div className="position-relative">
-              <label htmlFor="Password" className="form-label main-color">Password</label>
+              <label htmlFor="Password" className="form-label main-color">
+                Password
+              </label>
               <input
-              id="Password"
+                id="Password"
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter your Password"
                 className="form-control custom-input"
@@ -145,12 +149,13 @@ const Register = () => {
             )}
           </div>
 
-          {/* Right Column */}
           <div className="col-md-6 px-5 d-flex flex-column gap-3">
-            <div className="mb-1" style={{ minHeight: "90px" }}>
-              <label htmlFor="email" className="form-label main-color">E-mail</label>
+            <div className={`${RegisterCss["RegisterCol"]}mb-1`}>
+              <label htmlFor="email" className="form-label main-color">
+                E-mail
+              </label>
               <input
-              id="email"
+                id="email"
                 type="email"
                 placeholder="Enter your E-mail"
                 className="form-control custom-input"
@@ -161,11 +166,13 @@ const Register = () => {
               )}
             </div>
 
-            <div className="mb-1" style={{ minHeight: "90px" }}>
-              <label htmlFor="phoneNumber" className="form-label main-color">Phone Number</label>
+            <div className={`${RegisterCss["RegisterCol"]}mb-1`}>
+              <label htmlFor="phoneNumber" className="form-label main-color">
+                Phone Number
+              </label>
               <input
-              id="phoneNumber"
-                type="text"
+                id="phoneNumber"
+                type="tel"
                 placeholder="Enter your phone number"
                 className="form-control custom-input"
                 {...register("phoneNumber", requiredValidation)}
@@ -178,9 +185,14 @@ const Register = () => {
             </div>
 
             <div className="position-relative">
-              <label htmlFor="confirmPassword" className="form-label main-color">Confirm Password</label>
+              <label
+                htmlFor="confirmPassword"
+                className="form-label main-color"
+              >
+                Confirm Password
+              </label>
               <input
-              id="confirmPassword"
+                id="confirmPassword"
                 type={showConfirm ? "text" : "password"}
                 placeholder="Confirm New Password"
                 className="form-control custom-input"
@@ -203,7 +215,6 @@ const Register = () => {
             )}
           </div>
 
-          {/* Submit Button Full Width */}
           <div className="col-12 d-flex justify-content-center mt-5">
             <button
               type="submit"

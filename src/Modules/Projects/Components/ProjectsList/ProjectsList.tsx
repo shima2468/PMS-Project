@@ -1,31 +1,24 @@
 import { useContext, useEffect, useState } from "react";
-import ActionsPopover from "../../../Shared/Components/ActionsPopover/ActionsPopOver";
-import Header from "../../../Shared/Components/Header/Header";
-import UsedTable from "../../../Shared/Components/UsedTable/UsedTable";
-import { axiosInstance, PROJECTS_URLS } from "../../../../Services/url";
-import DeleteConfirmation from "../../../Shared/Components/DeletConiformation/DeletConiformation";
+import { Modal } from "react-bootstrap";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { Modal } from "react-bootstrap";
 import { AuthContext } from "../../../../Context/AuthContext";
-
-interface Project {
-  id: string;
-  title: string;
-  status?: string;
-  usersNumber?: number;
-  usersTasks?: number;
-  creationDate: number;
-  manager?: {
-    userName: string;
-  };
-}
+import type {
+  IFetchProjectsResponse,
+  IFetchProjectsResponseForEmployee,
+  IProjectList,
+} from "../../../../interfaces/ProjectsInterface";
+import { axiosInstance, PROJECTS_URLS } from "../../../../Services/url";
+import ActionsPopover from "../../../Shared/Components/ActionsPopover/ActionsPopOver";
+import DeleteConfirmation from "../../../Shared/Components/DeletConiformation/DeletConiformation";
+import Header from "../../../Shared/Components/Header/Header";
+import UsedTable from "../../../Shared/Components/UsedTable/UsedTable";
 
 const ProjectsList = () => {
   const navigate = useNavigate();
   const { loginData } = useContext(AuthContext)!;
 
-  const [tableData, setTableData] = useState<Project[]>([]);
+  const [tableData, setTableData] = useState<IProjectList[]>([]);
   const [tableDataEmployee, settableDataEmployee] = useState<any[]>([]);
   const [totalPages, setTotalPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
@@ -34,7 +27,7 @@ const ProjectsList = () => {
   const [search, setSearch] = useState("");
   const [error, setError] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedItem, setSelectedItem] = useState<Project | null>(null);
+  const [selectedItem, setSelectedItem] = useState<IProjectList | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [viewModal, setViewModal] = useState(false);
 
@@ -116,24 +109,10 @@ const ProjectsList = () => {
     },
   ];
 
-  interface FetchProjectsResponse {
-    data: Project[];
-    totalNumberOfPages: number;
-    totalNumberOfRecords: number;
-  }
-
-  interface FetchProjectsResponseForEmployee {
-    data: any[];
-    totalNumberOfPages: number;
-    totalNumberOfRecords: number;
-    pageNumber: number;
-    pageSize: number;
-  }
-
   const fetchList = async (): Promise<void> => {
     try {
       setIsLoading(true);
-      const res = await axiosInstance.get<FetchProjectsResponse>(
+      const res = await axiosInstance.get<IFetchProjectsResponse>(
         PROJECTS_URLS.GET_ALL_PROJECTS,
         {
           params: {
@@ -156,7 +135,7 @@ const ProjectsList = () => {
   const GetProjectsForEmployee = async (): Promise<void> => {
     try {
       setIsLoading(true);
-      const res = await axiosInstance.get<FetchProjectsResponseForEmployee>(
+      const res = await axiosInstance.get<IFetchProjectsResponseForEmployee>(
         PROJECTS_URLS.GET_PROJECTS_EMPLOYEE,
         {
           params: {
@@ -232,7 +211,7 @@ const ProjectsList = () => {
         onConfirm={handleDelete}
         itemName={selectedItem?.title || "this item"}
       />
-      
+
       <Modal show={viewModal} onHide={() => setViewModal(false)} centered>
         <Modal.Header className="text-secondary" closeButton>
           <Modal.Title>Project Details</Modal.Title>

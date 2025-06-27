@@ -1,7 +1,7 @@
-import React from "react";
-import TaskCard from "./TasksCard.module.css";
-import { axiosInstance, TASKS_URLS } from "../../../../Services/url";
 import { motion } from "framer-motion";
+import React from "react";
+import { axiosInstance, TASKS_URLS } from "../../../../Services/url";
+import TaskCard from "./TasksCard.module.css";
 
 interface IProps {
   title: TStatus;
@@ -31,7 +31,6 @@ const TasksCard = ({
         TASKS_URLS.Task_CHANGE_STATUS(id),
         { status }
       );
-      console.log(response);
     } catch (error) {
       console.error(error);
     }

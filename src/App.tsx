@@ -20,10 +20,10 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./App.css";
 import ProtectedRoute from "./Modules/Shared/Components/ProtectedRoute/ProtectedRoute";
 import TasksCard from "./Modules/Tasks/Components/TasksCard/TasksCard";
-import TasksEmloyee from "./Modules/Tasks/TasksEmployee/TasksEmployee";
-import TasksEmployee from "./Modules/Tasks/TasksEmployee/TasksEmployee";
+
 import Profile from "./Modules/Profile/components/Profile";
 import Login from "./Modules/Authentication/Components/LogIn/LogIn";
+import TasksEmployee from "./Modules/Tasks/Components/TasksEmployee/TasksEmployee";
 
 function App() {
   const routes = createBrowserRouter([
@@ -54,7 +54,7 @@ function App() {
         { index: true, element: <Dashboard /> },
         { path: "projects/", element: <ProjectsList /> },
         { path: "projects", element: <ProjectsList /> },
-        {path:"profile" , element:<Profile/>},
+        { path: "profile", element: <Profile /> },
         { path: "projects/new-project", element: <ProjectsData /> },
         { path: "projects/:projectId", element: <ProjectsData /> },
         { path: "tasks", element: <TasksList /> },

@@ -1,7 +1,7 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { Menu, MenuItem, Sidebar } from "react-pro-sidebar";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
 import { AuthContext } from "../../../../Context/AuthContext";
 
 interface SideBarProps {
@@ -10,13 +10,16 @@ interface SideBarProps {
 }
 
 const SideBar = () => {
-  const [isCollapsable, setIsCollapsable] = useState(false);
+  const [isCollapsable, setIsCollapsable] = useState(() => {
+    const saved = localStorage.getItem("isCollapsable");
+    return saved === "true";
+  });
+
+  const toggleCollapse = () => setIsCollapsable(!isCollapsable);
   const location = useLocation();
   const navigate = useNavigate();
   const { loginData } = useContext(AuthContext)!;
   console.log(loginData);
-  const toggleCollapse = () => setIsCollapsable(!isCollapsable);
-
   const isActive = (path: string) => location.pathname === path;
   const activeClass = "active-sidebar-item";
   const logout = () => {
@@ -24,6 +27,11 @@ const SideBar = () => {
     navigate("/login");
     toast.success("Logged out successfully!");
   };
+
+  useEffect(() => {
+    localStorage.setItem("isCollapsable", isCollapsable.toString());
+  }, [isCollapsable]);
+
   return (
     <div className="position-sticky top-0 vh-100 sidebar-cont text-white ">
       <div className="position-relative">

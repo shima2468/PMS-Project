@@ -6,12 +6,8 @@ import {
 } from "../../../../Services/Vaildition";
 import { axiosInstance, USERS_URLS } from "../../../../Services/url";
 import toast from "react-hot-toast";
+import type { IchangePassword } from "../../../../interfaces/AuthInterface";
 
-interface formInputs {
-  oldPassword: string;
-  newPassword: string;
-  confirmNewPassword: string;
-}
 const ChangePassword = () => {
   const [isOldPasswordVisible, setIsOldPasswordVisible] =
     useState<boolean>(false);
@@ -25,8 +21,8 @@ const ChangePassword = () => {
     formState: { errors, isSubmitting },
     watch,
     trigger,
-  } = useForm<formInputs>();
-  const onSubmit: SubmitHandler<formInputs> = async (data) => {
+  } = useForm<IchangePassword>();
+  const onSubmit: SubmitHandler<IchangePassword> = async (data) => {
     try {
       const response = await axiosInstance.put(USERS_URLS.CHANGE_PASSWORD, {
         oldPassword: data?.oldPassword,
@@ -34,8 +30,9 @@ const ChangePassword = () => {
         confirmNewPassword: data?.confirmNewPassword,
       });
 
-      toast.success(response?.data?.message || "Password changed successfully!");
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      toast.success(
+        response?.data?.message || "Password changed successfully!"
+      );
     } catch (error: any) {
       toast.error(
         error.response?.data?.message ||
@@ -88,7 +85,9 @@ const ChangePassword = () => {
             </button>
           </div>
           {errors.oldPassword && (
-            <small className="text-danger">{errors?.oldPassword?.message}</small>
+            <small className="text-danger">
+              {errors?.oldPassword?.message}
+            </small>
           )}
         </div>
         <div className="mb-3 border-0 border-bottom new-password">
@@ -119,7 +118,9 @@ const ChangePassword = () => {
             </button>
           </div>
           {errors.newPassword && (
-            <small className="text-danger">{errors?.newPassword?.message}</small>
+            <small className="text-danger">
+              {errors?.newPassword?.message}
+            </small>
           )}
         </div>
         <div className="mb-3 border-0 border-bottom conformationNew-password">

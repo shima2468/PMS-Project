@@ -1,23 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-import TasksCard from "../Components/TasksCard/TasksCard";
-import { axiosInstance, TASKS_URLS } from "../../../Services/url";
-import { AuthContext } from "../../../Context/AuthContext";
+import TasksCard from "../TasksCard/TasksCard";
+import { axiosInstance, TASKS_URLS } from "../../../../Services/url";
+import { AuthContext } from "../../../../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
-
-interface IUserTasks {
-  pageNumber: number;
-  pageSize: number;
-  data: TTask[];
-  totalNumberOfPages: number;
-  totalNumberOfRecords: number;
-}
-type TTask = {
-  id: number;
-  status: TStatus;
-  title: string;
-  description: string;
-};
-type TStatus = "ToDo" | "InProgress" | "Done";
+import type { IUserTasks, TTask } from "../../../../interfaces/TasksInterface";
 
 const TasksEmployee = () => {
   const [Tasks, setTasks] = useState<TTask[]>([]);

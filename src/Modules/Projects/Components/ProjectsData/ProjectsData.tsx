@@ -1,31 +1,25 @@
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import Header from "../../../Shared/Components/Header/Header";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { requiredValidation } from "../../../../Services/Vaildition";
 import { axiosInstance, PROJECTS_URLS } from "../../../../Services/url";
-import toast from "react-hot-toast";
-import { useEffect } from "react";
-interface FormData {
-  title: string;
-  description: string;
-}
+import type { IProjectData } from "../../../../interfaces/ProjectsInterface";
+import Header from "../../../Shared/Components/Header/Header";
+
 const ProjectsData = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const { projectId } = useParams();
   const location = useLocation();
- const project = location.state;
+  const project = location.state;
 
- 
-
- 
-  
   const {
     handleSubmit,
     formState: { errors, isSubmitting },
     register,
     setValue,
-  } = useForm<FormData>({ mode: "onChange" });
-  const onSubmit = async (data: FormData): Promise<void> => {
+  } = useForm<IProjectData>({ mode: "onChange" });
+  const onSubmit = async (data: IProjectData): Promise<void> => {
     try {
       const res = await axiosInstance[projectId ? "put" : "post"](
         projectId
@@ -49,16 +43,15 @@ const ProjectsData = () => {
   };
   useEffect(() => {
     if (projectId) {
-          setValue("title", project.title);
-          setValue("description", project.description);
-        }
-      
+      setValue("title", project.title);
+      setValue("description", project.description);
+    }
   }, [projectId, setValue, project]);
   return (
     <>
       <Header
         showBackButton={true}
-        title={`${projectId? "Update" : "Add A New"} Project`}
+        title={`${projectId ? "Update" : "Add A New"} Project`}
         items="Projects"
         backPath="/dashboard/projects"
       />
@@ -104,14 +97,16 @@ const ProjectsData = () => {
                 )}
               </div>
               <div className="d-flex justify-content-between align-items-center">
-                <button
+                <Link
+                  to={"/dashboard/projects"}
                   type="button"
                   className="btn bg-transparent border-black rounded-5 px-3 py-2"
-                  onClick={()=>{navigate("/dashboard/projects")}}
-                  disabled={isSubmitting}
+                  onClick={() => {
+                    navigate("/dashboard/projects");
+                  }}
                 >
                   Cancel
-                </button>
+                </Link>
                 <button
                   type="submit"
                   disabled={isSubmitting}
