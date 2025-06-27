@@ -195,6 +195,7 @@ input:active {
   -moz-border-radius: 16px;
   -ms-border-radius: 16px;
   -o-border-radius: 16px;
+  background-color: #fff;
 }
 
 .main-btn {
