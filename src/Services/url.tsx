@@ -40,6 +40,7 @@ export const PROJECTS_URLS = {
   ADD_PROJECT: `/Project`,
   UPDATE_PROJECT: (id: string) => `/Project/${id}`,
   DELETE_PROJECT: (id: string) => `/Project/${id}`,
+  GET_PROJECTS_EMPLOYEE:`/Project/employee`
 };
 
 // ****************** USERS LIST **********************
@@ -50,7 +51,7 @@ export const USERLIST =
   Current_USER : `/Users/currentUser` ,
   GET_USER : (id : number) => `/Users/${id}`,
 }
-// *******************Tasks**************************
+// ******************* Tasks **************************
 export const TASKS_URLS ={
   GET_TASKS_COUNT: `/Task/count`,
   GET_ALL_TASKS_EMPLOYEE: `/Task`,
