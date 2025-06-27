@@ -141,46 +141,54 @@ const TasksData: React.FC = () => {
               <div className="row">
                 <div className="col-md-6 mb-3">
   <label>User</label>
-  <Controller
-    name="employeeId"
-    control={control}
-    rules={{ required: 'Please select an employee' }}
-    render={({ field }) => (
-      <VirtualizedSelect
-        {...field}
-        options={employees.map(emp => ({
-          value: emp.id,
-          label: emp.userName
-        }))}
-        onChange={(selected: any) => field.onChange(selected?.value)}
-        placeholder="-- Select User --"
-        isSearchable={true} // ✅ بحث مفعّل
-      />
-    )}
-  />
+<Controller
+  name="employeeId"
+  control={control}
+  rules={{ required: 'Please select an employee' }}
+  render={({ field }) => (
+    <VirtualizedSelect
+      {...field}
+      options={employees.map(emp => ({
+        value: emp.id,
+        label: emp.userName
+      }))}
+      value={employees
+        .map(emp => ({ value: emp.id, label: emp.userName }))
+        .find(option => option.value === field.value)} 
+      onChange={(selected: any) => field.onChange(selected?.value)} 
+      placeholder="-- Select User --"
+      isSearchable
+    />
+  )}
+/>
+
   {errors.employeeId && <small className="text-danger">{errors.employeeId.message}</small>}
 </div>
 
 {!taskId && (
   <div className="col-md-6 mb-3">
     <label>Project</label>
-    <Controller
-      name="projectId"
-      control={control}
-      rules={{ required: 'Please select a project' }}
-      render={({ field }) => (
-        <VirtualizedSelect
-          {...field}
-          options={projects.map(proj => ({
-            value: proj.id,
-            label: proj.title
-          }))}
-          onChange={(selected: any) => field.onChange(selected?.value)}
-          placeholder="-- Select Project --"
-          isSearchable={true} 
-        />
-      )}
+<Controller
+  name="projectId"
+  control={control}
+  rules={{ required: 'Please select a project' }}
+  render={({ field }) => (
+    <VirtualizedSelect
+      {...field}
+      options={projects.map(proj => ({
+        value: proj.id,
+        label: proj.title
+      }))}
+      value={projects
+        .map(proj => ({ value: proj.id, label: proj.title }))
+        .find(option => option.value === field.value)}
+      onChange={(selected: any) => field.onChange(selected?.value)}
+      placeholder="-- Select Project --"
+      isSearchable
     />
+  )}
+/>
+
     {errors.projectId && <small className="text-danger">{errors.projectId.message}</small>}
   </div>
 )}
