@@ -5,7 +5,7 @@ import { AuthContext } from "../../../../Context/AuthContext";
 import type {UserProfile} from '../../../../interfaces/data';
 import toast from "react-hot-toast";
 import { axiosInstance, imgURL, USERLIST } from "../../../../Services/url";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface NavbarProps {
   showSidebar: boolean;
@@ -15,6 +15,7 @@ interface NavbarProps {
 
 
 const Navbar = ({ showSidebar, toggleSidebar }: NavbarProps) => {
+    const navigate=useNavigate();
   const auth = useContext(AuthContext);
 
 const [currentUser , setCurrentUser] = useState<UserProfile | null> (null);
@@ -32,7 +33,11 @@ const get_current_user = async()=>{
   }
 
 }
-
+const logout = () => {
+   localStorage.clear();
+    navigate("/login");
+    toast.success("Logged out successfully!");
+};
 useEffect(()=>{
   get_current_user()
 },[])
@@ -89,10 +94,10 @@ useEffect(()=>{
     </Link>
   </li>
   <li>
-    <Link className="dropdown-item d-flex align-items-center gap-2 text-danger" to="/dashboard/logOut">
+    <button className="dropdown-item d-flex align-items-center gap-2 text-danger" onClick={logout} >
       <i className="fa-solid fa-right-from-bracket"></i>
       Log Out
-    </Link>
+    </button>
   </li>
 </ul>
 

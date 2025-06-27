@@ -190,7 +190,7 @@ const ProjectsList = () => {
         onConfirm={handleDelete}
         itemName={selectedItem?.title || "this item"}
       />
-      {console.log("first", selectedItem)}
+      
       <Modal show={viewModal} onHide={() => setViewModal(false)} centered>
         <Modal.Header className=" modal-header" closeButton>
           <Modal.Title>Project Details</Modal.Title>

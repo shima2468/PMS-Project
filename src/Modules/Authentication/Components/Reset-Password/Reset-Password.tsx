@@ -20,10 +20,9 @@ const ResetPassword = () => {
   const location = useLocation();
   const [firstVisible, setFirstVisible] = useState<boolean>(false);
   const [secondVisible, setSecondVisible] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
   const {
     register,
-    formState: { errors },
+    formState: { errors , isSubmitting},
     handleSubmit,
     watch,
     trigger,
@@ -44,7 +43,7 @@ const ResetPassword = () => {
   }, [passwordValue, trigger, watch]);
   const onSubmit: SubmitHandler<formInputs> = async (data) => {
     try {
-      setLoading(true);
+     
       const response = await axiosInstance.post(
         USERS_URLS.RESET_PASSWORD,
         data
@@ -59,19 +58,18 @@ const ResetPassword = () => {
         error.response?.data?.message ||
           "Failed to reset password. Please try again later."
       );
-    } finally {
-      setLoading(false);
-    }
+    } 
   };
   return (
     <>
       <div className="px-5 pb-5">
-           <h2 className="main-color fw-bold form-title">Reset Password</h2>
+           <h1 className="main-color fw-bold form-title">Reset Password</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4 text-start">
-          <label className="form-label mb-1 main-color">E-mail</label>
+          <label htmlFor="Email" className="form-label mb-1 main-color">E-mail</label>
           <div className="d-flex flex-column mb-3 border-0 border-bottom">
             <input
+            id="Email"
               disabled
               type="email"
               placeholder="Enter your E-mail"
@@ -84,9 +82,10 @@ const ResetPassword = () => {
           )}
         </div>
         <div className="mb-4 text-start">
-          <label className="form-label mb-1 main-color">OTP Verification</label>
+          <label htmlFor="Otp" className="form-label mb-1 main-color">OTP Verification</label>
           <div className="d-flex flex-column mb-3 border-0 border-bottom">
             <input
+            id="Otp"
               type="text"
               placeholder="Enter Verification"
               className="form-control border-0 border-bottom rounded-0 bg-transparent text-white px-0"
@@ -98,9 +97,10 @@ const ResetPassword = () => {
           )}
         </div>
         <div className="mb-4 text-start">
-          <label className="form-label mb-1 main-color">New Password</label>
+          <label  htmlFor="Password" className="form-label mb-1 main-color">New Password</label>
           <div className="input-group mb-3 border-0 border-bottom">
             <input
+            id="Password"
               type={firstVisible ? "text" : "password"}
               placeholder="Enter your New Password"
               className="form-control border-0 border-bottom rounded-0 bg-transparent text-white px-0"
@@ -122,7 +122,7 @@ const ResetPassword = () => {
           )}
         </div>
         <div className="mb-4 text-start">
-          <label className="form-label mb-1 main-color">Confirm Password</label>
+          <label htmlFor="Email" className="form-label mb-1 main-color">Confirm Password</label>
           <div className="input-group mb-3 border-0 border-bottom">
             <input
               type={secondVisible ? "text" : "password"}
@@ -160,9 +160,9 @@ const ResetPassword = () => {
         <button
           type="submit"
           className="border-0  text-white w-100 p-3 bg-main-color rounded-5 mt-5"
-          disabled={loading}
+          disabled={isSubmitting}
         >
-          {loading ? "Saving..." : "Save"}
+          {isSubmitting ? "Saving..." : "Save"}
         </button>
       </form>
         

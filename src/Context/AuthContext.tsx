@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import { jwtDecode } from 'jwt-decode'; 
 
 
+
 interface DecodedToken {
   userId: number;
   roles: string[];
@@ -42,6 +43,9 @@ export default function AuthContextProvider({ children }: AuthProviderProps): JS
     if (localStorage.getItem('token')) {
       saveLoginData();
     }
+         
+
+  
   }, []);
 
   return (

@@ -1,19 +1,25 @@
 import { useState } from "react";
 import { Menu, MenuItem, Sidebar } from "react-pro-sidebar";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate} from "react-router-dom";
+import toast from 'react-hot-toast';
  interface SideBarProps {
   showSidebar: boolean;
   toggleSidebar: () => void;
 }
 const SideBar: React.FC<SideBarProps> = ({ showSidebar, toggleSidebar }) => {
+  const navigate=useNavigate();
   const [isCollapsable, setIsCollapsable] = useState(false);
   const location = useLocation();
 
   const toggleCollapse = () => setIsCollapsable(!isCollapsable);
 
   const isActive = (path: string) => location.pathname === path;
-  const activeClass = "active-sidebar-item";
-
+const activeClass = "active-sidebar-item";
+const logout = () => {
+    localStorage.clear();
+    navigate("/login");
+    toast.success("Logged out successfully!");
+};
   return (
     <div className="position-sticky top-0 vh-100 sidebar-cont text-white ">
       <div className="position-relative">
@@ -74,8 +80,8 @@ const SideBar: React.FC<SideBarProps> = ({ showSidebar, toggleSidebar }) => {
 
             <MenuItem
               icon={<i className="fa-solid fa-right-from-bracket"></i>}
-              component={<Link to="/dashboard/logOut" />}
-              className={isActive("/dashboard/logOut") ? activeClass : ""}
+              onClick={logout}
+              className={isActive("") ? activeClass : ""}
             >
               Log Out
             </MenuItem>

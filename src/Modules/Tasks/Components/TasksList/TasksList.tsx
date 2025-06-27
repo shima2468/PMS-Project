@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
-import { axiosInstance, TASKS_URLS } from "../../../../Services/url";
+import { axiosInstance, PROJECTS_URLS, TASKS_URLS } from "../../../../Services/url";
 import Header from "../../../Shared/Components/Header/Header";
 import UsedTable from "../../../Shared/Components/UsedTable/UsedTable";
 import ActionsPopover from "../../../Shared/Components/ActionsPopover/ActionsPopOver";
@@ -156,6 +156,20 @@ const TasksList = () => {
         setIsLoading(false)
        }
     }
+    const AllProjects = async()=>{
+      try {
+         await  axiosInstance.get(PROJECTS_URLS.GET_ALL_PROJECTS, {
+            params: {
+              pageSize: 10,
+            },
+         })
+     
+      } catch (error:any) {
+        toast.error(error || "Failed to fetch tasks");
+        
+      }
+       
+    }
      const handleDelete = async (): Promise<void> => {
     try {
       if (!selectedItem?.id) return;
@@ -171,7 +185,7 @@ const TasksList = () => {
     }
   };
     useEffect(() => {
-        
+        AllProjects();
     getTasks();
     }, [search, status, page, pageSize]);
     return (
@@ -179,7 +193,9 @@ const TasksList = () => {
         <Header
          title="Tasks" 
          showAddButton={true}
-          item="Task"/>
+          item="Task"
+          path="/dashboard/tasksData"
+          />
             <UsedTable
              columns={columns} 
              data={{
