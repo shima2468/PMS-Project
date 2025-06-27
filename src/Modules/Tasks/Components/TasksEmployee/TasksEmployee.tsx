@@ -1,9 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import  { useContext, useEffect, useState } from "react";
 import TasksCard from "../TasksCard/TasksCard";
 import { axiosInstance, TASKS_URLS } from "../../../../Services/url";
 import { AuthContext } from "../../../../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import type { IUserTasks, TTask } from "../../../../interfaces/TasksInterface";
+import toast from "react-hot-toast";
 
 const TasksEmployee = () => {
   const [Tasks, setTasks] = useState<TTask[]>([]);
@@ -17,17 +18,19 @@ const TasksEmployee = () => {
       const response = await axiosInstance.get<IUserTasks>(
         TASKS_URLS.GET_ASSIGNED_TASKS(5, 1)
       );
-      console.log(response.data.data);
-      setTasks(response.data.data);
-    } catch (error) {}
+      
+      setTasks(response?.data?.data);
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message || "Failed to fetch tasks");
+    }
   };
   useEffect(() => {
-    {
-      loginData?.userGroup != "Manager"
-        ? GetAllAssignedTasks()
-        : navigate("login");
+    if (loginData?.userGroup !== "Manager") {
+      GetAllAssignedTasks();
+    } else {
+      navigate("login");
     }
-  }, []);
+  }, [loginData?.userGroup, navigate]);
   return (
     <div className="Tasks-card">
       <div className="task-header py-5 ps-4 fw-medium">
