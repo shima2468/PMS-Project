@@ -59,7 +59,7 @@ const ProjectsData = () => {
         <div className="row justify-content-center">
           <div className="col-md-9">
             <form
-              className="add-update-form bg-white p-5 rounded-4 mt-5"
+              className="add-update-form card-container p-5 rounded-4 mt-5"
               onSubmit={handleSubmit(onSubmit)}
             >
               <div

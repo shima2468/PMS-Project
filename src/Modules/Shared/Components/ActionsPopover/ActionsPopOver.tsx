@@ -1,5 +1,5 @@
 import { OverlayTrigger, Popover, Button } from "react-bootstrap";
-import PopOverIcon from "../../../../assets/icons/popover.svg";
+
 import { useRef } from "react";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -36,7 +36,7 @@ const ActionsPopover = ({
   };
   const popover = (
     <Popover>
-      <Popover.Body className="popover-container p-0">
+      <Popover.Body data-bs-theme="dark" className="popover-container p-0">
         <div className="popover-actions p-2 shadow-sm rounded">
           {showView && (
             <div
@@ -100,7 +100,7 @@ const ActionsPopover = ({
       rootClose
     >
       <Button className="btn-overlay" variant="none" size="sm" ref={triggerRef}>
-        <img src={PopOverIcon} alt="popover icon" width={16} height={16} />
+        <i className="fas fa-ellipsis-v"></i>
       </Button>
     </OverlayTrigger>
   );

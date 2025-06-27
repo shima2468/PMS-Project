@@ -24,6 +24,7 @@ import TasksCard from "./Modules/Tasks/Components/TasksCard/TasksCard";
 import Profile from "./Modules/Profile/components/Profile";
 import Login from "./Modules/Authentication/Components/LogIn/LogIn";
 import TasksEmployee from "./Modules/Tasks/Components/TasksEmployee/TasksEmployee";
+import { ThemeProvider } from "./Context/ThemeContext";
 
 function App() {
   const routes = createBrowserRouter([
@@ -69,9 +70,11 @@ function App() {
 
   return (
     <>
-      <AuthContextProvider>
-        <RouterProvider router={routes} />
-      </AuthContextProvider>
+      <ThemeProvider>
+        <AuthContextProvider>
+          <RouterProvider router={routes} />
+        </AuthContextProvider>
+      </ThemeProvider>
     </>
   );
 }

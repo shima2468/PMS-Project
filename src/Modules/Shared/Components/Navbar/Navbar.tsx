@@ -6,6 +6,7 @@ import notification from "../../../../assets/images/Notification 1.png";
 import { AuthContext } from "../../../../Context/AuthContext";
 import type { UserProfile } from "../../../../interfaces/ProfileInterface";
 import { axiosInstance, imgURL, USERLIST } from "../../../../Services/url";
+import { useTheme } from "../../../../Context/ThemeContext";
 
 interface NavbarProps {
   showSidebar: boolean;
@@ -17,6 +18,7 @@ const Navbar = ({ showSidebar, toggleSidebar }: NavbarProps) => {
   const auth = useContext(AuthContext);
 
   const [currentUser, setCurrentUser] = useState<UserProfile | null>(null);
+  const { theme, toggleTheme } = useTheme();
 
   const get_current_user = async () => {
     try {
@@ -31,12 +33,13 @@ const Navbar = ({ showSidebar, toggleSidebar }: NavbarProps) => {
     navigate("/login");
     toast.success("Logged out successfully!");
   };
+
   useEffect(() => {
     get_current_user();
   }, []);
 
   return (
-    <nav className="navbar navbar-expand-md bg-white px-3 py-2 shadow-sm">
+    <nav className="navbar navbar-expand-md card-container px-3 py-2 shadow-sm">
       <div className="container-fluid d-flex align-items-center justify-content-between">
         <button
           className="btn bg-main-color d-md-none me-2 rounded-2"
@@ -68,6 +71,13 @@ const Navbar = ({ showSidebar, toggleSidebar }: NavbarProps) => {
           id="navbarNav"
         >
           <ul className="navbar-nav align-items-center gap-3">
+            <button className="btn btn-sm" onClick={toggleTheme}>
+              {theme === "light" ? (
+                <i className="fas fa-moon text-dark"></i>
+              ) : (
+                <i className="fas fa-sun text-warning"></i>
+              )}
+            </button>
             <li className="nav-item">
               <img
                 src={notification}
@@ -75,6 +85,7 @@ const Navbar = ({ showSidebar, toggleSidebar }: NavbarProps) => {
                 className="notification-icon w-75"
               />
             </li>
+
             <li className="nav-item d-flex flex-m-row align-items-center gap-2 border-start ps-3">
               <img
                 src={

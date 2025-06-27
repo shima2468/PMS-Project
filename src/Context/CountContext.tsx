@@ -56,7 +56,6 @@ export default function CountContextProvider({
     try {
       const res = await axiosInstance.get(USERS_URLS.GET_USERS_COUNT);
       setUsersCount(res.data);
-
     } catch (error) {
       console.log(error);
     } finally {
@@ -72,9 +71,7 @@ export default function CountContextProvider({
   }, [loginData]);
 
   return (
-    <CountContext.Provider
-      value={{ tasksCount, usersCount}}
-    >
+    <CountContext.Provider value={{ tasksCount, usersCount }}>
       {isLoading ? (
         <div className="d-flex justify-content-center align-items-center vh-100">
           <Audio

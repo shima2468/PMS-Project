@@ -101,7 +101,7 @@ const TasksData: React.FC = () => {
           <div className="col-md-9">
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className="bg-white p-5 rounded-4 mt-5 add-update-form"
+              className="card-container p-5 rounded-4 mt-5 add-update-form"
             >
               <div className="mb-3">
                 <label>Title</label>

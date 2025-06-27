@@ -62,7 +62,7 @@ const UsedTable = ({
   };
 
   return (
-    <div className="mx-4 my-3 bg-white table-container">
+    <div className="mx-4 my-3 table-container">
       <div className="d-flex justify-content-start align-items-center">
         <SearchInput
           placeholder="Search by title"

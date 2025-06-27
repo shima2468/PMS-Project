@@ -38,7 +38,7 @@ const DeleteConfirmation = ({
       <Modal.Footer className="border-0 pt-0 d-flex justify-content-end gap-2">
         <Button
           variant="light"
-          className="px-4 rounded-pill border bg-white color-muted"
+          className="px-4 rounded-pill border card-container color-muted"
           onClick={onHide}
         >
           Cancel
