@@ -7,7 +7,6 @@ const MasterLayout = () => {
   const [showSidebar, setShowSidebar] = useState(window.innerWidth >= 768);
   const toggleSidebar = () => setShowSidebar((prev) => !prev);
 
-
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 768) {
@@ -25,19 +24,15 @@ const MasterLayout = () => {
       <Navbar showSidebar={showSidebar} toggleSidebar={toggleSidebar} />
 
       <div className="d-flex flex-grow-1 w-100" style={{ flex: 1 }}>
-        {/* Sidebar for md and up */}
         {showSidebar && window.innerWidth >= 768 && (
           <div className="sidebar-wrapper">
             <SideBar />
           </div>
         )}
-
-        {/* Overlay sidebar for small screens */}
         {showSidebar && window.innerWidth < 768 && (
           <>
             <div className="sidebar-overlay-popup">
-              <SideBar
-              />
+              <SideBar />
             </div>
             <div
               className="sidebar-overlay-backdrop"

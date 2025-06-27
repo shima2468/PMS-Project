@@ -19,8 +19,12 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./App.css";
 import ProtectedRoute from "./Modules/Shared/Components/ProtectedRoute/ProtectedRoute";
+import TasksCard from "./Modules/Tasks/Components/TasksCard/TasksCard";
+
 import Profile from "./Modules/Profile/components/Profile";
 import Login from "./Modules/Authentication/Components/LogIn/LogIn";
+import TasksEmployee from "./Modules/Tasks/Components/TasksEmployee/TasksEmployee";
+import { ThemeProvider } from "./Context/ThemeContext";
 
 function App() {
   const routes = createBrowserRouter([
@@ -51,11 +55,13 @@ function App() {
         { index: true, element: <Dashboard /> },
         { path: "projects/", element: <ProjectsList /> },
         { path: "projects", element: <ProjectsList /> },
-        {path:"profile" , element:<Profile/>},
+        { path: "profile", element: <Profile /> },
         { path: "projects/new-project", element: <ProjectsData /> },
         { path: "projects/:projectId", element: <ProjectsData /> },
         { path: "tasks", element: <TasksList /> },
+        { path: "tasksEmployee", element: <TasksEmployee /> },
         { path: "tasksData", element: <TasksData /> },
+        { path: "tasksData/:taskId", element: <TasksData /> },
         { path: "users", element: <UsersList /> },
       ],
       errorElement: <NotFound />,
@@ -64,9 +70,11 @@ function App() {
 
   return (
     <>
-      <AuthContextProvider>
-        <RouterProvider router={routes} />
-      </AuthContextProvider>
+      <ThemeProvider>
+        <AuthContextProvider>
+          <RouterProvider router={routes} />
+        </AuthContextProvider>
+      </ThemeProvider>
     </>
   );
 }

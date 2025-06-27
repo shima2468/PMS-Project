@@ -1,24 +1,20 @@
-
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { axiosInstance, USERS_URLS } from "../../../../Services/url";
 import toast from "react-hot-toast";
 import { emailValidation } from "../../../../Services/Vaildition";
-interface formInputs {
-  email: string;
-}
+import type { IforgetPassword } from "../../../../interfaces/AuthInterface";
+
 const ForgetPassword = () => {
   const navigate = useNavigate();
   const {
     register,
-    formState: { errors , isSubmitting},
+    formState: { errors, isSubmitting },
     handleSubmit,
-    
-  } = useForm<formInputs>();
+  } = useForm<IforgetPassword>();
 
-  const onSubmit: SubmitHandler<formInputs> = async (data) => {
+  const onSubmit: SubmitHandler<IforgetPassword> = async (data) => {
     try {
-     
       const response = await axiosInstance.post(
         USERS_URLS.FORGET_PASSWORD,
         data
@@ -35,18 +31,19 @@ const ForgetPassword = () => {
         error.response?.data?.message ||
           "Failed to send verification email. Please try again."
       );
-    } 
+    }
   };
   return (
     <div className="px-5 pb-5">
-
-       <h1 className="main-color fw-bold form-title">Forget Password</h1>
+      <h1 className="main-color fw-bold form-title">Forget Password</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4 text-start">
-          <label htmlFor="Email"  className="form-label mb-1 main-color">E-mail</label>
+          <label htmlFor="Email" className="form-label mb-1 main-color">
+            E-mail
+          </label>
           <div className="d-flex flex-column  mb-3 border-0 border-bottom">
             <input
-            id="Email"
+              id="Email"
               type="email"
               placeholder="Enter your E-mail"
               className="form-control border-0 border-bottom rounded-0 bg-transparent  px-0"

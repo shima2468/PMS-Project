@@ -1,31 +1,24 @@
 import { useContext, useEffect, useState } from "react";
-import ActionsPopover from "../../../Shared/Components/ActionsPopover/ActionsPopOver";
-import Header from "../../../Shared/Components/Header/Header";
-import UsedTable from "../../../Shared/Components/UsedTable/UsedTable";
-import { axiosInstance, PROJECTS_URLS } from "../../../../Services/url";
-import DeleteConfirmation from "../../../Shared/Components/DeletConiformation/DeletConiformation";
+import { Modal } from "react-bootstrap";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { Modal } from "react-bootstrap";
 import { AuthContext } from "../../../../Context/AuthContext";
-
-interface Project {
-  id: string;
-  title: string;
-  status?: string;
-  usersNumber?: number;
-  usersTasks?: number;
-  creationDate: number;
-  manager?: {
-    userName: string;
-  };
-}
+import type {
+  IFetchProjectsResponse,
+  IFetchProjectsResponseForEmployee,
+  IProjectList,
+} from "../../../../interfaces/ProjectsInterface";
+import { axiosInstance, PROJECTS_URLS } from "../../../../Services/url";
+import ActionsPopover from "../../../Shared/Components/ActionsPopover/ActionsPopOver";
+import DeleteConfirmation from "../../../Shared/Components/DeletConiformation/DeletConiformation";
+import Header from "../../../Shared/Components/Header/Header";
+import UsedTable from "../../../Shared/Components/UsedTable/UsedTable";
 
 const ProjectsList = () => {
   const navigate = useNavigate();
   const { loginData } = useContext(AuthContext)!;
 
-  const [tableData, setTableData] = useState<Project[]>([]);
+  const [tableData, setTableData] = useState<IProjectList[]>([]);
   const [tableDataEmployee, settableDataEmployee] = useState<any[]>([]);
   const [totalPages, setTotalPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
@@ -34,40 +27,40 @@ const ProjectsList = () => {
   const [search, setSearch] = useState("");
   const [error, setError] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedItem, setSelectedItem] = useState<Project | null>(null);
+  const [selectedItem, setSelectedItem] = useState<IProjectList | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [viewModal, setViewModal] = useState(false);
 
   const columnsManager = [
-    { key: "title", label: "Title", render: (row: any) => row.title },
+    { key: "title", label: "Title", render: (row: IProjectList) => row.title },
     {
       key: "status",
       label: "Status",
-      render: (row: any) =>
+      render: (row: IProjectList) =>
         row?.status || <span className="text-muted">N/A</span>,
     },
     {
       key: "usersNumber",
       label: "Num Users",
-      render: (row: any) =>
+      render: (row: IProjectList) =>
         row?.usersNumber || <span className="text-muted">N/A</span>,
     },
     {
       key: "usersTasks",
       label: "Num Tasks",
-      render: (row: any) =>
+      render: (row: IProjectList) =>
         row?.usersTasks || <span className="text-muted">N/A</span>,
     },
     {
       key: "creationDate",
       label: "Date Created",
-      render: (row: any) =>
+      render: (row: IProjectList) =>
         new Date(row.creationDate).toLocaleDateString("en-GB"),
     },
     {
       key: "actions",
       label: "Actions",
-      render: (row: any) => (
+      render: (row: IProjectList) => (
         <ActionsPopover
           onView={() => {
             setSelectedItem(row);
@@ -89,51 +82,45 @@ const ProjectsList = () => {
     },
   ];
 
+  interface IEmployeeProjectRow {
+    title: string;
+    description: string;
+    modificationDate: string | Date;
+    usersTasks?: number;
+    creationDate: string | Date;
+  }
+  
   const columnsEmployee = [
-    { key: "title", label: "Title", render: (row: any) => row.title },
+    { key: "title", label: "Title", render: (row: IEmployeeProjectRow) => row.title },
     {
       key: "description",
       label: "Description",
-      render: (row: any) => row.description,
+      render: (row: IEmployeeProjectRow) => row.description,
     },
     {
       key: "modificationDate",
       label: "modification Date",
-      render: (row: any) =>
+      render: (row: IEmployeeProjectRow) =>
         new Date(row.modificationDate).toLocaleDateString("en-GB"),
     },
     {
       key: "usersTasks",
       label: "Num Tasks",
-      render: (row: any) =>
+      render: (row: IEmployeeProjectRow) =>
         row?.usersTasks || <span className="text-muted">N/A</span>,
     },
     {
       key: "creationDate",
       label: "Date Created",
-      render: (row: any) =>
+      render: (row: IEmployeeProjectRow) =>
         new Date(row.creationDate).toLocaleDateString("en-GB"),
     },
   ];
 
-  interface FetchProjectsResponse {
-    data: Project[];
-    totalNumberOfPages: number;
-    totalNumberOfRecords: number;
-  }
-
-  interface FetchProjectsResponseForEmployee {
-    data: any[];
-    totalNumberOfPages: number;
-    totalNumberOfRecords: number;
-    pageNumber: number;
-    pageSize: number;
-  }
-
   const fetchList = async (): Promise<void> => {
     try {
       setIsLoading(true);
-      const res = await axiosInstance.get<FetchProjectsResponse>(
+      const res = await axiosInstance.get<IFetchProjectsResponse>(
         PROJECTS_URLS.GET_ALL_PROJECTS,
         {
           params: {
@@ -156,7 +143,7 @@ const ProjectsList = () => {
   const GetProjectsForEmployee = async (): Promise<void> => {
     try {
       setIsLoading(true);
-      const res = await axiosInstance.get<FetchProjectsResponseForEmployee>(
+      const res = await axiosInstance.get<IFetchProjectsResponseForEmployee>(
         PROJECTS_URLS.GET_PROJECTS_EMPLOYEE,
         {
           params: {

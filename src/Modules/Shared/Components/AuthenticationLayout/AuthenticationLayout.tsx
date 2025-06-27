@@ -17,7 +17,7 @@ const AuthenticationLayout: React.FC = () => {
   const path = location.pathname;
   let rightBg;
   let LeftBg;
-  let  isRegisterPage;
+  let isRegisterPage;
 
   if (path.includes("register")) {
     rightBg = rightBgRegister;
@@ -36,22 +36,20 @@ const AuthenticationLayout: React.FC = () => {
     rightBg = rightBgChange;
     LeftBg = VerifyBgLeft;
   } else {
-    rightBg = rightBgLogin; // default login
+    rightBg = rightBgLogin;
     LeftBg = LeftBgLogin;
   }
   return (
     <div className="auth-container min-vh-100 d-flex align-items-center justify-content-center position-relative">
-      {/* Left Background Shape */}
       <div className="position-absolute start-0 bottom-0 h-75">
         <img src={LeftBg} alt="left-bg" className="h-100" />
       </div>
 
-      {/* Right Background Shape */}
       <div className="position-absolute end-0 top-0 h-100">
         <img src={rightBg} alt="right-bg" className="h-100" />
       </div>
       <div className="row justify-content-center align-items-center z-3">
-        {/* Logo */}
+      
         <div className="text-center mb-4">
           <img src={Logo} alt="PMS Logo" />
         </div>
@@ -59,23 +57,22 @@ const AuthenticationLayout: React.FC = () => {
         <div className="col-md-12">
           <div
             className="rounded-4  text-white mx-2"
-           style={{
-           background: isRegisterPage
-          ? "rgba(49, 74, 89, 0.9)" 
-          : "rgba(49, 89, 81, 0.9)",  
-          
-          
-      }}
+            style={{
+              background: isRegisterPage
+                ? "rgba(49, 74, 89, 0.9)"
+                : "rgba(49, 89, 81, 0.9)",
+            }}
           >
-            {/* Title */}
+            
 
             <p
-              className={`text-white ${isRegisterPage ? "padding-register" : "px-5 pt-5"}`}
+              className={`text-white ${
+                isRegisterPage ? "padding-register" : "px-5 pt-5"
+              }`}
               style={{ fontSize: "0.85rem" }}
             >
               welcome to PMS
             </p>
-
 
             <Outlet />
           </div>

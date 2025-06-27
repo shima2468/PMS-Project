@@ -2,13 +2,30 @@
   --main-color: rgba(239, 155, 40, 1);
   --navbar-height: 56px;
   --second-color: #0e382f;
+  --header-title: #0e382f;
   --second-bg-color: rgb(245 245 245);
+  --table-header-bg: rgba(49, 89, 81, 0.9);
+  --table-text-color: #4f4f4f;
+  --table-header-text-color: white;
+  --table-row-bg-odd: #ffffff;
+  --table-row-bg-even: #f5f5f5;
 }
+[data-bs-theme="dark"] {
+  --table-header-bg: #2a4b44;
+  --table-text-color: #f1f1f1;
+  --header-title: white;
 
+  --table-row-bg-odd: #1e1e1e;
+  --table-row-bg-even: var(--second-color);
+}
 body {
   font-family: "Montserrat", sans-serif !important;
   margin: 0;
   padding: 0;
+}
+
+.main-Stroke {
+  border: 2px solid #315951e5;
 }
 
 .auth-container {
@@ -160,7 +177,7 @@ input:active {
 }
 
 .header-title {
-  color: var(--second-color);
+  color: var(--header-title);
   font-weight: 500;
   font-size: 24px;
 }
@@ -214,19 +231,19 @@ input:active {
 }
 
 .table-custom thead tr th {
-  background: rgba(49, 89, 81, 0.9);
+  background: var(--table-header-bg);
   font-size: 14px;
-  color: white;
+  color: var(--table-header-text-color);
 }
 
 .table-custom.table-striped > tbody > tr:nth-of-type(odd) > * {
-  --bs-table-color-type: var(--bs-table-striped-color);
-  --bs-table-bg-type: white;
+  background-color: var(--table-row-bg-odd);
+  color: var(--table-text-color);
 }
 
 .table-custom.table-striped > tbody > tr:nth-of-type(even) > * {
-  --bs-table-color-type: var(--bs-table-striped-color);
-  --bs-table-bg-type: #f5f5f5;
+  background-color: var(--table-row-bg-even);
+  color: var(--table-text-color);
 }
 
 .popover-btn {
@@ -381,22 +398,5 @@ input:active {
 .sidebar-wrapper {
   height: auto;
   min-height: calc(100vh - 56px);
-  background-color: hsl(166, 61%, 14%);
-}
-.status {
-  padding: 5px 20px;
-  border-radius: 16px;
-  -webkit-border-radius: 16px;
-  -moz-border-radius: 16px;
-  -ms-border-radius: 16px;
-  -o-border-radius: 16px;
-}
-.status-todo {
-  background: #e4e1f5;
-}
-.status-inProgress {
-  background: var(--main-color);
-}
-.status-done {
-  background: #009247;
+  background-color: #0e3a30;
 }

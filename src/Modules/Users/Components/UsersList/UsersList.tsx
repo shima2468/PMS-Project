@@ -6,6 +6,7 @@ import Header from "../../../Shared/Components/Header/Header";
 import ActionsPopover from "../../../Shared/Components/ActionsPopover/ActionsPopOver";
 import { Modal } from "react-bootstrap";
 import "../UsersList.css";
+import type { IUser } from "../../../../interfaces/UserInterface";
 
 const UsersList: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -23,17 +24,7 @@ const UsersList: React.FC = () => {
     group: "",
   });
 
-  interface User {
-    id: number;
-    userName: string;
-    email: string;
-    country: string;
-    phoneNumber: string;
-    isActivated: boolean;
-    creationDate: string;
-  }
-
-  const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const [selectedUser, setSelectedUser] = useState<IUser | null>(null);
   const [showViewModal, setShowViewModal] = useState(false);
 
   type UserFilters = {
@@ -57,7 +48,7 @@ const UsersList: React.FC = () => {
     } catch (error: any) {
       toast.error(error.response?.data?.message || "Failed to fetch users.");
     } finally {
-      setIsLoading(false); 
+      setIsLoading(false);
     }
   };
 
@@ -65,9 +56,9 @@ const UsersList: React.FC = () => {
     try {
       const response = await axiosInstance.put(USERLIST.BLOCKED_USER(id));
 
-     
-      
-      toast.success(response?.data?.message||"User activation status toggled successfully");
+      toast.success(
+        response?.data?.message || "User activation status toggled successfully"
+      );
       fetchUser(filters);
     } catch (error: any) {
       toast.error(
@@ -84,27 +75,27 @@ const UsersList: React.FC = () => {
     {
       key: "userName",
       label: "UserName",
-      render: (row: User) => row.userName,
+      render: (row: IUser) => row.userName,
     },
     {
       key: "email",
       label: "Email",
-      render: (row: User) => row.email,
+      render: (row: IUser) => row.email,
     },
     {
       key: "country",
       label: "Country",
-      render: (row: User) => row.country,
+      render: (row: IUser) => row.country,
     },
     {
       key: "phoneNumber",
       label: "Phone Number",
-      render: (row: User) => row.phoneNumber,
+      render: (row: IUser) => row.phoneNumber,
     },
     {
       key: "isActivated",
       label: "Status",
-      render: (row: User) => (
+      render: (row: IUser) => (
         <span
           className={`badge ${row.isActivated ? "bg-success" : "bg-danger"}`}
         >
@@ -115,13 +106,13 @@ const UsersList: React.FC = () => {
     {
       key: "creationDate",
       label: "Date Created",
-      render: (row: User) =>
+      render: (row: IUser) =>
         new Date(row.creationDate).toLocaleDateString("en-GB"),
     },
     {
       key: "actions",
       label: "Actions",
-      render: (row: User) => (
+      render: (row: IUser) => (
         <ActionsPopover
           onView={() => {
             setSelectedUser(row);
@@ -158,11 +149,7 @@ const UsersList: React.FC = () => {
 
   return (
     <>
-      <Header
-        title="Users"
-      />
-
-   
+      <Header title="Users" />
 
       <Modal
         show={showViewModal}
@@ -229,18 +216,18 @@ const UsersList: React.FC = () => {
         onSearch={handleSearch}
         onPageChange={handlePageChange}
         onPageSizeChange={handlePageSizeChange}
-         showFilterSelect={true}
-  filterLabel="Filter by Group"
-  filterValue={filters.group}
-  filterOptions={[
-    { value: "", label: "All" },
-    { value: "1", label: "Manager" },
-    { value: "2", label: "Employee" },
-  ]}
-  onFilterChange={value => {
-    setFilters({ ...filters, group: value });
-    fetchUser({ ...filters, group: value });
-  }}
+        showFilterSelect={true}
+        filterLabel="Filter by Group"
+        filterValue={filters.group}
+        filterOptions={[
+          { value: "", label: "All" },
+          { value: "1", label: "Manager" },
+          { value: "2", label: "Employee" },
+        ]}
+        onFilterChange={(value) => {
+          setFilters({ ...filters, group: value });
+          fetchUser({ ...filters, group: value });
+        }}
       />
     </>
   );

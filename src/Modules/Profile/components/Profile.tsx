@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import type { UserProfile } from "../../../../src/interfaces/data";
 import toast from "react-hot-toast";
-import { axiosInstance, USERLIST, imgURL } from "../../../Services/url";
 import { Audio } from "react-loader-spinner";
-import "./Profile.css"; // تقدر تكمّله للتخصيص
+import type { UserProfile } from "../../../interfaces/ProfileInterface";
+import { axiosInstance, imgURL, USERLIST } from "../../../Services/url";
 
 const Profile: React.FC = () => {
   const [user, setUser] = useState<UserProfile | null>(null);
@@ -27,45 +26,74 @@ const Profile: React.FC = () => {
   if (isLoading) {
     return (
       <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
-        <Audio height="100" width="100" color="#EF9B28" ariaLabel="loading" visible />
+        <Audio
+          height="100"
+          width="100"
+          color="#EF9B28"
+          ariaLabel="loading"
+          visible
+        />
       </div>
     );
   }
 
   return (
-    <div className="profile-page py-5 bg-light min-vh-100">
+    <div className="min-vh-100 d-flex align-items-center justify-content-center bg-light py-5">
       <div className="container">
-        <div className="profile-card bg-white rounded-4 shadow p-4 p-md-5 mx-auto" style={{ maxWidth: "800px" }}>
-          <div className="text-center mb-4">
-            <img
-              src={user?.imagePath ? `${imgURL}/${user.imagePath}` : "https://via.placeholder.com/150"}
-              alt="Profile"
-              className="rounded-circle shadow-sm border"
-              style={{ width: "140px", height: "140px", objectFit: "cover" }}
-            />
-            <h3 className="fw-bold mt-3 mb-1">{user?.userName}</h3>
-            <span className="text-muted">{user?.group?.name}</span>
-          </div>
+        <div className="row justify-content-center">
+          <div className="col-12 col-md-8 col-lg-6">
+            <div className="main-Stroke rounded-4 p-4">
+              <div className="card rounded-4 shadow-sm border-0 text-center pt-5 position-relative p-3">
+                <div className="position-absolute top-0 start-50 translate-middle">
+                  <img
+                    src={
+                      user?.imagePath
+                        ? `${imgURL}/${user.imagePath}`
+                        : "https://via.placeholder.com/150"
+                    }
+                    alt="Profile"
+                    className="rounded-circle border border-3 border-white shadow-sm"
+                    width="120"
+                    height="120"
+                  />
+                </div>
 
-          <hr className="my-4" />
+                {/* بيانات المستخدم */}
+                <div className="card-body pt-3">
+                  <h4 className="fw-bold mb-1">{user?.userName}</h4>
+                  <p className="text-muted">{user?.group?.name}</p>
 
-          <div className="row gy-4">
-            <ProfileField label="Email" value={user?.email} />
-            <ProfileField label="Phone" value={user?.phoneNumber} />
-            <ProfileField label="Country" value={user?.country} />
-            <ProfileField
-              label="Status"
-              value={
-                <span className={`badge rounded-pill px-3 py-2 fs-6 ${user?.isActivated ? "bg-success" : "bg-danger"}`}>
-                  {user?.isActivated ? "Active" : "Inactive"}
-                </span>
-              }
-            />
-            <div className="col-12">
-              <label className="text-muted small">Created At</label>
-              <p className="fw-semibold mb-0">
-                {user?.creationDate ? new Date(user.creationDate).toLocaleDateString("en-GB") : "N/A"}
-              </p>
+                  <div className="d-flex justify-content-center flex-wrap gap-2 mb-3">
+                    <span className="badge bg-warning-subtle text-dark">
+                      {user?.email}
+                    </span>
+                    <span
+                      className={`badge ${
+                        user?.isActivated ? "bg-main-color" : "bg-danger"
+                      }`}
+                    >
+                      {user?.isActivated ? "Active" : "Inactive"}
+                    </span>
+                  </div>
+
+                  <ul className="list-group list-group-flush text-start">
+                    <li className="list-group-item">
+                      <strong>Phone:</strong> {user?.phoneNumber}
+                    </li>
+                    <li className="list-group-item">
+                      <strong>Country:</strong> {user?.country}
+                    </li>
+                    <li className="list-group-item">
+                      <strong>Created At:</strong>{" "}
+                      {user?.creationDate
+                        ? new Date(user.creationDate).toLocaleDateString(
+                            "en-GB"
+                          )
+                        : "N/A"}
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -73,12 +101,5 @@ const Profile: React.FC = () => {
     </div>
   );
 };
-
-const ProfileField = ({ label, value }: { label: string; value: React.ReactNode }) => (
-  <div className="col-md-6">
-    <label className="text-muted small">{label}</label>
-    <p className="fw-semibold mb-0">{value}</p>
-  </div>
-);
 
 export default Profile;

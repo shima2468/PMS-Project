@@ -1,9 +1,9 @@
+import { ArcElement, Chart as ChartJS, Legend, Tooltip } from "chart.js";
 import { useContext } from "react";
+import { Doughnut } from "react-chartjs-2";
 import firstCardImage from "../../../../assets/images/8396402_graph_chart_data_analytics_statistic_icon 1.png";
 import secondCardImage from "../../../../assets/images/Group 48102727.png";
 import thirdCardImage from "../../../../assets/images/Group 48102728.png";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Doughnut } from "react-chartjs-2";
 import { AuthContext } from "../../../../Context/AuthContext";
 import { CountContext } from "../../../../Context/CountContext";
 
