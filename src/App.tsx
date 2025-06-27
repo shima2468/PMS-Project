@@ -60,6 +60,7 @@ function App() {
         { path: "tasks", element: <TasksList /> },
         { path: "tasksEmployee", element: <TasksEmployee /> },
         { path: "tasksData", element: <TasksData /> },
+        { path: "tasksData/:taskId", element: <TasksData /> },
         { path: "users", element: <UsersList /> },
       ],
       errorElement: <NotFound />,

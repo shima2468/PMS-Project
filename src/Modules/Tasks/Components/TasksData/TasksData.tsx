@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import Header from '../../../Shared/Components/Header/Header';
 import { useForm } from 'react-hook-form';
@@ -9,7 +10,7 @@ interface TaskData {
   title: string;
   description: string;
   employeeId: number;
-  projectId?: number; // optional during update
+  projectId?: number;
 }
 interface Employee {
   id: number;
@@ -59,7 +60,7 @@ const TasksData: React.FC = () => {
       setValue('title', task.title);
       setValue('description', task.description);
       setValue('employeeId', task.employeeId);
-      setValue('projectId', task.projectId); // still set for displaying selected option
+      setValue('projectId', task.projectId); 
     }
   }, [taskId, task, setValue]);
 
@@ -70,7 +71,7 @@ const TasksData: React.FC = () => {
             title: data.title,
             description: data.description,
             employeeId: data.employeeId,
-          } // exclude projectId when updating
+          } 
         : data;
 
       const res = await axiosInstance[taskId ? 'put' : 'post'](
@@ -79,7 +80,7 @@ const TasksData: React.FC = () => {
       );
 
       toast.success(taskId ? 'Task updated successfully!' : 'Task added successfully!');
-      navigate('/dashboard/tasks');
+      navigate('/dashboard/tasks', { state: { added: true } });
     } catch (error: any) {
       toast.error(error?.response?.data?.message || 'Task submission failed');
     }
@@ -120,12 +121,12 @@ const TasksData: React.FC = () => {
 
               <div className="row">
                 <div className="col-md-6 mb-3">
-                  <label>Employee</label>
+                  <label>User</label>
                   <select
                     {...register('employeeId', { required: 'Please select an employee' })}
                     className="form-control"
                   >
-                    <option value="">-- Select Employee --</option>
+                    <option value="">-- Select User --</option>
                     {employees.map((emp) => (
                       <option key={emp.id} value={emp.id}>
                         {emp.userName}
