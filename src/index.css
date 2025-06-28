@@ -449,3 +449,22 @@ input:active {
   min-height: calc(100vh - 56px);
   background-color: #0e3a30;
 }
+.status{
+  padding: 5px 15px;
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
+
+}
+
+.status-todo{
+  background-color: #E4E1F5;
+}
+.status-inProgress{
+  background-color: #EF9B28A3;
+}
+.status-done{
+  background-color: #009247;
+}

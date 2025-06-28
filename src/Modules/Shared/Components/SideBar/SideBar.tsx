@@ -10,7 +10,7 @@ const SideBar = () => {
   });
   const location = useLocation();
   const navigate = useNavigate();
-  const { loginData } = useContext(AuthContext)!;
+  const { loginData, saveLoginData } = useContext(AuthContext)!;
 
   const toggleCollapse = () => setIsCollapsable(!isCollapsable);
   const isActive = (path: string) => location.pathname === path;
@@ -19,6 +19,7 @@ const SideBar = () => {
     localStorage.clear();
     navigate("/login");
     toast.success("Logged out successfully!");
+    saveLoginData();
   };
 
   useEffect(() => {

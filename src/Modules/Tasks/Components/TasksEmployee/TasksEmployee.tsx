@@ -44,19 +44,22 @@ const TasksEmployee = () => {
 
       <div className="row px-4">
         <TasksCard
-          {...{ GetAllAssignedTasks, getTasksCount }}
+          GetAllAssignedTasks={GetAllAssignedTasks}
+          getTasksCount={getTasksCount ?? (async () => {})}
           title="ToDo"
           userTasks={todoTasks}
           setTasks={setTasks}
         />
         <TasksCard
-          {...{ GetAllAssignedTasks, getTasksCount }}
+          GetAllAssignedTasks={GetAllAssignedTasks}
+          getTasksCount={getTasksCount ?? (async () => {})}
           title="InProgress"
           userTasks={InProgressTasks}
           setTasks={setTasks}
         />
         <TasksCard
-          {...{ GetAllAssignedTasks, getTasksCount }}
+          GetAllAssignedTasks={GetAllAssignedTasks}
+          getTasksCount={getTasksCount ?? (async () => {})}
           title="Done"
           userTasks={DoneTasks}
           setTasks={setTasks}

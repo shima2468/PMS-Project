@@ -34,6 +34,7 @@ const Navbar = ({ showSidebar, toggleSidebar }: NavbarProps) => {
     localStorage.clear();
     navigate("/login");
     toast.success("Logged out successfully!");
+    auth?.saveLoginData();
   };
 
   useEffect(() => {

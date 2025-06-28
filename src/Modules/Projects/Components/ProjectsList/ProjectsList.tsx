@@ -25,7 +25,7 @@ const ProjectsList = () => {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [search, setSearch] = useState("");
-  const [error, setError] = useState({});
+  const [, setError] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [selectedItem, setSelectedItem] = useState<IProjectList | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);

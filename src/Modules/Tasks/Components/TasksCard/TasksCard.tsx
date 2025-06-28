@@ -29,7 +29,7 @@ const TasksCard = ({
 }: IProps) => {
   const TaskChangeStatus = async (id: string, status: string) => {
     try {
-      const response = await axiosInstance.put(
+     await axiosInstance.put(
         TASKS_URLS.Task_CHANGE_STATUS(id),
         { status }
       );

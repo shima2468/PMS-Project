@@ -13,13 +13,12 @@ import ProjectsData from "./Modules/Projects/Components/ProjectsData/ProjectsDat
 import TasksList from "./Modules/Tasks/Components/TasksList/TasksList";
 import TasksData from "./Modules/Tasks/Components/TasksData/TasksData";
 import UsersList from "./Modules/Users/Components/UsersList/UsersList";
-import AuthContextProvider from "./Context/AuthContext";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./App.css";
 import ProtectedRoute from "./Modules/Shared/Components/ProtectedRoute/ProtectedRoute";
-import TasksCard from "./Modules/Tasks/Components/TasksCard/TasksCard";
+
 
 import Profile from "./Modules/Profile/components/Profile";
 import Login from "./Modules/Authentication/Components/LogIn/LogIn";
@@ -71,9 +70,9 @@ function App() {
   return (
     <>
       <ThemeProvider>
-        <AuthContextProvider>
+       
           <RouterProvider router={routes} />
-        </AuthContextProvider>
+    
       </ThemeProvider>
     </>
   );

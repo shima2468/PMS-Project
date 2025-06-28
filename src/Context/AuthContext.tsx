@@ -1,8 +1,6 @@
 import { createContext, useEffect, useState, type JSX } from 'react';
 import type { ReactNode } from 'react';
-import { jwtDecode } from 'jwt-decode'; 
-
-
+import { jwtDecode } from 'jwt-decode';
 
 interface DecodedToken {
   userId: number;
@@ -40,12 +38,18 @@ export default function AuthContextProvider({ children }: AuthProviderProps): JS
   };
 
   useEffect(() => {
+
     if (localStorage.getItem('token')) {
       saveLoginData();
     }
-         
 
-  
+
+    const handleStorage = () => {
+      saveLoginData();
+    };
+
+    window.addEventListener('storage', handleStorage);
+    return () => window.removeEventListener('storage', handleStorage);
   }, []);
 
   return (

@@ -36,6 +36,9 @@ function CountContextProvider({
   const [isLoading, setIsLoading] = useState(false);
   const authContext = useContext(AuthContext);
   const loginData = authContext?.loginData;
+  
+  
+ 
   const [tasksCount, setTasksCount] = useState<TasksCount>({
     toDo: 0,
     inProgress: 0,
@@ -60,7 +63,7 @@ function CountContextProvider({
     setIsLoading(true);
     try {
       const res = await axiosInstance.get(USERS_URLS.GET_USERS_COUNT);
-      console.log(res);
+    
       
       setUsersCount(res?.data);
     } catch (error: any) {
@@ -69,12 +72,17 @@ function CountContextProvider({
       setIsLoading(false);
     }
   };
-  useEffect(() => {
-    getTasksCount();
-    if (loginData?.userGroup !== "Employee") {
-      getUsersCount();
-    }
-  }, [loginData?.userGroup]);
+useEffect(() => {
+  if (!loginData) {
+    return; 
+  }
+
+  getTasksCount();
+
+  if (loginData?.userGroup && loginData?.userGroup !== "Employee") {
+    getUsersCount();
+  }
+}, [loginData]);
 
 
 

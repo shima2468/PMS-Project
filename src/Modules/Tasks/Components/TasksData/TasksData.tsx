@@ -87,7 +87,7 @@ const TasksData: React.FC = () => {
           }
         : data;
 
-      const res = await axiosInstance[taskId ? "put" : "post"](
+        await axiosInstance[taskId ? "put" : "post"](
         taskId ? TASKS_URLS.UPDATE_TASK(taskId) : TASKS_URLS.ADD_TASK,
         payload
       );

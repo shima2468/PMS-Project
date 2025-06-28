@@ -11,7 +11,8 @@ import { CountContext } from "../../../../Context/CountContext";
 
 const UsersList: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const {getUsersCount} = useContext(CountContext);
+  const countContext = useContext(CountContext);
+  const getUsersCount = countContext?.getUsersCount ?? (() => {});
   const [userData, setUserData] = useState<any>({
     data: [],
     pageNumber: 1,

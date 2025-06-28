@@ -12,7 +12,21 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 const Dashboard = () => {
   const authContext = useContext(AuthContext);
   const loginData = authContext?.loginData;
-  const { tasksCount, usersCount } = useContext(CountContext);
+  const countContext = useContext(CountContext);
+
+  type TasksCount = {
+    toDo: number;
+    inProgress: number;
+    done: number;
+  };
+
+  type UsersCount = {
+    activatedEmployeeCount: number;
+    deactivatedEmployeeCount: number;
+  };
+
+  const tasksCount: TasksCount = countContext?.tasksCount || { toDo: 0, inProgress: 0, done: 0 };
+  const usersCount: UsersCount = countContext?.usersCount || { activatedEmployeeCount: 0, deactivatedEmployeeCount: 0 };
 
   const tasksData = {
     labels: ["ToDo", "InProgress", "Done"],

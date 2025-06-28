@@ -93,7 +93,7 @@ const TasksList = () => {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [search, setSearch] = useState("");
-  const [error, setError] = useState<any>(null);
+  const [, setError] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedItem, setSelectedItem] = useState<ITask | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
