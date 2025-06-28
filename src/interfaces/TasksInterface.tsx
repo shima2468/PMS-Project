@@ -49,3 +49,9 @@ export interface ITask {
         usersNumber?: number;
         usersTasks?: number;
     }
+
+export interface FetchTasksResponse {
+        data: ITask[];
+        totalNumberOfPages: number;
+        totalNumberOfRecords: number;
+      }

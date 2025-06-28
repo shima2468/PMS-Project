@@ -11,8 +11,12 @@ import ActionsPopover from "../../../Shared/Components/ActionsPopover/ActionsPop
 import DeleteConfirmation from "../../../Shared/Components/DeletConiformation/DeletConiformation";
 import { Modal } from "react-bootstrap";
 import toast from "react-hot-toast";
-import {useNavigate } from "react-router-dom";
-import type { IColumn, ITask } from "../../../../interfaces/TasksInterface";
+import { useNavigate } from "react-router-dom";
+import type {
+  FetchTasksResponse,
+  IColumn,
+  ITask,
+} from "../../../../interfaces/TasksInterface";
 
 const TasksList = () => {
   const navigate = useNavigate();
@@ -100,63 +104,46 @@ const TasksList = () => {
     { value: "InProgress", label: "In Progress" },
     { value: "Done", label: "Done" },
   ];
-const AllProjects = async () => {
-  try {
-    await axiosInstance.get(PROJECTS_URLS.GET_ALL_PROJECTS, {
-      params: {
-        pageSize: 10,
-      },
-    });
-  } catch (error: any) {
-    toast.error(error?.response?.data?.message || "Failed to fetch tasks");
-  }
-};
-
-const getTasks = async () => {
-  interface Task {
-    id: string;
-    title: string;
-    status?: string;
-    description?: string;
-    employee?: {
-      userName: string;
-    };
-    project?: {
-      title?: string;
-    };
-    creationDate: string;
-  }
-  interface FetchTasksResponse {
-    data: Task[];
-    totalNumberOfPages: number;
-    totalNumberOfRecords: number;
-  }
-  setIsLoading(true);
-  try {
-    const response = await axiosInstance.get<FetchTasksResponse>(
-      TASKS_URLS.GET_ALL_TASKS_MANGER,
-      {
+  const AllProjects = async () => {
+    try {
+      await axiosInstance.get(PROJECTS_URLS.GET_ALL_PROJECTS, {
         params: {
-          pageNumber: page,
-          pageSize,
-          title: search,
-          status,
+          pageSize: 10,
         },
-      }
-    );
-    setTableData(response?.data?.data);
-    setTotalPages(response?.data?.totalNumberOfPages);
-    setTotalItems(response?.data?.totalNumberOfRecords);
-  } catch (error) {
-    setError(
-      (error as any)?.response?.data?.message ||
-        (error as any)?.message ||
-        "Failed to get your Tasks"
-    );
-  } finally {
-    setIsLoading(false);
-  }
-};
+      });
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message || "Failed to fetch tasks");
+    }
+  };
+
+  const getTasks = async () => {
+    setIsLoading(true);
+    try {
+      const response = await axiosInstance.get<FetchTasksResponse>(
+        TASKS_URLS.GET_ALL_TASKS_MANGER,
+        {
+          params: {
+            pageNumber: page,
+            pageSize,
+            title: search,
+            status,
+          },
+        }
+      );
+      setTableData(response?.data?.data);
+      console.log(response?.data?.data);
+      setTotalPages(response?.data?.totalNumberOfPages);
+      setTotalItems(response?.data?.totalNumberOfRecords);
+    } catch (error) {
+      setError(
+        (error as any)?.response?.data?.message ||
+          (error as any)?.message ||
+          "Failed to get your Tasks"
+      );
+    } finally {
+      setIsLoading(false);
+    }
+  };
   const handleDelete = async (): Promise<void> => {
     try {
       if (!selectedItem?.id) return;
