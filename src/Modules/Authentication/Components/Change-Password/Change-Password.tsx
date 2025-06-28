@@ -76,6 +76,8 @@ const ChangePassword = () => {
               onMouseDown={(e) => e.preventDefault()}
               onMouseUp={(e) => e.preventDefault()}
             >
+                  <span className="sr-only">{isOldPasswordVisible?'Hide Password' : 'Show Password'}</span>
+              
               <i
                 className={`fa-solid ${
                   isOldPasswordVisible ? "fa-eye" : "fa-eye-slash"
@@ -109,7 +111,10 @@ const ChangePassword = () => {
               onMouseDown={(e) => e.preventDefault()}
               onMouseUp={(e) => e.preventDefault()}
             >
+                  <span className="sr-only">{isNewPasswordVisible?'Hide Password' : 'Show Password'}</span>
+
               <i
+              
                 className={`fa-solid ${
                   isNewPasswordVisible ? "fa-eye" : "fa-eye-slash"
                 } text-white `}
@@ -151,6 +156,7 @@ const ChangePassword = () => {
               onMouseDown={(e) => e.preventDefault()}
               onMouseUp={(e) => e.preventDefault()}
             >
+                  <span className="sr-only">{isConfirmPasswordVisible ?'Hide Password' : 'Show Password'}</span>
               <i
                 className={`fa-solid ${
                   isConfirmPasswordVisible ? "fa-eye" : "fa-eye-slash"

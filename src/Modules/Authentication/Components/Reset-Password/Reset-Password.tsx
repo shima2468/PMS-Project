@@ -112,11 +112,8 @@ const ResetPassword = () => {
                 className="input-group-text bg-transparent border-0 text-white p-0  position-relative"
                 onClick={handleFirstVisible}
               >
-                {firstVisible ? (
-                  <i className="fa-solid fa-eye position-absolute"></i>
-                ) : (
-                  <i className="fa-solid fa-eye-slash position-absolute"></i>
-                )}
+                 <span className="sr-only">{firstVisible?'Hide Password' : 'Show Password'}</span>
+                  <i className={`fa-solid ${firstVisible ? 'fa-eye' : 'fa-eye-slash'} position-absolute`}></i>
               </div>
             </div>
             {errors.password && (
@@ -148,11 +145,8 @@ const ResetPassword = () => {
                 className="input-group-text bg-transparent border-0 text-white p-0 position-relative"
                 onClick={handleSecondVisible}
               >
-                {secondVisible ? (
-                  <i className="fa-solid fa-eye position-absolute"></i>
-                ) : (
-                  <i className="fa-solid fa-eye-slash position-absolute"></i>
-                )}
+               <span className="sr-only">{secondVisible?'Hide Password' : 'Show Password'}</span>
+                  <i className={`fa-solid ${secondVisible ? 'fa-eye' : 'fa-eye-slash'} position-absolute`}></i>
               </div>
             </div>
             {errors.confirmPassword && (

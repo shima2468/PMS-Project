@@ -74,11 +74,9 @@ const Login: React.FC = () => {
                 className="input-group-text bg-transparent border-0 text-white p-0  position-relative"
                 onClick={handleVisible}
               >
-                {Visible ? (
-                  <i className="fa-solid fa-eye position-absolute"></i>
-                ) : (
-                  <i className="fa-solid fa-eye-slash position-absolute"></i>
-                )}
+                  <span className="sr-only">{Visible?'Hide Password' : 'Show Password'}</span>
+                  <i className={`fa-solid ${Visible ? 'fa-eye' : 'fa-eye-slash'} position-absolute`}></i>
+                 
               </div>
             </div>
             {errors.password && (

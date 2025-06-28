@@ -137,6 +137,7 @@ const Register = () => {
                 className="form-control custom-input"
                 {...register("password", passValidation)}
               />
+              <span className="sr-only">{showPassword?'Hide Password' : 'Show Password'}</span>
               <i
                 className={`fa-solid ${
                   showPassword ? "fa-eye" : "fa-eye-slash"
