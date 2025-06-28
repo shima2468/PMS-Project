@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import UsedTable from "../../../Shared/Components/UsedTable/UsedTable";
 import toast from "react-hot-toast";
 import { axiosInstance, USERLIST } from "../../../../Services/url";
@@ -7,9 +7,11 @@ import ActionsPopover from "../../../Shared/Components/ActionsPopover/ActionsPop
 import { Modal } from "react-bootstrap";
 import "../UsersList.css";
 import type { IUser } from "../../../../interfaces/UserInterface";
+import { CountContext } from "../../../../Context/CountContext";
 
 const UsersList: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const {getUsersCount} = useContext(CountContext);
   const [userData, setUserData] = useState<any>({
     data: [],
     pageNumber: 1,
@@ -59,7 +61,8 @@ const UsersList: React.FC = () => {
       toast.success(
         response?.data?.message || "User activation status toggled successfully"
       );
-      fetchUser(filters);
+       await fetchUser(filters);
+         getUsersCount();
     } catch (error: any) {
       toast.error(
         error.response?.data?.message || "Failed to toggle user status."

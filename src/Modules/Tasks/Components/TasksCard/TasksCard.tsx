@@ -8,6 +8,7 @@ interface IProps {
   userTasks: TTask[];
   GetAllAssignedTasks: () => Promise<void>;
   setTasks: React.Dispatch<React.SetStateAction<TTask[]>>;
+   getTasksCount: () => Promise<void>;
 }
 
 type TTask = {
@@ -24,6 +25,7 @@ const TasksCard = ({
   userTasks,
   GetAllAssignedTasks,
   setTasks,
+  getTasksCount,
 }: IProps) => {
   const TaskChangeStatus = async (id: string, status: string) => {
     try {
@@ -56,7 +58,12 @@ const TasksCard = ({
                 )
               );
               await TaskChangeStatus(id, title);
-              GetAllAssignedTasks();
+            await  GetAllAssignedTasks();
+              try {
+      await getTasksCount();
+    } catch (err) {
+      console.error("Failed to update task counts", err);
+    }
             }
           }}
           onDragOver={(e) => e.preventDefault()}

@@ -1,28 +1,34 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { axiosInstance, TASKS_URLS, USERS_URLS } from "../Services/url";
 import { AuthContext } from "./AuthContext";
 import { Audio } from "react-loader-spinner";
+import toast from "react-hot-toast";
 
-interface TasksCount {
-  toDo?: number;
-  inProgress?: number;
-  done?: number;
-}
 
-interface UsersCount {
-  activatedEmployeeCount?: number;
-  deactivatedEmployeeCount?: number;
-}
+type UsersCount = {
+  activatedEmployeeCount: number;
+  deactivatedEmployeeCount: number;
+};
 
-export const CountContext = createContext<{
+type TasksCount = {
+  toDo: number;
+  inProgress: number;
+  done: number;
+};
+
+import React, { createContext } from "react";
+
+type CountContextType = {
   tasksCount: TasksCount;
   usersCount: UsersCount;
-}>({
-  tasksCount: {},
-  usersCount: {},
-});
+  getTasksCount: () => Promise<void>;
+  getUsersCount: () => Promise<void>;
 
-export default function CountContextProvider({
+};
+
+export const CountContext = createContext<CountContextType | undefined>(undefined);
+
+function CountContextProvider({
   children,
 }: {
   children: React.ReactNode;
@@ -44,34 +50,36 @@ export default function CountContextProvider({
     try {
       const res = await axiosInstance.get(TASKS_URLS.GET_TASKS_COUNT);
       setTasksCount(res.data);
-    } catch (error) {
-      console.log(error);
+    } catch (error:any) {
+      toast.error(error?.response?.data?.message)
     } finally {
       setIsLoading(false);
     }
   };
-
   const getUsersCount = async () => {
     setIsLoading(true);
     try {
       const res = await axiosInstance.get(USERS_URLS.GET_USERS_COUNT);
-      setUsersCount(res.data);
-    } catch (error) {
-      console.log(error);
+      console.log(res);
+      
+      setUsersCount(res?.data);
+    } catch (error: any) {
+     toast.error(error?.response?.data?.message)
     } finally {
       setIsLoading(false);
     }
   };
-
   useEffect(() => {
+    getTasksCount();
     if (loginData?.userGroup !== "Employee") {
       getUsersCount();
     }
-    getTasksCount();
-  }, [loginData]);
+  }, [loginData?.userGroup]);
+
+
 
   return (
-    <CountContext.Provider value={{ tasksCount, usersCount }}>
+    <CountContext.Provider value={{ tasksCount, usersCount,getTasksCount , getUsersCount}}>
       {isLoading ? (
         <div className="d-flex justify-content-center align-items-center vh-100">
           <Audio
@@ -90,3 +98,5 @@ export default function CountContextProvider({
     </CountContext.Provider>
   );
 }
+
+export default CountContextProvider;

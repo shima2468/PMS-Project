@@ -5,6 +5,7 @@ import { AuthContext } from "../../../../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import type { IUserTasks, TTask } from "../../../../interfaces/TasksInterface";
 import toast from "react-hot-toast";
+import { CountContext } from "../../../../Context/CountContext";
 
 const TasksEmployee = () => {
   const [Tasks, setTasks] = useState<TTask[]>([]);
@@ -13,6 +14,9 @@ const TasksEmployee = () => {
   const DoneTasks = Tasks.filter(({ status }) => status == "Done");
   const { loginData } = useContext(AuthContext)!;
   const navigate = useNavigate();
+  const countContext = useContext(CountContext);
+  const getTasksCount = countContext?.getTasksCount;
+ 
   const GetAllAssignedTasks = async () => {
     try {
       const response = await axiosInstance.get<IUserTasks>(
@@ -20,6 +24,7 @@ const TasksEmployee = () => {
       );
       
       setTasks(response?.data?.data);
+      
     } catch (error: any) {
       toast.error(error?.response?.data?.message || "Failed to fetch tasks");
     }
@@ -39,19 +44,19 @@ const TasksEmployee = () => {
 
       <div className="row px-4">
         <TasksCard
-          {...{ GetAllAssignedTasks }}
+          {...{ GetAllAssignedTasks, getTasksCount }}
           title="ToDo"
           userTasks={todoTasks}
           setTasks={setTasks}
         />
         <TasksCard
-          {...{ GetAllAssignedTasks }}
+          {...{ GetAllAssignedTasks, getTasksCount }}
           title="InProgress"
           userTasks={InProgressTasks}
           setTasks={setTasks}
         />
         <TasksCard
-          {...{ GetAllAssignedTasks }}
+          {...{ GetAllAssignedTasks, getTasksCount }}
           title="Done"
           userTasks={DoneTasks}
           setTasks={setTasks}
