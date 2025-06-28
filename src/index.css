@@ -57,6 +57,9 @@
   .custom-select__single-value {
     color: #f8f9fa;
   }
+  .form-background {
+    background-color: #212529;
+  }
 }
 body {
   font-family: "Montserrat", sans-serif !important;
