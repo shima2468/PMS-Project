@@ -33,6 +33,7 @@ const ProjectsData = () => {
           : res?.data?.message || "Project added successfully!"
       );
       navigate("/dashboard/projects");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       toast.error(
         projectId

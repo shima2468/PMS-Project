@@ -153,14 +153,20 @@ const Dashboard = () => {
         </div>
         {loginData?.userGroup !== "Employee" && (
           <div className="row mt-5 justify-content-center">
-            <div className="col-12 col-md-6 d-flex justify-content-center mb-4">
-              <div style={{ maxWidth: "300px", width: "100%" }}>
+            <div className=" col-12 col-md-6 d-flex justify-content-center mb-4">
+              <div
+                className="doughnut-count"
+                style={{ maxWidth: "300px", width: "100%" }}
+              >
                 <Doughnut data={tasksData} />
               </div>
             </div>
 
-            <div className="col-12 col-md-6 d-flex justify-content-center mb-4">
-              <div style={{ maxWidth: "300px", width: "100%" }}>
+            <div className=" col-12 col-md-6 d-flex justify-content-center mb-4">
+              <div
+                className="doughnut-count"
+                style={{ maxWidth: "300px", width: "100%" }}
+              >
                 <Doughnut data={usersData} />
               </div>
             </div>

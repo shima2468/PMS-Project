@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../../../assets/images/Logo.png";
+import DarkLogo from "../../../../assets/images/logoDark.png";
 import notification from "../../../../assets/images/Notification 1.png";
 import { AuthContext } from "../../../../Context/AuthContext";
 import type { UserProfile } from "../../../../interfaces/ProfileInterface";
@@ -23,6 +24,7 @@ const Navbar = ({ showSidebar, toggleSidebar }: NavbarProps) => {
     try {
       const response = await axiosInstance.get(USERLIST.Current_USER);
       setCurrentUser(response.data);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       toast.error(error.response?.data?.message || "Failed to fetch users.");
     }
@@ -52,8 +54,11 @@ const Navbar = ({ showSidebar, toggleSidebar }: NavbarProps) => {
           ></i>
         </button>
 
-        <img src={Logo} alt="Logo" className="logo-img" />
-
+        {theme === "light" ? (
+          <img src={Logo} alt="Logo" className="logo-img" />
+        ) : (
+          <img src={DarkLogo} alt="dark-logo" className="logo-dark-img" />
+        )}
         <button
           className="navbar-toggler"
           type="button"
@@ -71,7 +76,6 @@ const Navbar = ({ showSidebar, toggleSidebar }: NavbarProps) => {
           id="navbarNav"
         >
           <ul className="navbar-nav align-items-center gap-3">
-            {/* زر تغيير الثيم */}
             <li className="nav-item">
               <button
                 className="btn btn-sm p-2 rounded-circle"
@@ -85,7 +89,6 @@ const Navbar = ({ showSidebar, toggleSidebar }: NavbarProps) => {
               </button>
             </li>
 
-            {/* إشعارات */}
             <li className="nav-item">
               <img
                 src={notification}
@@ -94,7 +97,6 @@ const Navbar = ({ showSidebar, toggleSidebar }: NavbarProps) => {
               />
             </li>
 
-            {/* البروفايل + سهم + قائمة منسدلة مميزة */}
             <li className="nav-item d-flex align-items-center gap-2 border-start ps-3 position-relative">
               <img
                 src={
@@ -116,7 +118,6 @@ const Navbar = ({ showSidebar, toggleSidebar }: NavbarProps) => {
                 </p>
               </div>
 
-              {/* السهم يفتح دروب داون مصمم */}
               <div className="dropdown">
                 <i
                   className="fa-solid fa-angle-down text-secondary small ms-1"

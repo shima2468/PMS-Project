@@ -1,6 +1,4 @@
-import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../../../../Context/AuthContext";
 
 interface HeaderProps {
   showBackButton?: boolean;
@@ -21,7 +19,7 @@ export default function Header({
   path,
   backPath,
 }: HeaderProps) {
-  const { loginData } = useContext(AuthContext)!;
+  // const { loginData } = useContext(AuthContext)!;
   return (
     <div className="card-container ps-5 p-4 my-2">
       <div className="d-flex justify-content-between align-items-center">

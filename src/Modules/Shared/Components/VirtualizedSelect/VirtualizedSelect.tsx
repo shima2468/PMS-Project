@@ -1,4 +1,3 @@
-
 import Select, { components } from "react-select";
 import { FixedSizeList as List } from "react-window";
 import type { ListChildComponentProps } from "react-window";
@@ -28,7 +27,12 @@ const MenuList = (props: any) => {
 };
 
 const VirtualizedSelect = (props: any) => (
-  <Select {...props} components={{ MenuList }} isSearchable />
+  <Select
+    classNamePrefix="custom-select"
+    {...props}
+    components={{ MenuList }}
+    isSearchable
+  />
 );
 
 export default VirtualizedSelect;
