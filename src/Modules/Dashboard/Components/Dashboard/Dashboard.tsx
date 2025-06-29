@@ -25,8 +25,15 @@ const Dashboard = () => {
     deactivatedEmployeeCount: number;
   };
 
-  const tasksCount: TasksCount = countContext?.tasksCount || { toDo: 0, inProgress: 0, done: 0 };
-  const usersCount: UsersCount = countContext?.usersCount || { activatedEmployeeCount: 0, deactivatedEmployeeCount: 0 };
+  const tasksCount: TasksCount = countContext?.tasksCount || {
+    toDo: 0,
+    inProgress: 0,
+    done: 0,
+  };
+  const usersCount: UsersCount = countContext?.usersCount || {
+    activatedEmployeeCount: 0,
+    deactivatedEmployeeCount: 0,
+  };
 
   const tasksData = {
     labels: ["ToDo", "InProgress", "Done"],
@@ -80,7 +87,7 @@ const Dashboard = () => {
             <div className="bg-light p-4 h-100">
               <div className="sub-content small-text position-relative ps-2">
                 <h6 className="sub-content-title">Tasks</h6>
-                <p>Lorem ipsum dolor sit amet, consecteture</p>
+                <p>Track the status of assigned tasks and daily progress</p>
               </div>
               <div className="row g-3">
                 <div className="col-12 col-sm-6 col-md-4">
@@ -125,7 +132,7 @@ const Dashboard = () => {
               <div className="bg-light p-4 h-100">
                 <div className="sub-content small-text position-relative ps-2">
                   <h6 className="sub-content-title">Users</h6>
-                  <p>Lorem ipsum dolor sit amet, consecteture</p>
+                  <p>View the activity status of users in the system</p>
                 </div>
                 <div className="row g-3">
                   <div className="col-12 col-sm-6 col-md-4">

@@ -9,6 +9,7 @@ export interface IProjectList {
   usersNumber?: number;
   usersTasks?: number;
   creationDate: number;
+  description:string;
   manager?: {
     userName: string;
   };
@@ -27,3 +28,12 @@ export interface IFetchProjectsResponseForEmployee {
   pageNumber: number;
   pageSize: number;
 }
+
+export interface IEmployeeProjectRow {
+    title: string;
+    description: string;
+    modificationDate: string | Date;
+    usersTasks?: number;
+    creationDate: string | Date;
+    task: [];
+  }

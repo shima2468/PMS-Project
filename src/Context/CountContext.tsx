@@ -88,21 +88,9 @@ useEffect(() => {
 
   return (
     <CountContext.Provider value={{ tasksCount, usersCount,getTasksCount , getUsersCount}}>
-      {isLoading ? (
-        <div className="d-flex justify-content-center align-items-center vh-100">
-          <Audio
-            height="100"
-            width="100"
-            color="rgba(239, 155, 40, 1)"
-            ariaLabel="audio-loading"
-            wrapperStyle={{}}
-            wrapperClass="wrapper-class"
-            visible={true}
-          />
-        </div>
-      ) : (
+      {
         children
-      )}
+      }
     </CountContext.Provider>
   );
 }

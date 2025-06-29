@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../../Context/AuthContext";
 import type {
+  IEmployeeProjectRow,
   IFetchProjectsResponse,
   IFetchProjectsResponseForEmployee,
   IProjectList,
@@ -34,23 +35,18 @@ const ProjectsList = () => {
   const columnsManager = [
     { key: "title", label: "Title", render: (row: IProjectList) => row.title },
     {
-      key: "status",
+      key: "description",
       label: "Status",
       render: (row: IProjectList) =>
-        row?.status || <span className="text-muted">N/A</span>,
+        row?.description || <span className="text-muted">N/A</span>,
     },
     {
-      key: "usersNumber",
-      label: "Num Users",
+      key: "userName",
+      label: "userName",
       render: (row: IProjectList) =>
-        row?.usersNumber || <span className="text-muted">N/A</span>,
+        row?.manager?.userName || <span className="text-muted">N/A</span>,
     },
-    {
-      key: "usersTasks",
-      label: "Num Tasks",
-      render: (row: IProjectList) =>
-        row?.usersTasks || <span className="text-muted">N/A</span>,
-    },
+
     {
       key: "creationDate",
       label: "Date Created",
@@ -82,16 +78,12 @@ const ProjectsList = () => {
     },
   ];
 
-  interface IEmployeeProjectRow {
-    title: string;
-    description: string;
-    modificationDate: string | Date;
-    usersTasks?: number;
-    creationDate: string | Date;
-  }
-  
   const columnsEmployee = [
-    { key: "title", label: "Title", render: (row: IEmployeeProjectRow) => row.title },
+    {
+      key: "title",
+      label: "Title",
+      render: (row: IEmployeeProjectRow) => row.title,
+    },
     {
       key: "description",
       label: "Description",
@@ -107,7 +99,7 @@ const ProjectsList = () => {
       key: "usersTasks",
       label: "Num Tasks",
       render: (row: IEmployeeProjectRow) =>
-        row?.usersTasks || <span className="text-muted">N/A</span>,
+        row?.task.length || <span className="text-muted">N/A</span>,
     },
     {
       key: "creationDate",
@@ -116,8 +108,6 @@ const ProjectsList = () => {
         new Date(row.creationDate).toLocaleDateString("en-GB"),
     },
   ];
-
-
 
   const fetchList = async (): Promise<void> => {
     try {
@@ -132,6 +122,7 @@ const ProjectsList = () => {
           },
         }
       );
+      console.log(res.data.data);
       setTableData(res.data.data);
       setTotalPages(res.data.totalNumberOfPages);
       setTotalItems(res.data.totalNumberOfRecords);
@@ -156,6 +147,7 @@ const ProjectsList = () => {
         }
       );
       settableDataEmployee(res.data.data);
+      console.log(res.data.data);
       setTotalPages(res.data.totalNumberOfPages);
       setTotalItems(res.data.totalNumberOfRecords);
     } catch (error: any) {

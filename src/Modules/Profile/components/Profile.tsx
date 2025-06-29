@@ -3,7 +3,7 @@ import toast from "react-hot-toast";
 import { Audio } from "react-loader-spinner";
 import type { UserProfile } from "../../../interfaces/ProfileInterface";
 import { axiosInstance, imgURL, USERLIST } from "../../../Services/url";
-
+import defultAvater from "../../../../src/assets/images/default-avatar.png";
 const Profile: React.FC = () => {
   const [user, setUser] = useState<UserProfile | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -49,10 +49,10 @@ const Profile: React.FC = () => {
                     src={
                       user?.imagePath
                         ? `${imgURL}/${user.imagePath}`
-                        : "https://via.placeholder.com/150"
+                        : defultAvater
                     }
                     alt="Profile"
-                    className="rounded-circle border border-3 border-white shadow-sm"
+                    className="rounded-circle border border-3  border-white shadow-sm"
                     width="120"
                     height="120"
                   />

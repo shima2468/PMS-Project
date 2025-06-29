@@ -60,10 +60,10 @@ const TasksCard = ({
               await TaskChangeStatus(id, title);
             await  GetAllAssignedTasks();
               try {
-      await getTasksCount();
-    } catch (err) {
-      console.error("Failed to update task counts", err);
-    }
+                  await getTasksCount();
+             } catch (err) {
+                  console.error("Failed to update task counts", err);
+           }
             }
           }}
           onDragOver={(e) => e.preventDefault()}
