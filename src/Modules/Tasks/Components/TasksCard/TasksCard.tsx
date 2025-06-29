@@ -16,6 +16,7 @@ type TTask = {
   status: TStatus;
   title: string;
   description: string;
+  
 };
 
 type TStatus = "ToDo" | "InProgress" | "Done";
