@@ -84,41 +84,41 @@ const UsedTable = ({
           </select>
         )}
       </div>
-
-      <Table className="table-custom text-center" striped>
-        <thead>
-          <tr>
-            {columns.map((col) => (
-              <th key={col.key}>{col.label}</th>
-            ))}
-          </tr>
-        </thead>
-
-        <tbody>
-          {isLoading ? (
+      <div className="table-responsive">
+        <Table className="table-custom text-center" striped>
+          <thead>
             <tr>
-              <td colSpan={columns.length} className="text-center py-2">
-                <Loder />
-              </td>
+              {columns.map((col) => (
+                <th key={col.key}>{col.label}</th>
+              ))}
             </tr>
-          ) : data?.data?.length > 0 ? (
-            data?.data?.map((row, i) => (
-              <tr key={i}>
-                {columns.map((col) => (
-                  <td key={col.key}>{col.render(row)}</td>
-                ))}
+          </thead>
+
+          <tbody>
+            {isLoading ? (
+              <tr>
+                <td colSpan={columns.length} className="text-center py-2">
+                  <Loder />
+                </td>
               </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan={columns.length}>
-                <NoData />
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </Table>
-
+            ) : data?.data?.length > 0 ? (
+              data?.data?.map((row, i) => (
+                <tr key={i}>
+                  {columns.map((col) => (
+                    <td key={col.key}>{col.render(row)}</td>
+                  ))}
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={columns.length}>
+                  <NoData />
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </Table>
+      </div>
       <div className="d-flex justify-content-end mt-3">
         <TablePagination
           page={data.pageNumber}
