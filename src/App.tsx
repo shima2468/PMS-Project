@@ -19,60 +19,62 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./App.css";
 import ProtectedRoute from "./Modules/Shared/Components/ProtectedRoute/ProtectedRoute";
 
-
 import Profile from "./Modules/Profile/components/Profile";
 import Login from "./Modules/Authentication/Components/LogIn/LogIn";
 import TasksEmployee from "./Modules/Tasks/Components/TasksEmployee/TasksEmployee";
 import { ThemeProvider } from "./Context/ThemeContext";
 
 function App() {
-  const routes = createBrowserRouter([
-    {
-      path: "",
-      element: <AuthenticationLayout />,
-      children: [
-        { index: true, element: <Login /> },
-        { path: "login", element: <Login /> },
-        { path: "register", element: <Register /> },
-        { path: "forget-password", element: <ForgetPassword /> },
-        { path: "reset-password", element: <ResetPassword /> },
-        { path: "verify-account", element: <VerifyAccount /> },
-        { path: "change-password", element: <ChangePassword /> },
-      ],
-      errorElement: <NotFound />,
-    },
-    {
-      path: "/dashboard",
+  const routes = createBrowserRouter(
+    [
+      {
+        path: "",
+        element: <AuthenticationLayout />,
+        children: [
+          { index: true, element: <Login /> },
+          { path: "login", element: <Login /> },
+          { path: "register", element: <Register /> },
+          { path: "forget-password", element: <ForgetPassword /> },
+          { path: "reset-password", element: <ResetPassword /> },
+          { path: "verify-account", element: <VerifyAccount /> },
+          { path: "change-password", element: <ChangePassword /> },
+        ],
+        errorElement: <NotFound />,
+      },
+      {
+        path: "/dashboard",
 
-      element: (
-        <ProtectedRoute>
-          {" "}
-          <MasterLayout />
-        </ProtectedRoute>
-      ),
-      children: [
-        { index: true, element: <Dashboard /> },
-        { path: "projects/", element: <ProjectsList /> },
-        { path: "projects", element: <ProjectsList /> },
-        { path: "profile", element: <Profile /> },
-        { path: "projects/new-project", element: <ProjectsData /> },
-        { path: "projects/:projectId", element: <ProjectsData /> },
-        { path: "tasks", element: <TasksList /> },
-        { path: "tasksEmployee", element: <TasksEmployee /> },
-        { path: "tasksData", element: <TasksData /> },
-        { path: "tasksData/:taskId", element: <TasksData /> },
-        { path: "users", element: <UsersList /> },
-      ],
-      errorElement: <NotFound />,
-    },
-  ]);
+        element: (
+          <ProtectedRoute>
+            {" "}
+            <MasterLayout />
+          </ProtectedRoute>
+        ),
+        children: [
+          { index: true, element: <Dashboard /> },
+          { path: "projects/", element: <ProjectsList /> },
+          { path: "projects", element: <ProjectsList /> },
+          { path: "profile", element: <Profile /> },
+          { path: "projects/new-project", element: <ProjectsData /> },
+          { path: "projects/:projectId", element: <ProjectsData /> },
+          { path: "tasks", element: <TasksList /> },
+          { path: "tasksEmployee", element: <TasksEmployee /> },
+          { path: "tasksData", element: <TasksData /> },
+          { path: "tasksData/:taskId", element: <TasksData /> },
+          { path: "users", element: <UsersList /> },
+        ],
+        errorElement: <NotFound />,
+      },
+    ],
+    {
+      basename: "/PMS-Project",
+    }
+  );
 
   return (
     <>
       <ThemeProvider>
-       
-          <RouterProvider router={routes} />
-    
+        <RouterProvider router={routes} />
       </ThemeProvider>
     </>
   );
