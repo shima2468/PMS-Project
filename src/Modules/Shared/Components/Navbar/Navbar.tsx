@@ -44,8 +44,8 @@ const Navbar = ({ showSidebar, toggleSidebar }: NavbarProps) => {
   return (
     <nav className="navbar navbar-expand-md bg-body shadow-sm px-3 py-2">
       <div className="container-fluid d-flex align-items-center justify-content-between">
-        {/* Left Section: Sidebar Toggle Button */}
-        <div className="d-flex align-items-center">
+        {/* Sidebar Toggle - فقط في الشاشات الصغيرة ضمن الـ Navbar */}
+        <div className="d-flex align-items-center d-md-none">
           <button
             className="btn bg-main-color me-2 p-2 rounded-2"
             onClick={toggleSidebar}
@@ -65,7 +65,7 @@ const Navbar = ({ showSidebar, toggleSidebar }: NavbarProps) => {
           <img src={DarkLogo} alt="dark-logo" className="logo-dark-img" />
         )}
 
-        {/* Right Section: Dark Mode + Burger Menu (Small Screens) */}
+        {/* Right Section: Dark Mode + Burger Menu (Small Screens Only) */}
         <div className="d-flex align-items-center gap-2 d-md-none">
           {/* Dark Mode Button */}
           <button
@@ -98,6 +98,7 @@ const Navbar = ({ showSidebar, toggleSidebar }: NavbarProps) => {
           className="collapse navbar-collapse justify-content-end mt-2 mt-md-0"
           id="navbarNav"
         >
+          {/* Small Screens Menu */}
           <ul className="navbar-nav align-items-start gap-3 d-md-none">
             {/* Notification Icon */}
             <li className="nav-item">
