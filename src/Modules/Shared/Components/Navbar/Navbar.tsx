@@ -56,18 +56,6 @@ const Navbar = ({ showSidebar, toggleSidebar }: NavbarProps) => {
               } text-white`}
             ></i>
           </button>
-
-          {/* Dark Mode Button */}
-          <button
-            className="btn btn-sm p-2 rounded-circle me-2"
-            onClick={toggleTheme}
-          >
-            {theme === "light" ? (
-              <i className="fas fa-moon text-dark"></i>
-            ) : (
-              <i className="fas fa-sun text-warning"></i>
-            )}
-          </button>
         </div>
 
         {/* Center: Logo */}
@@ -77,8 +65,21 @@ const Navbar = ({ showSidebar, toggleSidebar }: NavbarProps) => {
           <img src={DarkLogo} alt="dark-logo" className="logo-dark-img" />
         )}
 
-        {/* Right Section: Burger Menu */}
-        <div className="d-flex align-items-center">
+        {/* Right Section: Dark Mode + Burger Menu (Small Screens) */}
+        <div className="d-flex align-items-center gap-2 d-md-none">
+          {/* Dark Mode Button */}
+          <button
+            className="btn btn-sm p-2 rounded-circle"
+            onClick={toggleTheme}
+          >
+            {theme === "light" ? (
+              <i className="fas fa-moon text-dark"></i>
+            ) : (
+              <i className="fas fa-sun text-warning"></i>
+            )}
+          </button>
+
+          {/* Burger Menu */}
           <button
             className="navbar-toggler"
             type="button"
@@ -167,6 +168,20 @@ const Navbar = ({ showSidebar, toggleSidebar }: NavbarProps) => {
 
           {/* Large Screens Menu */}
           <ul className="navbar-nav align-items-center gap-3 d-none d-md-flex">
+            {/* Dark Mode Button */}
+            <li className="nav-item">
+              <button
+                className="btn btn-sm p-2 rounded-circle"
+                onClick={toggleTheme}
+              >
+                {theme === "light" ? (
+                  <i className="fas fa-moon text-dark"></i>
+                ) : (
+                  <i className="fas fa-sun text-warning"></i>
+                )}
+              </button>
+            </li>
+
             {/* Notification Icon */}
             <li className="nav-item">
               <img
