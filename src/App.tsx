@@ -67,7 +67,7 @@ function App() {
       },
     ],
     {
-      basename: "/PMS-Project",
+      basename: "/PMS-Project/",
     }
   );
 
